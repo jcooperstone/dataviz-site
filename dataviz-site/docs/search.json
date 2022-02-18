@@ -1,0 +1,37 @@
+{
+  "articles": [
+    {
+      "path": "assignments.html",
+      "title": "Assignments",
+      "description": "Some additional details about the assignments",
+      "author": [],
+      "contents": "\n\nContents\nThis is where assignments will be\n\nThis is where assignments will be\n\n\n\n",
+      "last_modified": "2022-02-18T12:33:22-05:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Data Visualization Website",
+      "description": "This is a placeholder for a new data visualization course, HCS XXXX.\n",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-02-18T12:33:23-05:00"
+    },
+    {
+      "path": "modules.html",
+      "title": "Modules",
+      "description": "Info here about modules",
+      "author": [],
+      "contents": "\n\nContents\nThis is where modules will be\n\nThis is where modules will be\n\n\n\n",
+      "last_modified": "2022-02-18T12:33:23-05:00"
+    },
+    {
+      "path": "syllabus.html",
+      "title": "Syllabus",
+      "description": "Some additional details about the website",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2022-02-18T12:33:23-05:00"
+    }
+  ],
+  "collections": []
+}

@@ -1,0 +1,22 @@
+name: "dataviz"
+title: "Data Visualizing"
+theme: theme.css
+description: |
+  Data Visualizing
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Syllabus"
+      href: syllabus.html
+    - text: "Modules"
+      href: modules.html
+    - text: "Assignments"
+      href: assignments.html
+    - icon: fa fa-github
+      href: https://github.com/jcooperstone
+output: 
+  distill::distill_article:
+    toc: TRUE
+    theme: theme.css

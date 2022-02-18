@@ -1,0 +1,12 @@
+---
+title: "Modules"
+description: |
+  Info here about modules
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This is where modules will be
+

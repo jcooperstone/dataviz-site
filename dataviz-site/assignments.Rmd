@@ -1,0 +1,12 @@
+---
+title: "Assignments"
+description: |
+  Some additional details about the assignments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This is where assignments will be
+
