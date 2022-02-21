@@ -1,20 +1,36 @@
 {
   "articles": [
     {
-      "path": "about.html",
-      "title": "About this site",
-      "description": "Some additional details about the website",
+      "path": "assignments.html",
+      "title": "Assignments",
+      "description": "When there are assignments, they will go here.",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2022-02-21T11:50:10-05:00"
+      "contents": "\n\nContents\nThis is the assignment level 1 header\n\nThis is the assignment level 1 header\n\n\n\n",
+      "last_modified": "2022-02-21T12:20:11-05:00"
     },
     {
       "path": "index.html",
       "title": "Data Visualizing",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "description": "Welcome to the landing page for Jessica Cooperstone's new Data Visualizing with R class.\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2022-02-21T11:50:10-05:00"
+      "contents": "\nThanks to the authors and contributors of Distill for R Markdown for making this web-friendly format for course websites, and to Yury Zablotski who’s blog post on creating a website in R with {Distill} helped me make this website.\n\n\n\n",
+      "last_modified": "2022-02-21T12:20:12-05:00"
+    },
+    {
+      "path": "modules.html",
+      "title": "Modules",
+      "description": "When there are modules, they will go here.",
+      "author": [],
+      "contents": "\n\nContents\nThis is the modules level 1 header\n\nThis is the modules level 1 header\n\n\n\n",
+      "last_modified": "2022-02-21T12:20:12-05:00"
+    },
+    {
+      "path": "syllabus.html",
+      "title": "Syllabus",
+      "description": "When there is a syllabus, it will go here.",
+      "author": [],
+      "contents": "\n\nContents\nThis is the syllabus level 1 header\n\nThis is the syllabus level 1 header\n\n\n\n",
+      "last_modified": "2022-02-21T12:20:13-05:00"
     }
   ],
   "collections": []

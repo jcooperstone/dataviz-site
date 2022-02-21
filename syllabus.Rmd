@@ -1,0 +1,11 @@
+---
+title: "Syllabus"
+description: |
+  When there is a syllabus, it will go here.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# This is the syllabus level 1 header

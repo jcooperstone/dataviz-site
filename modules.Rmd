@@ -1,0 +1,12 @@
+---
+title: "Modules"
+description: |
+  When there are modules, they will go here.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This is the modules level 1 header
+

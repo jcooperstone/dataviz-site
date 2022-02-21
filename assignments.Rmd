@@ -1,0 +1,12 @@
+---
+title: "Assignments"
+description: |
+  When there are assignments, they will go here.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This is the assignment level 1 header
+

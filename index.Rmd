@@ -1,7 +1,7 @@
 ---
 title: "Data Visualizing"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Welcome to the landing page for Jessica Cooperstone's new Data Visualizing with R class.
 site: distill::distill_website
 ---
 
@@ -13,3 +13,4 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
+Thanks to the authors and contributors of [Distill for R Markdown](https://rstudio.github.io/distill/) for making this web-friendly format for course websites, and to Yury Zablotski who's [blog post on creating a website in R with {Distill}](https://yuzar-blog.netlify.app/posts/2020-12-26-how-to-create-a-blog-or-a-website-in-r-with-distill-package/) helped me make this website.
