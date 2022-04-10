@@ -88,27 +88,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Data Visualizing: Modules</title>
 
-  <meta property="description" itemprop="description" content="When there are modules, they will go here."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Data Visualizing: Modules"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="When there are modules, they will go here."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Data Visualizing"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Data Visualizing: Modules"/>
-  <meta property="twitter:description" content="When there are modules, they will go here."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description"]}},"value":[{"type":"character","attributes":{},"value":["Modules"]},{"type":"character","attributes":{},"value":["When there are modules, they will go here."]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["Modules"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2389,7 +2386,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Modules","description":"When there are modules, they will go here.","authors":[]}
+{"title":"Modules","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2419,7 +2416,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>Modules</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>When there are modules, they will go here.</p></p>
+
 </div>
 
 
@@ -2428,11 +2425,141 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#this-is-the-modules-level-1-header">This is the modules level 1 header</a></li>
+<li><a href="#course-schedule">Course schedule</a></li>
+<li><a href="#module-1-principles">Module 1: Principles</a>
+<ul>
+<li><a href="#principles-of-data-visualization">Principles of data visualization</a></li>
+<li><a href="#good-and-bad-visualizations">Good and bad visualizations</a></li>
+</ul></li>
+<li><a href="#module-2-coding-fundamentals">Module 2: Coding fundamentals</a>
+<ul>
+<li><a href="#r-markdown-for-reproducible-research">R Markdown for reproducible research</a></li>
+<li><a href="#grammar-of-graphics">Grammar of graphics</a></li>
+<li><a href="#themes-labels-facets">Themes, labels, facets</a></li>
+</ul></li>
+<li><a href="#module-3-data-exploration">Module 3: Data exploration</a>
+<ul>
+<li><a href="#data-distributions">Data distributions</a></li>
+<li><a href="#correlations">Correlations</a></li>
+<li><a href="#annotating-statistics">Annotating statistics</a></li>
+</ul></li>
+<li><a href="#module-4-putting-it-together">Module 4: Putting it together</a>
+<ul>
+<li><a href="#principal-components-analysis">Principal components analysis</a></li>
+<li><a href="#manhattan-plots">Manhattan plots</a></li>
+<li><a href="#interactive-plots">Interactive plots</a></li>
+<li><a href="#making-lots-of-plots-at-once">Making lots of plots at once</a></li>
+<li><a href="#capstone-assignment-open-session-1">Capstone assignment open session 1</a></li>
+<li><a href="#capstone-assignment-open-session-2">Capstone assignment open session 2</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
-<h1 id="this-is-the-modules-level-1-header">This is the modules level 1 header</h1>
+<h1 id="course-schedule">Course schedule</h1>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Week</th>
+<th style="text-align: left;">Module</th>
+<th style="text-align: left;">Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1: Principles</td>
+<td style="text-align: left;">Principles of data visualization</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1: Principles</td>
+<td style="text-align: left;">Good and bad visualizations</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">2: Coding fundamental</td>
+<td style="text-align: left;">R Markdown for reproducible research</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">2: Coding fundamental</td>
+<td style="text-align: left;">Grammar of graphics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">2: Coding fundamental</td>
+<td style="text-align: left;">Themes, labels, facets</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">3: Data exploration</td>
+<td style="text-align: left;">Data distributions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">3: Data exploration</td>
+<td style="text-align: left;">Correlations</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">3: Data exploration</td>
+<td style="text-align: left;">Annotating statistics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">4: Putting it together</td>
+<td style="text-align: left;">Principal components analysis</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">4: Putting it together</td>
+<td style="text-align: left;">Manhattan plots</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">4: Putting it together</td>
+<td style="text-align: left;">Interactive plots</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">4: Putting it together</td>
+<td style="text-align: left;">Making lots of plots at once</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">4: Putting it together</td>
+<td style="text-align: left;">Capstone assignment open session</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">4: Putting it together</td>
+<td style="text-align: left;">Capstone assignment open session</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="module-1-principles">Module 1: Principles</h1>
+<h3 id="principles-of-data-visualization">Principles of data visualization</h3>
+<h3 id="good-and-bad-visualizations">Good and bad visualizations</h3>
+<h1 id="module-2-coding-fundamentals">Module 2: Coding fundamentals</h1>
+<h3 id="r-markdown-for-reproducible-research">R Markdown for reproducible research</h3>
+<h3 id="grammar-of-graphics">Grammar of graphics</h3>
+<h3 id="themes-labels-facets">Themes, labels, facets</h3>
+<h1 id="module-3-data-exploration">Module 3: Data exploration</h1>
+<h3 id="data-distributions">Data distributions</h3>
+<h3 id="correlations">Correlations</h3>
+<h3 id="annotating-statistics">Annotating statistics</h3>
+<h1 id="module-4-putting-it-together">Module 4: Putting it together</h1>
+<h3 id="principal-components-analysis">Principal components analysis</h3>
+<h3 id="manhattan-plots">Manhattan plots</h3>
+<h3 id="interactive-plots">Interactive plots</h3>
+<h3 id="making-lots-of-plots-at-once">Making lots of plots at once</h3>
+<h3 id="capstone-assignment-open-session-1">Capstone assignment open session 1</h3>
+<h3 id="capstone-assignment-open-session-2">Capstone assignment open session 2</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

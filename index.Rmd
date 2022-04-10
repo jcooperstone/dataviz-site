@@ -1,7 +1,7 @@
 ---
-title: "Data Visualizing"
+title: "HCS 7100, Data Visualization with R"
 description: |
-  Welcome to the landing page for Jessica Cooperstone's new Data Visualizing with R class.
+  Welcome to this course 💻🧰📊🥳
 site: distill::distill_website
 ---
 

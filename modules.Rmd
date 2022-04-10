@@ -1,12 +1,45 @@
 ---
 title: "Modules"
-description: |
-  When there are modules, they will go here.
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# This is the modules level 1 header
+# Course schedule
+```{r, echo = FALSE}
+library(readxl)
+library(knitr)
+schedule <- read_excel("files/schedule_modules.xlsx",
+                       sheet = "Schedule")
+```
 
+```{r, echo = FALSE}
+kable(schedule)
+```
+
+# Module 1: Principles
+
+### Principles of data visualization
+### Good and bad visualizations
+
+# Module 2: Coding fundamentals
+
+### R Markdown for reproducible research
+### Grammar of graphics
+### Themes, labels, facets
+
+# Module 3: Data exploration
+
+### Data distributions
+### Correlations
+### Annotating statistics
+
+# Module 4: Putting it together
+
+### Principal components analysis
+### Manhattan plots
+### Interactive plots
+### Making lots of plots at once
+### Capstone assignment open session 1
+### Capstone assignment open session 2

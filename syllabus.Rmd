@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # Course description
 This course aims to introduce students to the principles and practice of data visualization. Students will learn fundamental principles of data visualization and create figures that appropriately and ethically represent their data. Data visualizations will be created in the R programming environment, using tools including the grammar of graphics implemented in ggplot2. In the process of creating visualizations, students will also become familiar with data handling and wrangling in R.
 
-**Course learning outcomes**<br>
+**Course learning outcomes** <br>
 By the end of this course, students should successfully be able to:
 
 - Recall and describe the fundamental goals and principles of data visualization.
@@ -47,11 +47,15 @@ There are no required textbooks for this course, though you will find many of th
 - [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) by Yihui Xie, Christophe Dervieux, Emily Riederer
 - [The tidyverse style guide](https://style.tidyverse.org/)
 - [A ggplot2 tutorial for beautiful plotting in R](https://cedricscherer.netlify.app/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#toc) by Cédric Scherer
+- [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/), including [`ggplot2`](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf), [dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf), [tidyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf), [readr and other data import packages](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf), [stringr for managing character strings](https://raw.githubusercontent.com/rstudio/cheatsheets/main/strings.pdf), [forcats for managing factors](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf), and [R Markdown](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf)
 
 # Required software
 - R: We will use the R programming environment for this class [https://www.r-project.org/](https://www.r-project.org/) (free). You can do so many things in R (including building this course website).
 - RStudio Desktop: This IDE (integrated development environment) allows a user-friendly interface with the R programming environment, which we will use in class as well.  You must have R before you download [RStudio](https://www.rstudio.com/products/rstudio/download/) (free).
 - Microsoft Office 365: All Ohio State students are now eligible for free Microsoft Office 365. Full instructions for downloading and installation can be found at [go.osu.edu/office365help](www.go.osu.edu/office365help).
+
+# Prior R experience
+You do not need to be an R expert for this class, but I will assume working-level knowledge of R programming.  If you have no experience with R, but would still like to take this class, you can. I ask then you get yourself up to speed by taking this free online class https://www.edx.org/course/data-science-r-basics (audit only) before the start of the 3rd week of class.  Tips and tricks in R will be scattered throughout the course material.
 
 # Grading
 ## How your grade is calculated 
