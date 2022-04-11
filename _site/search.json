@@ -1,12 +1,26 @@
 {
   "articles": [
     {
+      "path": "assignments.html",
+      "title": "Assignments",
+      "author": [],
+      "contents": "\n\nContents\nAssignment descriptions\nModule assignments\nClass reflections\nCapstone assignment\n\nLate assignments\n\nAssignment descriptions\nModule assignments\nAfter each module, there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date.\nThere will be 4 module assignments.\nClass reflections\nAfter each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future.\nThere will be 10 class reflections.\nCapstone assignment\nAt the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.\nThere will be 1 capstone assignment.\nLate assignments\nI expect you will turn assignments in on time. However, I am also reasonable want to see you master the material in this class. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for further discussion. Unexcused late assignments will be docked 10% of total possible points per day late.\n\n\n\n",
+      "last_modified": "2022-04-11T09:50:39-04:00"
+    },
+    {
       "path": "index.html",
       "title": "HCS 7100, Data Visualization with R",
       "description": "Welcome to this course 💻 🧰 📊 🥳\n",
       "author": [],
       "contents": "\nThanks to the authors and contributors of Distill for R Markdown for making this web-friendly format for course websites, and to Yury Zablotski who’s blog post on creating a website in R with {Distill} helped me make this website.\n\n\n\n",
       "last_modified": "2022-04-11T09:47:05-04:00"
+    },
+    {
+      "path": "modules.html",
+      "title": "Modules",
+      "author": [],
+      "contents": "\n\nContents\nCourse schedule\nModule 1: Principles\nPrinciples of data visualization\nGood and bad visualizations\n\nModule 2: Coding fundamentals\nR Markdown for reproducible research\nGrammar of graphics\nThemes, labels, facets\n\nModule 3: Data exploration\nData distributions\nCorrelations\nAnnotating statistics\n\nModule 4: Putting it together\nPrincipal components analysis\nManhattan plots\nInteractive plots\nMaking lots of plots at once\nCapstone assignment open session 1\nCapstone assignment open session 2\n\n\nCourse schedule\n\n\n\n\nWeek\nModule\nTopic\n1\n1: Principles\nPrinciples of data visualization\n2\n1: Principles\nGood and bad visualizations\n3\n2: Coding fundamental\nR Markdown for reproducible research\n4\n2: Coding fundamental\nGrammar of graphics\n5\n2: Coding fundamental\nThemes, labels, facets\n6\n3: Data exploration\nData distributions\n7\n3: Data exploration\nCorrelations\n8\n3: Data exploration\nAnnotating statistics\n9\n4: Putting it together\nPrincipal components analysis\n10\n4: Putting it together\nManhattan plots\n11\n4: Putting it together\nInteractive plots\n12\n4: Putting it together\nMaking lots of plots at once\n13\n4: Putting it together\nCapstone assignment open session\n14\n4: Putting it together\nCapstone assignment open session\n\nModule 1: Principles\nPrinciples of data visualization\nGood and bad visualizations\nModule 2: Coding fundamentals\nR Markdown for reproducible research\nGrammar of graphics\nThemes, labels, facets\nModule 3: Data exploration\nData distributions\nCorrelations\nAnnotating statistics\nModule 4: Putting it together\nPrincipal components analysis\nManhattan plots\nInteractive plots\nMaking lots of plots at once\nCapstone assignment open session 1\nCapstone assignment open session 2\n\n\n\n",
+      "last_modified": "2022-04-11T09:50:29-04:00"
     },
     {
       "path": "syllabus.html",
