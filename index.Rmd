@@ -1,7 +1,7 @@
 ---
 title: "HCS 7100, Data Visualization with R"
 description: |
-  Welcome to this course 💻🧰📊🥳
+  Welcome to this course 💻 🧰 📊 🥳
 site: distill::distill_website
 ---
 
