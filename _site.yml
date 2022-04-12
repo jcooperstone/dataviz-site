@@ -3,6 +3,12 @@ title: "Data Visualizing"
 description: |
   Data Visualizing
 output_dir: "_site"
+favicon: img/favicon.png
+creative_commons: CC BY-NC-SA
+base_url: https://datavisualizing.netlify.app
+repository_url: https://github.com/jcooperstone/dataviz-site
+twitter:
+  site: "@CooperstoneLab"
 navbar:
   right:
     - text: "Home"
