@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Assignment descriptions 
 ### Module assignments
-After each [module](https://datavisualizing.netlify.app/modules.html), there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date.
+After each module, there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date.
 
 There will be 4 module assignments.
 

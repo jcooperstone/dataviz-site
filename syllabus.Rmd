@@ -34,6 +34,18 @@ By the end of this course, students should successfully be able to:
 
 **Class recordings:** To help you master material, and to better accommodate students, classes will be recorded, and recordings uploaded directly after class to Carmen.
 
+# Course schedule
+```{r, echo = FALSE}
+library(readxl)
+library(knitr)
+schedule <- read_excel("files/schedule_modules.xlsx",
+                       sheet = "Schedule")
+```
+
+```{r, echo = FALSE}
+kable(schedule)
+```
+
 # Course resources
 There are no required textbooks for this course, though you will find many of the recommend texts and resources belowvery useful.
 

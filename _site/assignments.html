@@ -89,6 +89,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <title>Data Visualizing: Assignments</title>
 
 
+  <link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+  <link rel="icon" type="image/png" href="img/favicon.png"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -100,6 +102,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Data Visualizing: Assignments"/>
+  <meta property="twitter:site" content="@CooperstoneLab"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
@@ -2210,7 +2213,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   ul > li::marker {
     color: rgb(249, 83, 85);
-  }</style>
+  }
+  </style>
   <style type="text/css">
   /* base style */
 
@@ -2394,12 +2398,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
+<a class="logo">
+<img src="img/icon.png" alt="Logo"/>
+</a>
 <a href="index.html" class="title">Data Visualizing</a>
 </div>
 <div class="nav-right">
 <a href="index.html">Home</a>
 <a href="syllabus.html">Syllabus</a>
-<a href="modules.html">Modules</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Modules
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<span class="nav-dropdown-header">Module 1: Principles</span>
+<a href="module1.html"></a>
+<span class="nav-dropdown-header">Module 2: Coding fundamentals</span>
+<a href="module2.html"></a>
+<span class="nav-dropdown-header">Module 3: Data exploration</span>
+<a href="module3.html"></a>
+<span class="nav-dropdown-header">Module 4: Putting it together</span>
+<a href="module4.html"></a>
+</div>
+</div>
 <a href="assignments.html">Assignments</a>
 <a href="https://github.com/jcooperstone">
 <i class="fa fa-github" aria-hidden="true"></i>
@@ -2437,7 +2460,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <h1 id="assignment-descriptions">Assignment descriptions</h1>
 <h3 id="module-assignments">Module assignments</h3>
-<p>After each <a href="https://datavisualizing.netlify.app/modules.html">module</a>, there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date.</p>
+<p>After each module, there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date.</p>
 <p>There will be 4 module assignments.</p>
 <h3 id="class-reflections">Class reflections</h3>
 <p>After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future.</p>
@@ -2459,7 +2482,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/jcooperstone/dataviz-site/issues/new">create an issue</a> on the source repository.</p>
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. Source code is available at <a href="https://github.com/jcooperstone/dataviz-site">https://github.com/jcooperstone/dataviz-site</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

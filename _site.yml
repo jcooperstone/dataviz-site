@@ -18,9 +18,8 @@ navbar:
     - text: "Syllabus"
       href: syllabus.html
     - text: "Modules"
+      href: #
       menu:
-        - text: "Modules Overview"
-        - href: modules.html
         - text: "Module 1: Principles"
         - href: module1.html
         - text: "Module 2: Coding fundamentals"
