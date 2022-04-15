@@ -10,13 +10,25 @@ repository_url: https://github.com/jcooperstone/dataviz-site
 twitter:
   site: "@CooperstoneLab"
 navbar:
+  logo:
+    image: img/icon.png
   right:
     - text: "Home"
       href: index.html
     - text: "Syllabus"
       href: syllabus.html
     - text: "Modules"
-      href: modules.html
+      menu:
+        - text: "Modules Overview"
+        - href: modules.html
+        - text: "Module 1: Principles"
+        - href: module1.html
+        - text: "Module 2: Coding fundamentals"
+        - href: module2.html
+        - text: "Module 3: Data exploration"
+        - href: module3.html
+        - text: "Module 4: Putting it together"
+        - href: module4.html
     - text: "Assignments"
       href: assignments.html
     - icon: fa fa-github

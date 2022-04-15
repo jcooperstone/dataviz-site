@@ -1,0 +1,16 @@
+---
+title: "Module 2: Coding Fundamentals"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Module 2: Coding fundamentals
+
+### R Markdown for reproducible research
+
+### Grammar of graphics
+
+### Themes, labels, facets
+

@@ -1,0 +1,22 @@
+---
+title: "Module 4: Putting it All Together"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Module 4: Putting it together
+
+### Principal components analysis
+
+### Manhattan plots
+
+### Interactive plots
+
+### Making lots of plots at once
+
+### Capstone assignment open session 1
+
+### Capstone assignment open session 2
+

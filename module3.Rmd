@@ -1,0 +1,16 @@
+---
+title: "Module 3: Data Exploration"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Module 3: Data exploration
+
+### Data distributions
+
+### Correlations
+
+### Annotating statistics
+
