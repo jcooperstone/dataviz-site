@@ -1,5 +1,8 @@
 ---
 title: "Module 4: Putting it All Together"
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}

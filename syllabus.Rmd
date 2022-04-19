@@ -1,9 +1,8 @@
 ---
 title: "Syllabus"
-description: |
-  HCS 7100: Data Visualization in R <br>
-  Autumn 2022, 2 credits, hybrid delivery. <br> <br>
-  I want to see you master the material in this course. If you have questions, or something is happening that is preventing you from reaching this goal, please connect with me.
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}

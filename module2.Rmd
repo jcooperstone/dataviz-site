@@ -1,5 +1,8 @@
 ---
 title: "Module 2: Coding Fundamentals"
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}

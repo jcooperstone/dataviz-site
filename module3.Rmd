@@ -1,5 +1,8 @@
 ---
 title: "Module 3: Data Exploration"
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}

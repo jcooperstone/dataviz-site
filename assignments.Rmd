@@ -1,5 +1,8 @@
 ---
 title: "Assignments"
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
