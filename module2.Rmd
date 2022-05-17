@@ -17,11 +17,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Recitation activities
 
-### Grammar of graphics
+### ggplot 101
 
-Course material
+[Course material](2_04_ggplot/04_ggplot.html)
 
-### Themes, labels, facets
+Recitation activities
+
+### Themes, labels, facets (ggplot 102)
 
 Course material
 

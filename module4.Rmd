@@ -13,11 +13,27 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Principal components analysis
 
+Course materials
+
+Recitation activities
+
 ### Manhattan plots
+
+Course materials
+
+Recitation activities
 
 ### Interactive plots
 
+Course materials
+
+Recitation activities
+
 ### Making lots of plots at once
+
+Course materials
+
+Recitation activities
 
 ### Capstone assignment open session 1
 

@@ -218,6 +218,7 @@ You add options to your code chunks between the `{}`. This gives R additional in
 -   `fig.align =` can be set to "left", "right", or "center"
 -   `fig.cap = "Your figure caption"` will allow you to set a figure caption
 -   `fig.alt = "Your alt text"` will allow you to set alt text for screen readers
+-   `cache = TRUE` will cache results, meaning if you have a chunk that takes a long time to run, if you haven't changed anything and you knit again, the code won't run again but access the cache.
 
 # A few add ons
 
