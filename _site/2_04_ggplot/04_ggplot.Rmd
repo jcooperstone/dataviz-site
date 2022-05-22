@@ -61,7 +61,6 @@ We only need to install packages once. But, every time we want to use them, we n
 The "gg" in ggplot stands for "grammar of graphics" and all plots share a common template. This is fundamentally different than plotting using a program like Excel, where you first pick your plot type, and then you add your data. With ggplot, you start with data, add a coordinate system, and then add "geoms," which indicate what type of plot you want. A cool thing about ggplot is that you can add and layer different geoms together, to create a fully customized plot that is exactly what you want. If this sounds nebulous right now, that's okay, we are going to talk more about this.
 
 
-
 ```{r data exploration, fig.alt = "A group of fuzzy round monsters with binoculars, backpacks and guide books looking up a graphs flying around with wings (like birders, but with exploratory data visualizations). Stylized text reads “ggplot2: visual data exploration.”", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("ggplot2_exploratory.png")
 ```
@@ -73,7 +72,16 @@ In class, we will practice using ggplot
 
 # Useful resources:
 
--   [R Markdown cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf)
--   [R Markdown: The Definitive Guide by Yihui Xie, J.J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)
--   [Code Club S02E03: R Markdown by Michael Broe](https://biodash.github.io/codeclub/s02e03_rmarkdown/)
--   [Code Club S01E07: R Markdown by Jelmer Poelstra](https://biodash.github.io/codeclub/07_rmarkdown/)
+-   [`ggplot2` cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+-   [`ggplot2` documentation](https://ggplot2.tidyverse.org/)
+-   [ggplot2: elegant graphics for data analysis by Hadley Wickham](https://ggplot2-book.org/index.html)
+-   [A really compehensive list of resources compiled by Erik Gahner Larsen](https://github.com/erikgahner/awesome-ggplot2)
+- Past ggplot Code Clubs:
+
+  * [Visualizing Data by Michael Broe](https://biodash.github.io/codeclub/04_ggplot2/)
+  * [ggplot round 2 by me](https://biodash.github.io/codeclub/05_ggplot-round-2/)
+  * [Faceting, multi-plots, and animating](https://biodash.github.io/codeclub/10_faceting-animating/)
+  * [Visualizing Data by Michael Broe a second one](https://biodash.github.io/codeclub/s02e06_ggplot2/)
+  * [ggplot round 2 a second one by me](https://biodash.github.io/codeclub/s02e07_ggplot2_part2/)
+  
+
