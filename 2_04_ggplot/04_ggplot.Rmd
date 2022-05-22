@@ -83,5 +83,5 @@ In class, we will practice using ggplot
   * [Faceting, multi-plots, and animating](https://biodash.github.io/codeclub/10_faceting-animating/)
   * [Visualizing Data by Michael Broe a second one](https://biodash.github.io/codeclub/s02e06_ggplot2/)
   * [ggplot round 2 a second one by me](https://biodash.github.io/codeclub/s02e07_ggplot2_part2/)
-  * 
+  
 
