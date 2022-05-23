@@ -34,10 +34,9 @@ Just like a lab notebook helps you document all of the steps you take in your we
 
 RMarkdown provides a framework for saving and executing code, and sharing your results. R Markdown files have the file format `.Rmd`.
 
-Here is a 1.2 min on the high level of what R Markdown is, and how it can be used.
-
 <iframe src="https://player.vimeo.com/video/178485416?h=8a57bf9b88&color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 <p><a href="https://vimeo.com/178485416">What is R Markdown?</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<p>A minute long introduction to R Markdown</p>
 
 You can do so many things in R Markdown, from making reports that include text, code, code annotations, figures, tables etc., to creating this course website!
 
