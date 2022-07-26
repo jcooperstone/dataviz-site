@@ -10,10 +10,11 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Instructor
-**Instructor:** [Jessica Cooperstone, Ph.D.](www.cooperstonelab.com) <br>
+**Instructor:** [Jessica Cooperstone, Ph.D.](https://www.cooperstonelab.com/) <br>
 **Email address:** cooperstone.1@osu.edu (preferred contact method) <br>
 **Phone number:** 614-292-2843 (non-preferred contact method) <br>
-**Office hours:** I will hold 2, 1 hour-long virtual office hour sessions during the semester. I will pick these times based on your availability such that everyone can attend at least one. <br>
+**TA**: Daniel Quiroz Moreno, quirozmoreno.1@osu.edu <br>
+**Office hours:** Collectively, Jess and Daniel will hold 2, 1 hour-long virtual office hour sessions during the semester. We will pick these times based on your availability such that everyone can attend at least one. <br>
 
 # Course description
 This course aims to introduce students to the principles and practice of data visualization. Students will learn fundamental principles of data visualization and create figures that appropriately and ethically represent their data. Data visualizations will be created in the R programming environment, using tools including the grammar of graphics implemented in ggplot2. In the process of creating visualizations, students will also become familiar with data handling and wrangling in R.
