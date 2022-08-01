@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Principles of Data Visualization 💻 🧰 📊 🥳</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jessica Cooperstone, Ph.D." />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Principles of Data Visualization 💻 🧰 📊 🥳
+]
+.subtitle[
+## Week 1, 8/23/2022
+]
+.author[
+### Jessica Cooperstone, Ph.D.
+]
+
+---
+
+
+
+
+class: inverse, center, middle
+
+# Introductions 👋
+&lt;br&gt;
+.left[
+## Name and pronouns
+## Program
+## Why you decided to take this class
+## One thing you hope to learn
+]
+
+---
+class: center, middle, inverse
+# Course logistics 🗺️
+
+---
+class: center, top, inverse
+
+# Teaching Team
+
+.left[
+### Instructor: Jessica Cooperstone&lt;br&gt;
+✉️ [cooperstone.1@osu.edu](cooperstone.1@osu.edu)
+
+### TA: Daniel Quiroz Moreno&lt;br&gt;
+✉️ [quirozmoreno.1@osu.edu](quirozmoreno.1@osu.edu)
+
+### Office hours: [go.osu.edu/dataviz-times](https://go.osu.edu/dataviz-times)
+]
+---
+class: center, top, inverse
+
+# Website
+If you've found these slides, you've made it to the website! (Good job.)&lt;br&gt;&lt;br&gt;
+
+.left[
+### All course materials will be posted to, or linked to from [datavisualizing.netlify.app](https://datavisualizing.netlify.app/)&lt;br&gt;&lt;br&gt;
+
+### All assignments will be submitted through Carmen/Canvas
+]
+---
+class: center, top, inverse
+
+# Attendance 
+.left[
+Class will taught in a hybrid, synchronous manner, meaning I expect you to attend class during class time. This attendance can happen in person, or virtually via [Zoom](https://go.osu.edu/dataviz-zoom) I have found that students who attend in person are more engaged, and tend to master material more quickly. But, it is up to you how you want to engage.&lt;br&gt; 
+
+I will record class for those who want to 1) revisit material or 2) can't attend for some reason.&lt;br&gt;
+
+.center[
+## 📌 please engage during class as much as you can]
+]
+
+---
+class: left, top, inverse
+
+.center[
+# Assignments
+] 
+
+--
+
+**Module assignments:** After each module, there will be an assignment to provide practice for the techniques learned in class. There will be 4 of these.
+
+--
+
+**Class reflections:** After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future. There will be 10 of these.
+
+--
+
+**Capstone assignment:** At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.
+
+---
+class: center, top, inverse
+
+# Late assignments
+.left[
+I expect you will turn assignments in on time.  However, I am also reasonable want to see you master the material in this class. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for further discussion. 
+
+Unexcused late assignments will be docked 10% of total possible points per day late, including weekends. For example, if as assignment is worth 10 points, and it is turned in 1 day late without prior discussion with the instructor, the maximum score that can be earned with be 9 points.
+]
+
+--
+.center[
+## 📌 please turn assignments in on time
+]
+
+---
+class: inverse, center, middle
+
+# Academic integrity 🏫
+
+---
+class: inverse, center, top
+
+# 🗓️ Schedule (part 1)
+
+
+
+| Week|Date       |Module        |Topic                            |
+|----:|:----------|:-------------|:--------------------------------|
+|    1|2022-08-23 |1: Principles |Principles of data visualization |
+|    2|2022-08-30 |1: Principles |Good and bad visualizations      |
+
+---
+class: inverse, center, top
+
+# 🗓️ Schedule (part 2)
+
+| Week|Date       |Module                 |Topic                                |
+|----:|:----------|:----------------------|:------------------------------------|
+|    3|2022-09-06 |2: Coding fundamentals |R Markdown for reproducible research |
+|    4|2022-09-13 |2: Coding fundamentals |ggplot 101                           |
+|    5|2022-09-21 |2: Coding fundamentals |Themes, labels, facets (ggplot 102)  |
+
+---
+class: inverse, center, top
+
+# 🗓️ Schedule (part 3)
+
+| Week|Date       |Module              |Topic                 |
+|----:|:----------|:-------------------|:---------------------|
+|    6|2022-09-28 |3: Data exploration |Data distributions    |
+|    7|2022-10-04 |3: Data exploration |Correlations          |
+|    8|2022-10-11 |3: Data exploration |Annotating statistics |
+
+---
+class: inverse, center, top
+
+# 🗓️ Schedule (part 4)
+
+| Week|Date       |Module                 |Topic                            |
+|----:|:----------|:----------------------|:--------------------------------|
+|    9|2022-10-18 |4: Putting it together |Principal components analysis    |
+|   10|2022-10-25 |4: Putting it together |Manhattan plots                  |
+|   11|2022-11-01 |4: Putting it together |Interactive plots                |
+|   12|2022-11-08 |4: Putting it together |Making lots of plots at once     |
+|   13|2022-11-15 |4: Putting it together |Open for input                   |
+|   14|2022-11-22 |4: Putting it together |Open for input                   |
+|   15|2022-11-29 |4: Putting it together |Capstone assignment open session |
+|   16|2022-12-06 |4: Putting it together |Capstone assignment open session |
+---
+class: inverse, center, middle
+
+# Why do we visualize our data? 🗣️
+
+---
+class: inverse, center
+# There may be a dinosaur 🦖
+
+&lt;img src="img/dinosaurus.gif" title="A gif of 13 different datasets (include one who's points make the shape of a dinosaur) that all have the same mean and standard deviation, but have very different distributions" alt="A gif of 13 different datasets (include one who's points make the shape of a dinosaur) that all have the same mean and standard deviation, but have very different distributions"  /&gt;
+Figure by [Alberto Cairo](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+
+---
+class: inverse, center
+# Full data distribution might be hiding
+
+&lt;img src="img/boxplots.gif" title="A 3 panel figure showing raw data, boxplots, and violin plots demonstrating how boxplots don't fully explain the distribution of data" alt="A 3 panel figure showing raw data, boxplots, and violin plots demonstrating how boxplots don't fully explain the distribution of data"  /&gt;
+Figures from [Justin Matejka and George Fitzmaurice](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+
+---
+class: center
+# Simple changes improve interpretability
+
+
+
+.pull-left[
+![](01_principles_files/figure-html/lifeExp unordered-1.png)&lt;!-- --&gt;
+]
+--
+.pull-right[
+![](01_principles_files/figure-html/lifeExp ordered-1.png)&lt;!-- --&gt;
+]
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

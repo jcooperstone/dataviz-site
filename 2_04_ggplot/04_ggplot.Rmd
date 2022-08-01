@@ -77,7 +77,7 @@ You can think about a ggplot as being composed of layers. You start with your da
 The data will be using was collected by [Dr. Lisa Lendway](https://lisalendway.netlify.app/) from her home garden in 2020, and can be within her R package [`gardenR`](https://github.com/llendway/gardenR). She has collected information from June through October about how much of each garden crop she harvested each day. Since this is a Horticulture and Crop Science course, and I like gardening (and R), I thought we'd use it to learn about `ggplot2`.
 
 We have previously used `install.packages("name_of_package")` to download packages, but this function only works for packages that are on the Comprehensive R Archive Network [CRAN](https://cran.r-project.org/). Dr. Lendway's package isn't on CRAN, so we will use the helper package `devtools` to help us download it. The double colon `::` syntax allows you to access a function from a particular package. In this case, we are using the package `devtools` and the function `install_github()` to download `gardenR` from Dr. Lendway's github.
-```{r warning = FALSE, message = FALSE}
+```{r libraries, warning = FALSE, message = FALSE}
 # tidyverse all day every day
 library(tidyverse)
 
@@ -90,13 +90,13 @@ library(gardenR)
 ```
 
 What is in this `garden_harvest` dataset?
-```{r}
+```{r investigating garden harvest}
 glimpse(garden_harvest)
 range(garden_harvest$date)
 ```
 
 I am going to generate a quick plot to use to make the description of the parts of a plot a little bit more tangible. It's totally ok if you don't understand this code. Once we describe the parts, we are going to go through each one individually and see how each bit contributes towards the plot below.
-```{r}
+```{r filter tomatoes; first plot}
 # filter data to include only tomatoes 
 # filter() is a useful function from dplyr (part of tidyverse)
 # it allows us to select observations based on their values
@@ -136,19 +136,19 @@ Let's go through the syntax in more detail now. I am going to introduce all the 
 
 ## Data
 The first argument passed to your plot is the data. How did I know that? It's in the documentation.
-```{r}
+```{r ggplot help}
 ?ggplot()
 ```
 
 The simplest ggplot code you can write, just using the `ggplot()` function and indicating the data we want to use. Because data is the default first argument, you can actually omit the `data =` part of this code and it will work just the same.
-```{r}
+```{r data only}
 ggplot(data = garden_harvest)
 ```
 
 Why do we not see a plot? Well we haven't told R what to plot! We are getting the first "base" layer of the plot.
 
 For those of you who are familiar with the tidyverse pipe `%>%`, you can also pipe the data to the ggplot function. When reading code, you can interpret the pipe as "and then." Here, take the `garden_harvest` data, and then, run `ggplot()`. Writing code in this way is my preference so I tend to code like this.
-```{r}
+```{r data and pipe}
 garden_harvest %>% 
   ggplot()
 ```
@@ -157,7 +157,7 @@ Still nothing. Well that's what we would expect.
 
 ## Aesthetic mappings `aes()`
 Now that we've indicated our data, we can add aesthetics mapping so we can work towards actually see a plot. We want to make a line plot where on the x-axis we have the date (`date`), and on the y-axis we have how much tomato was harvested (`weight`).
-```{r}
+```{r aes}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight))
 ```
@@ -169,7 +169,7 @@ Even though we have indicated to R our data and aesthetic mappings, we have not 
 ## Geoms `geom_`
 
 Now let's indicate what type of plot we want. In this example, we are going to make a line plot, and to do that we will use [`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
-```{r}
+```{r geom line}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight)) +
   geom_line()
@@ -185,14 +185,14 @@ A note about aesthetic mappings now that we have introduced geoms -`aes()` can g
 * in a specific `geom_`, and those aesthetics will only be for that specific geom.
 
 So we can make the same plot we saw above by mapping aesthetics within `geom_line()`. 
-```{r}
+```{r geom line; local aes}
 garden_harvest_tomato %>%
   ggplot() +
   geom_line(aes(x = date, y = weight))
 ```
 
 Let's say we wanted to see how the harvest of different varieties looks over the summer? We can take the variable `variety` and map it to the aesthetic `color`.
-```{r}
+```{r aes color}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight, color = variety)) +
   geom_line()
@@ -204,7 +204,7 @@ Another important thing to notice here is that now the data is grouped by variet
 
 We can also add more than one geom. Let's try adding `geom_point()` so we can better see exactly which times were sampled in this dataset.
 
-```{r}
+```{r geom_point}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight, color = variety)) +
   geom_line() +
@@ -212,7 +212,7 @@ garden_harvest_tomato %>%
 ```
 
 To more fully make the point about global vs aesthetic mappings, let's look at an example.
-```{r}
+```{r geom point without aes}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight)) +
   geom_line(aes(color = variety)) +
@@ -220,7 +220,7 @@ garden_harvest_tomato %>%
 ```
 Here, we can see that how the line layer is being grouped by variety, while the points are not. This is because the aesthetic mappings for one geom don't inherit to the next one. If we want to also color points by variety, we need to either 1) set this as the global aesthetic mapping or 2) also set `aes(color = variety)` in `geom_point()` too.
 
-```{r}
+```{r line and point local aes}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight)) +
   geom_line(aes(color = variety)) +
@@ -231,7 +231,7 @@ garden_harvest_tomato %>%
 ### Mapping vs. 'setting'
 
 If you want to map a variable to an aesthetic, it MUST be within the `aes()` statement. If you just want to change the color to "blue" for example, it should be outside the `aes()` statement. Look at the difference.
-```{r}
+```{r setting color}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight)) +
   geom_line(color = "blue")
@@ -249,7 +249,7 @@ In general color controls the outside/line, and fill controls the inside of a sh
 
 #### `linetype`
 You can change the style of a line based on a variable
-```{r}
+```{r aes linetype}
 garden_harvest_tomato %>%
   ggplot(aes(x = date, y = weight)) +
   geom_line(aes(linetype = variety))
@@ -266,7 +266,7 @@ knitr::include_graphics("img/linetypes.png")
 #### `size`
 You can also map variables to `size`. This could be useful if you wanted to say make your points bigger when a fold change is bigger, or bigger when a value is more significant. Below is an example of mapping weight to `size` in our example dataset.
 
-```{r}
+```{r aes size}
 garden_harvest_tomato %>%
   filter(variety %in% c("Mortgage Lifter", "Brandywine")) %>%
   ggplot(aes(x = variety, y = date, size = weight)) +

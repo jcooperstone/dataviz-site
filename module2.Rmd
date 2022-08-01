@@ -15,17 +15,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Course material](2_03_rmarkdown/03_Rmd.html)
 
-Recitation activities
+[Recitation activities](2_03_rmarkdown/03_Rmd_practice.Rmd)
 
 ### ggplot 101
 
 [Course material](2_04_ggplot/04_ggplot.html)
 
-Recitation activities
+[Recitation activities](2_04_ggplot/04_ggplot_practice.Rmd)
 
 ### Themes, labels, facets (ggplot 102)
 
-Course material
+[Course material](2_05_themes_labels_facets/05_ggplot102.html)
 
-Recitation activities
-
+[Recitation activities](2_05_themes_labels_facets/05_ggplot102_practice.Rmd)
