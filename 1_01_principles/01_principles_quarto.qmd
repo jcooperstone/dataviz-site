@@ -1,0 +1,294 @@
+---
+title: "Principles of Data Visualization 💻 🧰 📊 🥳"
+subtitle: "Week 1, 8/23/2022"
+author: "Jessica Cooperstone, Ph.D."
+format: 
+  revealjs:
+    incremental: true
+    theme: jc_style.scss
+    footer: "[01 Principles](https://datavisualizing.netlify.app/module1.html), © Jessica Cooperstone, 2022"
+css: xaringan-themer.css
+---
+
+## Introductions 👋  {.center_title }
+
+::: nonincremental
+-   Name and pronouns
+-   Program
+-   Why you decided to take this class
+-   One thing you hope to learn
+:::
+
+# Course logistics 🗺️ {.center_title}
+
+## Teaching Team  {.center_title}
+
+### Instructor: Jessica Cooperstone 
+
+✉️ [cooperstone.1\@osu.edu](cooperstone.1@osu.edu)\
+\
+
+### TA: Daniel Quiroz Moreno<br>
+
+✉️ [quirozmoreno.1\@osu.edu](quirozmoreno.1@osu.edu)\
+\
+
+### Office hours: [go.osu.edu/dataviz-times](https://go.osu.edu/dataviz-times)
+
+## Website  {.center_title}
+
+If you have found these slides, you've made it to the website! (Good job.)\
+\
+
+### **All course materials will be posted to, or linked to from [datavisualizing.netlify.app](https://datavisualizing.netlify.app/)**
+
+\
+
+## Syllabus
+
+- A full version of the syllabus can be found on Carmen
+
+- A trimmed version of the syllabus can be found on our [course site](https://datavisualizing.netlify.app/syllabus.html)
+
+## Attendance  {.center_title .smaller  }
+
+- <p>Class will taught in a hybrid, synchronous manner, meaning I expect you to attend class during class time. This attendance can happen in person, or virtually via [Zoom](https://go.osu.edu/dataviz-zoom) I have found that students who attend in person are more engaged, and tend to master material more quickly. But, it is up to you how you want to attend.</p>\
+
+- I will record class time for those who want to 1) revisit material or 2) can't attend for some reason. These recordings are not to replace coming to class.\
+\
+
+- <h4>📌 please engage during class as much as you can </h4> 
+
+## How class will be?
+
+- A combination of lecture, code run-throughs, live coding, and hands-on exercises.
+
+- Bring a laptop (not tablet) to class with R and RStudio downloaded
+
+- Come with your questions! 
+
+## Previous programming experience
+
+
+## Assigments  {.center_title .smaller }
+
+- **Module assignments:** After each module, there will be an assignment to provide practice for the techniques learned in class. There will be 4 of these.
+
+
+- **Class reflections:** After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future. There will be 10 of these.
+
+- **Capstone assignment:** At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.
+
+## Late assignments {.smaller }
+
+- I expect you will turn assignments in on time.  However, I am also reasonable want to see you master the material in this class. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for further discussion. 
+
+- Unexcused late assignments will be docked 10% of total possible points per day late, including weekends. For example, if as assignment is worth 10 points, and it is turned in 1 day late without prior discussion with the instructor, the maximum score that can be earned with be 9 points.
+
+- 📌 please turn assignments in on time
+
+# Academic integrity 🏫 {.center_title}
+
+- It is fine for you to work with your classmates/labmates/whoever, but I expect you to turn in your own independent assignments representing your work
+
+- All assignments are open book, googling/investigating is required!
+
+## 🗓 Schedule
+
+This is our tentative class schedule - but subject to change depending on our pacing, and your interests! 
+
+## 🗓️ Schedule (part 1)
+
+```{r schedule1, echo=FALSE, warning=FALSE}
+library(readxl)
+library(knitr)
+schedule <- read_excel("files/schedule_modules.xlsx",
+                       sheet = "Schedule_date")
+
+schedule_1 <- schedule[1:2,]
+schedule_2 <- schedule[3:5,]
+schedule_3 <- schedule[6:8,]
+schedule_4 <- schedule[9:nrow(schedule),]
+```
+
+```{r}
+kable(schedule_1)
+```
+
+## 🗓️ Schedule (part 2)
+```{r schedule2, echo = FALSE}
+kable(schedule_2)
+```
+
+
+
+## 🗓️ Schedule (part 3)
+
+```{r schedule3, echo = FALSE}
+kable(schedule_3)
+```
+
+
+
+## 🗓️ Schedule (part 4){.smaller}
+
+```{r schedule4, echo = FALSE}
+kable(schedule_4)
+```
+
+# Why do we visualize our data? 🗣️ {.center_title}
+
+## There may be a data dinosaur 🦖 {background-color="#fff"}
+
+```{r echo = FALSE, fig.alt="A gif of 13 different datasets (include one who's points make the shape of a dinosaur) that all have the same mean and standard deviation, but have very different distributions"}
+knitr::include_graphics("img/dinosaurus.gif")
+```
+Figure by [Alberto Cairo](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+
+## To discover data secrets {.center_title background-color="#fff"}  
+
+```{r echo = FALSE, fig.alt="A 3 panel figure showing raw data, boxplots, and violin plots demonstrating how boxplots don't fully explain the distribution of data"}
+knitr::include_graphics("img/boxplots.gif")
+```
+Figures from [Justin Matejka and George Fitzmaurice](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+
+## To convey our message
+
+## The data visualization process {.center_title}
+
+```{r echo = FALSE, fig.alt="A figure with three circles, and arrows between the first and second, and second and third. First circle says data, middle circle says analyst, and third right-most circle says learner. In between data and analyst= is explore, analyze and learn, and in between analyst and learner is explain, explore and persuade."}
+knitr::include_graphics("img/explore_explain.png")
+```
+Figure adapted from one by [Rick Scavetta](https://twitter.com/rick_scavetta?lang=en){.smaller}
+
+# Small changes can make a big difference (and some examples)
+
+## Simple changes improve interpretability {.center_title background-color="#fff"}
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(gapminder)
+library(tidyverse)
+library(ggpubr)
+```
+
+
+
+```{r echo=FALSE}
+#| column: page
+#| layout-nrow: 1
+#| fig-height: 5.5
+#| fig-width: 5
+
+gapminder %>%
+  filter(continent == "Asia" & year == "2007") %>%
+  ggplot(aes(x = lifeExp, y = country)) +
+    geom_col() + theme_bw() + 
+  theme(axis.text = element_text(size =12))
+
+```
+
+## Simple changes improve interpretability {.center_title background-color="#fff"}
+
+```{r echo=FALSE}
+#| column: page
+#| layout-nrow: 1
+#| fig-height: 5.5
+#| fig-width: 5
+
+gapminder %>%
+  filter(continent == "Asia" & year == "2007") %>%
+  ggplot(aes(x = lifeExp, y = country)) +
+    geom_col() + theme_bw() + 
+  theme(axis.text = element_text(size =12))
+
+gapminder %>%
+  filter(continent == "Asia" & year == "2007") %>%
+  ggplot(aes(x = lifeExp, y = reorder(country, lifeExp))) +
+    geom_col() + theme_bw() +
+   theme(axis.text = element_text(size =12))
+```
+
+
+## Encoding data with easy-to-process visual clues
+Length is easier to see than angles or areas.
+
+```{r echo = FALSE}
+data <- data.frame(
+  group=LETTERS[1:5],
+  value=c(14,15,17,19,20)
+)
+```
+
+
+```{r}
+#| column: page
+#| layout-nrow: 1
+#| fig-height: 4.5
+#| fig-width: 5
+
+data %>%
+  ggplot(aes(x="", y=value, fill=group)) +
+  geom_bar(stat="identity", width=1, color = "black") +
+  coord_polar("y", start=0) +
+  theme_void()
+
+
+```
+
+## Encoding data with easy-to-process visual clues
+Length is easier to see than angles or areas.
+
+```{r}
+#| column: page
+#| layout-nrow: 1
+#| fig-height: 4.5
+#| fig-width: 5
+
+data %>%
+  ggplot(aes(x="", y=value, fill=group)) +
+  geom_bar(stat="identity", width=1, color = "black") +
+  coord_polar("y", start=0) +
+  theme_void()
+
+
+
+data %>%
+  ggplot(aes(x = group, y = value, fill=group)) +
+  geom_col(color = "black") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+## Color scales should be intuitive and accessible
+
+https://blog.datawrapper.de/colors/
+
+## Show your data if you can
+Boxplot >>> barplot (and we'll talk a lot more about this)
+
+https://www.data-to-viz.com/caveat/boxplot.html
+
+## Cut your axes with care
+
+## Avoid figure spaghetti 🍝
+
+https://www.data-to-viz.com/caveat/spaghetti.html
+
+## Stack only when it makes sense
+https://www.data-to-viz.com/caveat/stacking.html
+
+## Be consistent among figures
+
+## Marie Kondo your plots
+Declutter, and keep only parts that are informative (and spark joy)
+
+https://www.data-to-viz.com/caveat/declutter.html 
+
+## 
+
+
+
+
+
+
+

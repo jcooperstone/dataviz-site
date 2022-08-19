@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Module 1: Principles
 
 ### Principles of data visualization
-[Lecture material](1_01_principles/01_principles.html)
+[Lecture material](1_01_principles/01_principles_quarto.html)
 
 ### Good and bad visualizations
 [Lecture material](1_02_good_and_bad/02_good_and_bad.html)

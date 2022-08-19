@@ -1,0 +1,19 @@
+:root {
+  --link-color: #2B6902;
+}
+
+
+
+.center_title h1 {
+  text-align: center;
+  color: "white";
+}
+.center_title h2 {
+  color: "white";
+  text-align: center;
+}
+
+.center_title h4 {
+  text-align: center;
+  font-size: 45px;
+}

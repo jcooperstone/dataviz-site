@@ -134,7 +134,7 @@ schedule_3 <- schedule[6:8,]
 schedule_4 <- schedule[9:nrow(schedule),]
 ```
 
-```{r, echo = FALSE}
+```{r echo=, message=FALSE, warning=FALSE}
 kable(schedule_1)
 ```
 
