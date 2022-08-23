@@ -102,6 +102,7 @@ This is our tentative class schedule - but subject to change depending on our pa
 ```{r schedule1, echo=FALSE, warning=FALSE}
 library(readxl)
 library(knitr)
+library(tidyverse)
 schedule <- read_excel("files/schedule_modules.xlsx",
                        sheet = "Schedule_date")
 
@@ -142,6 +143,41 @@ knitr::include_graphics("img/dinosaurus.gif")
 ```
 
 Figure by [Alberto Cairo](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+
+## To understand distribution {background-color="#fff"}
+Anscombe's quartet 🎻
+
+```{r echo = FALSE}
+#| column: page
+#| layout-nrow: 2
+#| fig-height: 3
+#| fig-width: 4
+
+anscombe %>%
+  ggplot(aes(x = x1, y = y1)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+
+anscombe %>%
+  ggplot(aes(x = x2, y = y2)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+
+anscombe %>%
+  ggplot(aes(x = x3, y = y3)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+
+anscombe %>%
+  ggplot(aes(x = x4, y = y4)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+```
+
 
 ## To discover data secrets {.center_title background-color="#fff"}
 
