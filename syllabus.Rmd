@@ -32,7 +32,7 @@ By the end of this course, students should successfully be able to:
 
 **Attendance and participation requirements:** This is a hybrid course, but is taught synchronously, meaning it is expected that you attend class, either in person or virtually during its meeting time.
 
-**Class recordings:** To help you master material, and to better accommodate students, classes will be recorded, and recordings uploaded directly after class to Carmen.
+**Class recordings:** To help you master material, and to better accommodate students, classes will be recorded, and recordings uploaded directly after class to Carmen. You can find a link to a OneDrive folder with the recorded lectures on the Syllabus page on Carmen.
 
 # Course schedule
 ```{r, echo = FALSE}

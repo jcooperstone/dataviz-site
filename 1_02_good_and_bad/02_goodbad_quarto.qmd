@@ -1,0 +1,85 @@
+---
+title: "Good and Bad Visualizations"
+subtitle: "Week 2<br>8/31/2022"
+author: ""
+format: 
+  revealjs:
+    incremental: true
+    theme: jc_style.scss
+    footer: "[01 Principles](https://datavisualizing.netlify.app/module1.html), © Jessica Cooperstone, 2022"
+css: xaringan-themer.css
+---
+
+# Housekeeping
+
+- Questions from the previous class?
+- Start think about identifying a dataset for your capstone assignment
+- Interest on using geographical visualization techniques?
+
+# Office hours
+
+- Daniel: Mondays from 3-4pm in Howlett 340
+- Jess: Tuesdays from 10-11am in Howlett 348
+- Those who want to attend office hours virtually, use the same [Zoom link](https://go.osu.edu/dataviz-zoom) for class
+
+
+
+## What was easier to find?
+
+- good 👏  visualizations 
+- bad 😡 visualizations
+
+
+# Bad visualizations 😡 {.center_title}
+
+## Paintball wall 
+
+Scatter plots usually faces an overlapping challange (too many points
+in the same coordinates)
+
+![](./bad/Paintball.jpg){fig-align="center"}
+
+
+## Principal Component Analysis
+
+
+![](./bad/messy_pca.jpeg){fig-align="center"}
+
+## Replicate of 4th July Firworks 🎆🎇
+
+![](./bad/fireworks.jpg){fig-align="center"}
+
+## Piechart Firework
+
+![](./bad/Def.png){fig-align="center"}
+
+
+## The winner of bad visualizations 
+
+Lucy Guarnieri 🏆🏅
+
+![](./bad/Winner.png){fig-align="center"}
+
+
+# Good visualizations 👏 {.center_title}
+
+
+
+## Boxplot alternatives
+
+![](./good/boxplot.png){fig-align="center"}
+
+- Are the axes comparable?
+
+
+## Overlaping points? what is that?
+
+
+![](./good/pca.png){fig-align="center"}
+
+
+## Plant-based meat substitutes
+
+![](./good/forecast.JPG){fig-align="center"}
+
+
