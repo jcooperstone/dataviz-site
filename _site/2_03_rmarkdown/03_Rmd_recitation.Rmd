@@ -1,0 +1,75 @@
+---
+title: "RMarkdown Recitation"
+author: "you!"
+date: "2022-09-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown Recitation
+
+This will be your template RMarkdown document for playing around with RMarkdown. This was opened using the default Rmd settings. You are going to be playing around with the 3 components of an Rmd:
+
+1. text
+2. code
+3. the YAML (aka the header)
+
+To see if each of your changes has worked, you will need to knit.
+
+# Text
+
+Write text that generates in italics.
+
+Write text that generates in bold
+
+Try playing around with header levels
+
+Add a hyperlink
+
+Add an image. Note you will do this differently if you are adding an image from internet vs one you have on your local machine. Also remember your working directory is the location of your Rmd and you may want to have a directory called `img` where images are stored. 
+
+Add a block quote
+
+Make a bulleted list
+
+# Code
+
+Create a code chunk by typing
+
+Create a code chunk using the toolbar
+
+Create a code chunk using the keyboard shortcut
+
+Write some code within a chunk and execute it
+
+Write some code in line (within your text) and knit
+
+Try using the different options for your code chunks. Remember you can use multiple at once.
+Get code to run but not display
+Get code to display but not run
+Get code to hide messages
+Add a figure caption
+Add alt text
+
+Give your chunk a name
+
+# The YAML
+Edit the default components of the YAML to be personalized to you
+
+Play around with adding a:
+Table of contents
+Code download button
+Code folding
+
+Play around with the default themes https://www.datadreaming.org/post/r-markdown-theme-gallery/ 
+
+Play around themes from `prettydoc`, `rmdformats` and/or `tufte` 
+
+# Other stuff
+Play around with the visual editor
+
+Make the table of contents viewable in your document
+

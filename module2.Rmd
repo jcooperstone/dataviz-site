@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Course material](2_03_rmarkdown/03_Rmd.html)
 
-[Recitation activities](2_03_rmarkdown/03_Rmd_practice.Rmd)
+[Recitation activities](2_03_rmarkdown/03_Rmd_recitation.Rmd)
 
 ### ggplot 101
 
