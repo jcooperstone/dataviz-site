@@ -9,21 +9,21 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Module 2: Coding fundamentals
-
-### R Markdown for reproducible research
+## R Markdown for reproducible research
 
 [Course material](2_03_rmarkdown/03_Rmd.html)
 
 [Recitation activities](2_03_rmarkdown/03_Rmd_recitation.Rmd)
 
-### ggplot 101
+Don't click on this until you try them yourself! [Recitation solutions](2_03_rmarkdown/03_Rmd_recitation_solutions.Rmd)
+
+## ggplot 101
 
 [Course material](2_04_ggplot/04_ggplot.html)
 
 [Recitation activities](2_04_ggplot/04_ggplot_practice.Rmd)
 
-### Themes, labels, facets (ggplot 102)
+## Themes, labels, facets (ggplot 102)
 
 [Course material](2_05_themes_labels_facets/05_ggplot102.html)
 
