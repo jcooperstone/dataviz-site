@@ -21,7 +21,7 @@ Don't click on this until you try them yourself! [Recitation solutions](2_03_rma
 
 [Course material](2_04_ggplot/04_ggplot.html)
 
-[Recitation activities](2_04_ggplot/04_ggplot_practice.Rmd)
+[Recitation activities](2_04_ggplot/04_ggplot_practice.html)
 
 ## Themes, labels, facets (ggplot 102)
 

@@ -1,7 +1,9 @@
 ---
-title: "HCS 7806, Data Visualization with R"
+title: |  
+  Data Visualization in R 
+  
 description: |
-  Welcome to this course 💻 🧰 📊 🥳
+  HCS 7806, Fall 2022, Jessica Cooperstone 💻 🧰 📊 🥳
 site: distill::distill_website
 ---
 
@@ -13,4 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-Thanks to the authors and contributors of [Distill for R Markdown](https://rstudio.github.io/distill/) for making this web-friendly format for course websites, and to Yury Zablotski who's [blog post on creating a website in R with {Distill}](https://yuzar-blog.netlify.app/posts/2020-12-26-how-to-create-a-blog-or-a-website-in-r-with-distill-package/) helped me make this website.
+```{r echo = FALSE, fig.alt="A gif of 13 different datasets (include one who's points make the shape of a dinosaur) that all have the same mean and standard deviation, but have very different distributions"}
+knitr::include_graphics("1_01_principles/img/dinosaurus.gif")
+```
+Datasaurus Dozen by [Alberto Cairo](https://www.autodesk.com/research/publications/same-stats-different-graphs)
