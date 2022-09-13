@@ -1,11 +1,11 @@
 ---
 title: "ggplot 101 (and 🍅)"
 author: "Jessica Cooperstone"
-date: "5/11/2022"
+date: "9/13/2022"
 output:
   html_document:
     toc: true
-    toc_depth: 3
+    toc_depth: 4
     toc_float: true
     theme: flatly
 ---
@@ -218,6 +218,7 @@ garden_harvest_tomato %>%
   geom_line(aes(color = variety)) +
   geom_point()
 ```
+
 Here, we can see that how the line layer is being grouped by variety, while the points are not. This is because the aesthetic mappings for one geom don't inherit to the next one. If we want to also color points by variety, we need to either 1) set this as the global aesthetic mapping or 2) also set `aes(color = variety)` in `geom_point()` too.
 
 ```{r line and point local aes}
