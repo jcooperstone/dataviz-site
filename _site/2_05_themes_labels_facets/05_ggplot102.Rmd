@@ -22,9 +22,10 @@ knitr::include_graphics("img/ggplot2_masterpiece.png")
 
 We will will build upon our last lesson on [ggplot101](2_04_ggplot/04_ggplot.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, and geoms. Today we will focus on some of the other more commonly adjusted layers:
 
-* facets
-* labels
-* themes
+* [Facets](https://ggplot2.tidyverse.org/reference/index.html#facetting)
+* [Scales](https://ggplot2.tidyverse.org/reference/index.html#scales)
+* [Labels](https://ggplot2.tidyverse.org/reference/index.html#labels)
+* [Themes](https://ggplot2.tidyverse.org/reference/index.html#themes)
 
 ### Load libraries and data
 Before we get started, let's load our libraries and data.
@@ -139,12 +140,53 @@ Scales functions start with `scale_`.
 
 Here are some common things you might do with the `scale_` functions.
 
-* [Set position scales for x and y data](https://ggplot2.tidyverse.org/reference/scale_continuous.html)
-* [Positional scales for binning continuous data (x & y)](https://ggplot2.tidyverse.org/reference/scale_binned.html)
-* [Continuous and binned colour scales](https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html)
-* [Sequential, diverging and qualitative colour scales from ColorBrewer](https://ggplot2.tidyverse.org/reference/scale_brewer.html)
+### Position scales
+
+You can set position scales for [dates/times](https://ggplot2.tidyverse.org/reference/scale_date.html) (like we have here), [x and y data](https://ggplot2.tidyverse.org/reference/scale_continuous.html), [binned data](https://ggplot2.tidyverse.org/reference/scale_binned.html), [continuous data](https://ggplot2.tidyverse.org/reference/scale_continuous.html), and for [discrete data](https://ggplot2.tidyverse.org/reference/scale_discrete.html).
+
+Here is one example for date/time data, which is what we have here. The date-time POSIX standards are listed [here](https://rdrr.io/r/base/strptime.html).
+```{r scale_x_date}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  scale_x_date(date_labels = "%m/%y")
+```
+
+Here is another example (which isn't very good) about how you can also use scales to log transform your axes. Remember you are not actually transforming your data, you are just transforming the axis labels.
+```{r log10}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  scale_y_log10()
+```
+
+### Color scales
+You can set color scales for [continuous and binned colour data](https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html), [sequential, diverging and qualitative data using ColorBrewer](https://ggplot2.tidyverse.org/reference/scale_brewer.html), and [perceptually uniform scales using viridis from viridisLite](https://ggplot2.tidyverse.org/reference/scale_viridis.html)
+
+```{r colorbrewer}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = variety)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  scale_color_brewer(palette = "Set3")
+```
 
 
+```{r viridis}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = variety)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  scale_color_viridis_d()
+```
+
+You can play around with scales to see all you can do with it.
 
 ## Labels
 Having good labels helps your reader (and you, when you come back to the plot in the future) understand what its all about. 
@@ -157,10 +199,178 @@ In the `labs()` function, you can indicate:
 * `subtitle` for a subtitle underneath your title
 * `caption` for a caption
 
-In `theme()` you can change characteristics of these labels like their size, fonts, justfication, etc.
+```{r}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) + 
+  labs(x = "Month, in 2020",
+       y = "Weight (g)",
+       title = "Total harvest weight of tomatoes by day in summer 2020",
+       subtitle = "Collected by Dr. Lisa Lendway (and from the package gardenR)",
+       alt = "A plot showing 12 varieties of tomatoes and how much of each of them Dr. Lisa Lendway harvested in her home garden in 2022. The biggest producers were amish paste and better boy, which had earlier season peaks, and mortgage lifter, old german, and volunteer plants were more productive towards the end of the season.")
+```
+
+You can also use [`get_alt_text()`](https://ggplot2.tidyverse.org/reference/get_alt_text.html) to pull the alt-text for an image. This will come back with an empty string if there is no alt-text provided.
+
+In `theme()` you can change characteristics of these labels like their size, fonts, justification, etc.
 
 ## Themes
-Themes will control all the non-data parts of your plot. There are some pre-set "complete" themes that you can recognize as they'll be called `theme_XXX()`, and you can adjust any theme parameters by setting parameters within `theme()`. There are probably 50 parameters you can set within `theme()` and they include text size, axis label orientation, the presence of a legend, and many others. 
+Themes will control all the non-data parts of your plot. There are some pre-set "complete" themes that you can recognize as they'll be called `theme_*()`, and you can adjust any theme parameters by setting parameters within `theme()`. There are probably 50 parameters you can set within `theme()` and they include text size, axis label orientation, the presence of a legend, and many others. 
+
+### Complete themes from ggplot
+There are some pre-set [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) that control the look of the non-data displays. Below are some examples. `theme_grey()` is the default ggplot2 theme.
+
+#### `theme_minimal()`
+This is the one I use the most.
+```{r theme-minimal}
+base_plot <- garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) + 
+  labs(x = "Month, in 2020",
+       y = "Weight (g)",
+       title = "Total harvest weight of tomatoes by day in summer 2020",
+       subtitle = "Collected by Dr. Lisa Lendway (and from the package gardenR)")
+
+base_plot + theme_minimal()
+```
+
+#### `theme_classic()`
+This is another nice lightweight theme.
+```{r theme-classic}
+base_plot + theme_classic()
+```
+
+#### `theme_bw()`
+In black and white.
+```{r theme-bw}
+base_plot + theme_bw()
+```
+
+#### `theme_dark()`
+For dark-mode aficionados.
+```{r theme-dark}
+base_plot + theme_dark()
+```
+
+#### `theme_void()`
+Here is a theme with very little if you really want only the bare bones.
+```{r theme-void}
+base_plot + theme_void()
+```
+
+### Complete themes from other packages
+The packages `ggthemes` and [`hrbrthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) have some nice themes you might be interested in.
+
+```{r ggthemes-hrbrthemes libraries}
+library(ggthemes)
+library(hrbrthemes)
+```
+
+#### `theme_tufte()`
+Another lightweight theme
+```{r theme-clean}
+base_plot + theme_tufte()
+```
+
+#### `theme_excel()`
+In case you find yourself wishing your plots looked more Excel 2005.
+```{r theme-excel}
+base_plot + theme_excel()
+```
+
+#### `theme_ipsum()`
+You need to have Roboto Condensed for this.
+```{r theme-ipsum, fig.width=9, fig.height=6}
+base_plot + theme_ipsum()
+```
+
+### Modify components of a theme
+If there is a part of the non-data components of your plot you want to change, chances are you do this using `theme()`. You can also start with a complete theme and then modify from there. This is what I do most of the time.
+
+There are more than 40 unique [theme elements](https://ggplot2-book.org/polishing.html#theme-elements) that can be modified to control the appearance of a plot.
+
+You can find the complete list of theme elements in the [ggplot2 documentation](https://ggplot2.tidyverse.org/reference/theme.html). Let's play around a little bit.
+
+```{r color variety}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = variety)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  theme_classic() +
+  labs(x = "Month, in 2020",
+       y = "Weight (g)",
+       title = "Total harvest weight of tomatoes by day in summer 2020",
+       subtitle = "Collected by Dr. Lisa Lendway (and from the package gardenR)")
+```
+
+The legend here is duplicative, let's remove it.
+```{r remove legend}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = variety)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  theme_classic() +
+  theme(legend.position = "none") +
+  labs(x = "Month, in 2020",
+       y = "Weight (g)",
+       title = "Total harvest weight of tomatoes by day in summer 2020",
+       subtitle = "Collected by Dr. Lisa Lendway (and from the package gardenR)")
+```
+
+What if we wanted to make the strip text background black, and the strip text white?
+
+```{r strip-text}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = variety)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  theme_classic() +
+  theme(legend.position = "none",
+        strip.text = element_text(color = "white"),
+        strip.background = element_rect(fill = "black"))
+```
+
+Remember that ggplot works on layers and these layers are added in the order you indicate. That means if you write something code that negates or edits something that comes above, the lower code will prevail. 
+
+```{r order-matters}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = variety)) +
+  geom_line() +
+  geom_point(size = 1) +
+  facet_wrap(vars(variety)) +
+  theme(legend.position = "none",
+        strip.text = element_text(color = "white"),
+        strip.background = element_rect(fill = "black")) +
+  theme_classic() 
+```
+
+### Setting an active theme
+If you know you want to use one theme for all your plots, you can set all the parameters for that theme using `theme_set()` and `theme_update()` and then your theme will carry for all the plots you make going forward.
+
+```{r theme_set}
+my_theme <- theme_set(theme_classic())
+
+base_plot
+```
+
+## Saving your plots
+You probably won't want to save all your plots, but you definitely will want to save some of them. The function [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html) makes this each. I like to save images as `.svg` as these are vectorized and have unlimited resolution. You could also adjust the file extension to save it in the format you like.
+
+```{r ggsave, eval = FALSE}
+ggsave(plot = base_plot,
+       filename = "img/my_plot.svg",
+       width = 9,
+       height = 6)
+```
+
+I like to set the code chunk options for my chunks where I am saving plots to `eval = FALSE` this way I don't accidentally save over figures I don't intend to. If I want to save the plot, I can do so manually.
 
 ## In class
 
