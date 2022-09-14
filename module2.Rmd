@@ -23,6 +23,8 @@ Don't click on this until you try them yourself! [Recitation solutions](2_03_rma
 
 [Recitation activities](2_04_ggplot/04_ggplot_recitation.html)
 
+Don't click on this until you try them yourself! [Recitation solutions](2_04_ggplot/04_ggplot_recitation_solutions.Rmd)
+
 ## Facets, scales, labels, and themes (ggplot 102)
 
 [Course material](2_05_themes_labels_facets/05_ggplot102.html)
