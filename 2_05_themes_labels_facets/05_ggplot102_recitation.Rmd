@@ -1,0 +1,76 @@
+---
+title: "ggplot 102: Facets, Scales, Labels, and Themes (but now 🐶) recitation"
+author: "Jessica Cooperstone and you"
+date: "9/20/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r dogs, fig.alt = "Three dogs looking longingly at the camera as they are about to have dinner. On the left is Nacho, Jess's cream colored French Bulldog, in the middle is Petunia, a black American Staffordshire Terrier, and on the right is Inu, a white and grey Pitbull.", fig.cap= "Nacho (Jess's dog, left) along with his friends Petunia (middle) and Inu (right) waiting for dinner", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/dogs.jpg")
+```
+
+## Introduction
+
+We will practice what we learned this week in [ggplot102](2_05_themes_labels_facets/05_ggplot102.html) on:
+
+* [Facets](https://ggplot2.tidyverse.org/reference/index.html#facetting)
+* [Scales](https://ggplot2.tidyverse.org/reference/index.html#scales)
+* [Labels](https://ggplot2.tidyverse.org/reference/index.html#labels)
+* [Themes](https://ggplot2.tidyverse.org/reference/index.html#themes)
+
+### Load libraries and data
+Before we get started, let's load our libraries and data. Today we will be looking again at some different data from the [Tidy Tuesday project](https://www.tidytuesday.com/) (here is the [Github repo](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-02-01/readme.md)) about dog breeds.
+
+```{r tidytuesdayR, eval = FALSE}
+install.packages("tidytuesdayR")
+```
+
+
+```{r libraries, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(tidytuesdayR)
+```
+
+We will be using the data that is from February 1, 2022, so let's download it. The readme for this data is [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-02-01/readme.md).
+```{r eval = FALSE}
+tuesdata <- ???
+```
+
+Let's look at it. How can you do that?
+```{r breed-traits, eval = FALSE, include=FALSE}
+glimpse(tuesdata$breed_traits)
+```
+
+```{r trait-description, eval = FALSE, include=FALSE}
+glimpse(tuesdata$trait_description)
+```
+
+```{r breed-rank, eval = FALSE, include=FALSE}
+glimpse(tuesdata$breed_rank)
+```
+
+## Investigating
+Write code to determine what the 5 most popular dog breeds in 2020 were. There are many ways to do this.
+
+
+What are the 5 most popular and the 5 least popular dogs across this time frame? There are many ways to do this. Hint: create a new variable that is a sum of all the ranks from 2013, allowing a composite score of the popularity of each dog breed across this time period.
+
+
+Create a plot where you take the 12 most popular dogs from 2020, and plot their popularity rank from 2013 to 2020. Hint, to facet, you need to have the variable you want to facet in one column.
+
+
+Alter the aesthetics of this plot until you think it looks good.
+
+
+What dog has jumped in the rankings most from 2013 to 2020? What has dropped the most?
+
+

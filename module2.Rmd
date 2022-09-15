@@ -29,4 +29,4 @@ Don't click on this until you try them yourself! [Recitation solutions](2_04_ggp
 
 [Course material](2_05_themes_labels_facets/05_ggplot102.html)
 
-[Recitation activities](2_05_themes_labels_facets/05_ggplot102_recitation.Rmd)
+[Recitation activities](2_05_themes_labels_facets/05_ggplot102_recitation.html)
