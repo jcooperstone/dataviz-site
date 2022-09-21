@@ -1,0 +1,347 @@
+---
+title: "Understanding Data Distributions"
+author: "Jessica Cooperstone"
+date: "9/27/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r summary stats, fig.alt = "A cartoon showing a clip art style bar graph, on the left where all the data point dots are held at the bottom by a net, and one on the right where the fidelity of the datapoints are shown. The center says 'are your summary statistics hiding something interesting?'", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations/blob/main/other-stats-artwork/summary_statistics.png)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/summary_statistics.png")
+```
+
+
+## Introduction
+
+We will will building on our lesson on [ggplot101](2_04_ggplot/04_ggplot.html) and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, geoms, facets, scales, labels, and themes. Today we are going to apply what we learned towards trying to better understanding our underlying data distributions.
+
+Often, we think about figure generation as the last part of the scientic process, something you do as you prepare a manuscript for publication. I hope to convince you that exploring your data, and making exploratory plots is a critical part of the data analysis and interpretation process.
+
+```{r data exploration, fig.alt = "A group of fuzzy round monsters with binoculars, backpacks and guide books looking up a graphs flying around with wings (like birders, but with exploratory data visualizations). Stylized text reads “ggplot2: visual data exploration.”", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/ggplot2_exploratory.png")
+```
+
+### Load libraries and data
+Before we get started, let's load our libraries.
+
+```{r libraries, warning = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+Today we are using real research data from my group. We will be reading in the supplementary data from a [paper](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/tpg2.20192) written by Michael Dzakovich, and published in The Plant Genome. The data is present in a Excel worksheet, so we will use the function `read_excel()` from the tidyverse (but not core tidyverse) package `readxl`. We want to import Supplemental Table 1. You can indicate which sheet you want to import in the arguments to `read_excel()`.
+
+```{r read-data}
+alkaloids <- readxl::read_excel("tpg220192-sup-0002-supmat.xlsx",
+                                sheet = "S1 Raw Data Diversity Panel")
+```
+
+```{r head-alkaloids}
+knitr::kable(head(alkaloids))
+```
+
+This dataset has 605 observations, with data about different steroidal alkaloids in the fruits of different tomato germplasm grown in 3 locations across 2 years. There is also some other metadata too.
+
+## Geoms for distributions
+
+### [`geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)
+
+Often, people use bar charts, representing the height or the length of the bar as proportional to the average value that it represents. These charts are sometimes called dynamite plots because they resemble (when they have an error bar with whisker) those cartoon style dynamite sticks. Pow!
+
+However, these bar charts, even if you add a standard deviation/error, really can hide the true distribution of your data, and for this reason, I and [others](https://simplystatistics.org/posts/2019-02-21-dynamite-plots-must-die/) hope you don’t select to make them.
+
+Aside: You may be thinking "Jess you asked us to make one of these in Module 2 homework" and I did but also that was a little different. The plot I asked you to make shows the number of degrees awarded, a value for which there really is no distribution. So in that case we are using a bar plot to show something different than a bar plot which is meant to show somehow an average/median and distribution.
+
+I hope after today, you see that there is always a better chart type to make than a bar chart. But I will show you how to make them anyway.
+
+Before we plot, let’s calculate some summary statistics so we know what we should expect.
+
+```{r tomatine-summary}
+alkaloids %>%
+  group_by(Class) %>%
+  summarize(mean_tomatine = mean(Tomatine))
+```
+
+```{r geom-col-wrong}
+# this is wrong but an easy mistake to make
+# this is not what we want
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  geom_col()
+```
+
+Just calling `geom_col()` does not give us what we want. Look at the y-axis scale and how out of line this is with our summary statistics. The reason for this is that `geom_col()` defaults to `position = "stack"` which will just sum the alkaloid content across all the observations. Even changing to   `position = "identity"` does not work. This is because we are plotting a transformation of the data (calculation of the mean) which these geoms are not doing.
+
+We can calculate manually by generating the summary values and then piping that into our ggplot call.
+```{r geom-col-manual-summary}
+alkaloids %>%
+  group_by(Class) %>%
+  summarize(mean_tomatine = mean(Tomatine)) %>%
+  ggplot(aes(x = Class, y = mean_tomatine)) +
+  geom_col()
+```
+
+### [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html)
+
+An easier way to do this would be just with `stat_summary()`, which does not require the calculation of summary statistic first.
+```{r geom-col-stat-summary}
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  stat_summary(fun = "mean", geom = "bar")
+```
+
+#### Reordering x-variables
+Note in these plots the ordering of the x-axis categories -- they are alphabetical. This is the ggplot default. There are many reasons why this might not be the most compelling ordering for your data. You may want to order from lowest to highest mean, or in this case, I want to order the tomatoes from most cultivated on the left, to most wild on the right, since this is the prevailing theme of our paper. 
+
+We can do this in two ways:
+
+Simply reorder the plot. 
+```{r reorder-plot}
+# set what the order is
+alkaloids_order <- c("Cultivated Processing",
+                     "Cultivated Cherry",
+                     "Wide Cross Hybrid",
+                     "Wild Cherry",
+                     "S. pimpinellifolium")
+
+# plot and re-level within aes()
+alkaloids %>%
+  ggplot(aes(x = factor(Class, levels = alkaloids_order), y = Tomatine)) +
+  stat_summary(fun = "mean", geom = "bar")
+```
+
+Change the levels of the data so the reordering happens to every plot in the future.
+```{r relevelling}
+# what type of variable is class?
+class(alkaloids$Class)
+
+# convert to factor, and set levels
+alkaloids$Class <- factor(alkaloids$Class,
+                          levels = c("Cultivated Processing",
+                                     "Cultivated Cherry",
+                                     "Wide Cross Hybrid",
+                                     "Wild Cherry",
+                                     "S. pimpinellifolium"))
+```
+
+```{r plot-after-relevelling}
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  stat_summary(fun = "mean", geom = "bar")
+```
+
+My tendency would be to re-level the data if I always want to use the same order, and just re-level the plot if I only want to do this once or twice.
+
+### [`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)
+
+A boxplot has the benefit of showing you more than the median and the standard deviation, so you can better see the true distribution of your data. In `geom_boxplot()`:
+
+- lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR
+- lower hinge/bottom line of box part of boxplot = 25% quantile
+- middle = median, 50% quantile
+- upper hinge/top line of box part of boxplot = 75% quantile
+- upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR
+
+```{r geom-boxplot}
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  geom_boxplot()
+```
+
+One reason why this is really importantly different from the bar plot is look at the number of outliers we are seeing for Wild Cherry. You don't capture this at all with the median/mean bar plots.
+
+Because of the scale of this data, it might be beneficial to log transform the y-axis.
+```{r geom-boxplot-log}
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  geom_boxplot() +
+  scale_y_continuous(trans = "log10") # or scale_y_log10()
+```
+
+### [`geom_jitter()`](https://ggplot2.tidyverse.org/reference/geom_jitter.html)
+
+`geom_jitter()` is a shortcut for `geom_point(position = "jitter")`, but is common enough that the shortcut exists. It is often nice to jitter on top of a boxplot. Note, if you don't want the outliers from `geom_boxplot()` to be plotted twice, you should indicate `outlier.shape = NA`.
+
+```{r geom-jitter}
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter() +
+  scale_y_continuous(trans = "log10") # or scale_y_log10()
+```
+
+Jittering introduces a small amount of variation into your points so they're easier to see. A width of `0` is no horizontal jitter. A height of `0` is no vertical jitter. Typically you don't want veritcal jitter so that the points retain their fidelity on the y-axis (which is where their concentration is plotted). I basically always use `geom_jitter(height = 0)` for plots where I want to retain y-axis fidelity.
+
+```{r geom-jitter-height-0}
+alkaloids %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(height = 0) +
+  scale_y_continuous(trans = "log10") # or scale_y_log10()
+```
+
+### [`geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html)
+
+We could also look at these distribution more like histograms and it provides to us some additional information. When coupled with faceting, this can be very powerful.
+
+```{r histogram}
+alkaloids %>%
+  ggplot(aes(x = Tomatine)) +
+  geom_histogram(bins = 75) + # default is bins = 30
+  scale_x_continuous(trans = "log10") +
+  facet_wrap(vars(Class))
+```
+
+```{r density}
+alkaloids %>%
+  ggplot(aes(x = Tomatine)) +
+  geom_density() +
+  scale_x_continuous(trans = "log10") +
+  facet_wrap(vars(Class))
+```
+
+### [`gg:ridges::geom_density_ridges()`](https://www.rdocumentation.org/packages/ggridges/versions/0.5.2/topics/geom_density_ridges)
+
+I really like the function `geom_density_ridges()` which is a part of the ggplot add-on package `ggridges`. It allows you to create ridgeline plots to show distributes in a single non-faceted plot.
+```{r geom-density-ridgeline, warning = FALSE, message = FALSE}
+library(ggridges) # for ridgeline plots
+library(scales) # for comma format
+
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Tomatine, y = Class)) +
+  geom_density_ridges(alpha = 0.5) +
+  scale_x_continuous(trans = "log10", labels = comma) +
+  labs(x = "Alpha-tomatine content, mg/100g fresh weight",
+       y = "",
+       title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments")
+```
+
+#### Changing class labels
+I am bothered by the fact that S. pimpinellifolium (a species of wild tomato) is not indicated in italics. We don't want to italicize all of the `Class labels`, just *S. pimpinellifolium*. Let's fix that.
+
+We can start by creating a vector of the labels how we want them to appear in the plot.
+```{r set-class-labels}
+class_labels <- c("Cultivated Processing", 
+                  "Cultivated Cherry",
+                  "Wide Cross Hybrid", 
+                  "Wild Cherry",
+                  expression(italic("S. pimpinellifolium")))
+
+class_labels
+```
+
+Then we can use one of the `scale_*()` functions to change our y-axis scale labels to how we want them to be.
+```{r ridgeline-labels}
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Tomatine, y = Class)) +
+  geom_density_ridges(alpha = 0.5) +
+  scale_x_continuous(trans = "log10", labels = comma) +
+  scale_y_discrete(labels = class_labels) +
+  labs(x = "Alpha-tomatine content, mg/100g fresh weight",
+       y = "",
+       title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments")
+```
+
+If for example your variables were mapped to `color` or `fill`, you could do this using `scale_color_manual()` or `scale_fill_manual()`, respectively.
+
+### [`ggdist` functions](https://mjskay.github.io/ggdist/index.html)
+
+Another ggplot extension package `ggdist` has cool geoms you can integrate into ggplots to visualize distributions. I think these work better than `geom_dotplot()`.
+
+Sometimes using `geom_jitter()` when you have a lot of data points can look a bit messy. I think in this case, using `geom_dots()` works very well. The default orientation is is `layout = "bin"`
+```{r ggdist stat_dots both}
+library(ggdist)
+
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Tomatine, y = Class)) +  
+  geom_dots() +
+  scale_x_continuous(trans = "log10", labels = comma) + 
+  scale_y_discrete(labels = class_labels) +
+  labs(x = "Alpha-tomatine, mg/100 g fresh weight",
+       y = "",
+       title = "Distribution of alkaloid content found among \ntomatoes of different classes")
+```
+
+You can really change the feel of the plot by changing the orientation between horizontal and vertical. If you want to use the orientation `layout = "swarm"` you need the package `ggbeeswarm`. This is also a nice package that performs similarly to `ggdist` but has less functionality which is why I'm covering `ggdist` here.
+
+```{r ggdist stat_dots both swarm}
+library(ggbeeswarm) # required for layout = "swarm"
+
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  geom_dots(side = "both", layout = "swarm") + # requires ggbeeswarm
+  scale_x_discrete(labels = class_labels) +
+  scale_y_continuous(trans = "log10", labels = comma) + 
+  labs(x = "",
+       y = "Alpha-tomatine, mg/100 g fresh weight",
+       title = "Distribution of alkaloid content found among tomatoes of different classes")
+```
+
+You can also use `stat_dotsinterval()` which will by default add the median and the interquartile range (though you can change exactly what you want to be displayed).
+```{r ggdist stat_dotsinterval}  
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Class, y = Tomatine)) +
+  stat_dotsinterval(side = "both") +
+  scale_x_discrete(labels = class_labels) +
+  scale_y_continuous(trans = "log10", labels = comma) + 
+  labs(x = "",
+       y = "Alpha-tomatine, mg/100 g fresh weight",
+       title = "Distribution of alkaloid content found among tomatoes of different classes")
+```
+
+Don't forget we can keep layering. We can always map other aethetics to our plot (e.g. `shape = as.factor(Year)`, and we include `as.factor()` because `Year` is a character datatype).
+```{r geom-dots year by shape and legend box}
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Class, y = Tomatine, shape = as.factor(Year))) +
+  scale_y_continuous(trans = "log10", labels = comma) + 
+  geom_dots(side = "both") +
+  theme_ggdist() +
+  theme(legend.position = c(.18, .99),
+        legend.justification = c("right", "top"),
+        legend.box.just = "right",
+        legend.box.background = element_rect(size=0.5),
+        legend.box.margin = margin(5, 5, 5, 5)) +
+  labs(shape = "Year",
+       y = "Alpha-tomatine (mg/100 g fresh weight)") 
+```
+
+## In class
+
+In class, we will practice using ggplot and investigating data distributions.
+
+You can find the in class content [here](3_06_distributions/06_distributions_recitation.html).
+
+### Useful resources:
+
+-   [`ggplot2` cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+-   [`ggplot2` documentation](https://ggplot2.tidyverse.org/)
+-   [ggplot2: elegant graphics for data analysis by Hadley Wickham](https://ggplot2-book.org/index.html)
+-   [A really compehensive list of resources compiled by Erik Gahner Larsen](https://github.com/erikgahner/awesome-ggplot2)
+-   [`ggridges`](https://wilkelab.org/ggridges/)
+-   [`ggdist`](https://mjskay.github.io/ggdist/index.html)
+-   [`ggbeeswarm`]()
+
+
+- Past ggplot Code Clubs:
+
+  * [Visualizing Data by Michael Broe](https://biodash.github.io/codeclub/04_ggplot2/)
+  * [ggplot round 2 by me](https://biodash.github.io/codeclub/05_ggplot-round-2/)
+  * [Faceting, multi-plots, and animating](https://biodash.github.io/codeclub/10_faceting-animating/)
+  * [Visualizing Data by Michael Broe a second one](https://biodash.github.io/codeclub/s02e06_ggplot2/)
+  * [ggplot round 2 a second one by me](https://biodash.github.io/codeclub/s02e07_ggplot2_part2/)
+  
+

@@ -1,7 +1,7 @@
 ---
 title: "Module 2 Assignment"
 author: "You"
-date: "2022-09-20"
+date: "Due 09-30-2022"
 output: html_document
 ---
 
@@ -16,8 +16,10 @@ You will submit this assignment by uploading a knitted .html to Carmen. Make sur
 
 Remember there are often many ways to reach the same end product.
 
+> This assignment will be due on Friday, September 30, 2022, at 11:59pm.
+
 ### Data
-The data we will be using is collected by the National Science Foundation about the fields and number of Ph.D. degrees awarded each year.
+The [data](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-19) we will be using is collected by the National Science Foundation about the fields and number of Ph.D. degrees awarded each year.
 ```{r, message = FALSE, warning = FALSE}
 phd_field <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-19/phd_by_field.csv")
 ```
