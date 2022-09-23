@@ -225,6 +225,23 @@ alkaloids %>%
        title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments")
 ```
 
+You can also use the function [`geom_density_ridges()`](https://www.rdocumentation.org/packages/ggridges/versions/0.5.3/topics/stat_density_ridges) which will allow you to easily map quantiles or other functions on top of your ridges.
+
+```{r stat-density-ridgeline}
+alkaloids %>%
+  filter(Tomatine != 0) %>%
+  ggplot(aes(x = Tomatine, y = Class)) +
+  stat_density_ridges(alpha = 0.5,
+                      quantile_lines = TRUE,
+                      quantiles = 2) + # break into 2 groups, therefore median
+  scale_x_continuous(trans = "log10", labels = comma) +
+  labs(x = "Alpha-tomatine content, mg/100g fresh weight",
+       y = "",
+       title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments",
+       caption = "Black line represents tomato class median concent")
+```
+
+
 #### Changing class labels
 I am bothered by the fact that S. pimpinellifolium (a species of wild tomato) is not indicated in italics. We don't want to italicize all of the `Class labels`, just *S. pimpinellifolium*. Let's fix that.
 

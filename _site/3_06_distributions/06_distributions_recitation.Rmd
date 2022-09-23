@@ -1,0 +1,38 @@
+---
+title: "Understanding Data Distributions Recitation"
+author: "You"
+date: "9/27/2022"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+Today you will be investigating some [data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md) from the Coffee Quality Database on coffee evaluation by the Coffee Quality Institute. You will look at the distribution of coffee evaluation scores across different characteristics, and include various metadata.
+
+More information can be found on the Tidy Tuesday github repo on [coffee ratings](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
+
+### Read in data
+```{r load data}
+tuesdata <- tidytuesdayR::tt_load('2020-07-07')
+coffee_ratings <- tuesdata$coffee_ratings
+```
+
+### Load libraries
+```{r libraries, warning = FALSE, message = FALSE, eval = FALSE}
+library(???)
+```
+
+## Total cupping score in arabica and robusta
+Make 3 different visualizations that shows the distribution of total cupping score across arabica and robusta beans. Make the plots so you think they look good.
+
+
+## Individual characteristic cupping scores in arabica and robusta
+Make 3 different visualizations that show the distribution of all the individual contributors to total cupping score across arabica and robusta in one plot.

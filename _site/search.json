@@ -33,8 +33,8 @@
       "path": "module3.html",
       "title": "Module 3: Data Exploration",
       "author": [],
-      "contents": "\n\nContents\nModule 3: Data exploration\nData\ndistributions\nCorrelations\nAnnotating statistics\n\n\nModule 3: Data exploration\nData distributions\nCourse\nmaterials\nRecitation activities\nCorrelations\nCourse materials\nRecitation activities\nAnnotating statistics\nCourse materials\nRecitation activities\n\n\n\n",
-      "last_modified": "2022-09-21T11:26:11-04:00"
+      "contents": "\n\nContents\nModule 3: Data exploration\nData\ndistributions\nCorrelations\nAnnotating statistics\n\n\nModule 3: Data exploration\nData distributions\nCourse\nmaterials\nRecitation\nactivities\nCorrelations\nCourse materials\nRecitation activities\nAnnotating statistics\nCourse materials\nRecitation activities\n\n\n\n",
+      "last_modified": "2022-09-23T13:14:19-04:00"
     },
     {
       "path": "module4.html",
@@ -47,7 +47,7 @@
       "path": "README.html",
       "author": [],
       "contents": "\n\nContents\nHCS 7100 Data Visualization in R\n\nHCS 7100 Data Visualization in R\nThis repo is the course website source code for HCS 7100 Data Visualization in R at The Ohio State University, taught by Jessica Cooperstone\nThe course site is www.datavisualizing.netlify.app\n\n\n",
-      "last_modified": "2022-09-21T11:26:13-04:00"
+      "last_modified": "2022-09-23T13:14:20-04:00"
     },
     {
       "path": "syllabus.html",
