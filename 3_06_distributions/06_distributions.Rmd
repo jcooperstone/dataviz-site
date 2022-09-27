@@ -24,7 +24,7 @@ knitr::include_graphics("img/summary_statistics.png")
 
 We will will building on our lesson on [ggplot101](2_04_ggplot/04_ggplot.html) and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, geoms, facets, scales, labels, and themes. Today we are going to apply what we learned towards trying to better understanding our underlying data distributions.
 
-Often, we think about figure generation as the last part of the scientic process, something you do as you prepare a manuscript for publication. I hope to convince you that exploring your data, and making exploratory plots is a critical part of the data analysis and interpretation process.
+Often, we think about figure generation as the last part of the scientific process, something you do as you prepare a manuscript for publication. I hope to convince you that exploring your data, and making exploratory plots is a critical part of the data analysis and interpretation process.
 
 ```{r data exploration, fig.alt = "A group of fuzzy round monsters with binoculars, backpacks and guide books looking up a graphs flying around with wings (like birders, but with exploratory data visualizations). Stylized text reads “ggplot2: visual data exploration.”", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("img/ggplot2_exploratory.png")
@@ -220,7 +220,7 @@ alkaloids %>%
   ggplot(aes(x = Tomatine, y = Class)) +
   geom_density_ridges(alpha = 0.5) +
   scale_x_continuous(trans = "log10", labels = comma) +
-  labs(x = "Alpha-tomatine content, mg/100g fresh weight",
+  labs(x = "Alpha-tomatine content, µg/100g fresh weight",
        y = "",
        title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments")
 ```
@@ -235,7 +235,7 @@ alkaloids %>%
                       quantile_lines = TRUE,
                       quantiles = 2) + # break into 2 groups, therefore median
   scale_x_continuous(trans = "log10", labels = comma) +
-  labs(x = "Alpha-tomatine content, mg/100g fresh weight",
+  labs(x = "Alpha-tomatine content, µg/100g fresh weight",
        y = "",
        title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments",
        caption = "Black line represents tomato class median concent")
@@ -264,7 +264,7 @@ alkaloids %>%
   geom_density_ridges(alpha = 0.5) +
   scale_x_continuous(trans = "log10", labels = comma) +
   scale_y_discrete(labels = class_labels) +
-  labs(x = "Alpha-tomatine content, mg/100g fresh weight",
+  labs(x = "Alpha-tomatine content, µg/100g fresh weight",
        y = "",
        title = "Distribution of Alpha-Tomatine Content Across 107 Accessions \nof Tomato Grown Across 3 Environments")
 ```
@@ -285,7 +285,7 @@ alkaloids %>%
   geom_dots() +
   scale_x_continuous(trans = "log10", labels = comma) + 
   scale_y_discrete(labels = class_labels) +
-  labs(x = "Alpha-tomatine, mg/100 g fresh weight",
+  labs(x = "Alpha-tomatine, µg/100 g fresh weight",
        y = "",
        title = "Distribution of alkaloid content found among \ntomatoes of different classes")
 ```
@@ -302,7 +302,7 @@ alkaloids %>%
   scale_x_discrete(labels = class_labels) +
   scale_y_continuous(trans = "log10", labels = comma) + 
   labs(x = "",
-       y = "Alpha-tomatine, mg/100 g fresh weight",
+       y = "Alpha-tomatine, µg/100 g fresh weight",
        title = "Distribution of alkaloid content found among tomatoes of different classes")
 ```
 
@@ -315,7 +315,7 @@ alkaloids %>%
   scale_x_discrete(labels = class_labels) +
   scale_y_continuous(trans = "log10", labels = comma) + 
   labs(x = "",
-       y = "Alpha-tomatine, mg/100 g fresh weight",
+       y = "Alpha-tomatine, µg/100 g fresh weight",
        title = "Distribution of alkaloid content found among tomatoes of different classes")
 ```
 
@@ -333,7 +333,7 @@ alkaloids %>%
         legend.box.background = element_rect(size=0.5),
         legend.box.margin = margin(5, 5, 5, 5)) +
   labs(shape = "Year",
-       y = "Alpha-tomatine (mg/100 g fresh weight)") 
+       y = "Alpha-tomatine (µg/100 g fresh weight)") 
 ```
 
 ## In class
