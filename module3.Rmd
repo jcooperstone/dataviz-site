@@ -15,11 +15,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Course materials](3_06_distributions/06_distributions.html)
 
-[Recitation activities](3_06_distributions//06_distributions_recitation.html)
+[Recitation activities](3_06_distributions/06_distributions_recitation.html)
+
+Don't click on this until you try them yourself! [Recitation solutions](3_06_distributions/06_distributions_recitation_solutions.html)
 
 ### Correlations
 
-Course materials
+[Course materials](3_07_correlations/07_correlations.html)
 
 Recitation activities
 

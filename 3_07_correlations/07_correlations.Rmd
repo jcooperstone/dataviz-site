@@ -1,0 +1,419 @@
+---
+title: "Visualizing Correlations"
+author: "Jessica Cooperstone"
+date: "10/04/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r xkcd correlation, fig.alt = "A cartoon about how correlation is not causation", fig.cap= "Figure from [XKCD](https://xkcd.com/552/)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("https://imgs.xkcd.com/comics/correlation.png")
+```
+
+
+## Introduction
+
+We will will building on our lesson on [ggplot101](2_04_ggplot/04_ggplot.html) and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, geoms, facets, scales, labels, and themes. Today we are going to apply what we learned towards trying to better understanding and visualize correlations within our data. To do this we will also use some ggplot extension packages.
+
+### Load libraries and data
+Before we get started, let's load our libraries.
+
+```{r libraries, warning = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+Today we are going to continue to use the same real research data from my group from [last week](3_06_distributions/06_distributions.html). We will be reading in the supplementary data from a [paper](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/tpg2.20192) written by Michael Dzakovich, and published in The Plant Genome. The data is present in a Excel worksheet, so we will use the function `read_excel()` from the tidyverse (but not core tidyverse) package `readxl`. We want to import Supplemental Table 1. You can indicate which sheet you want to import in the arguments to `read_excel()`.
+
+```{r read-data}
+alkaloids <- readxl::read_excel("tpg220192-sup-0002-supmat.xlsx",
+                                sheet = "S1 Raw Data Diversity Panel")
+```
+
+```{r head-alkaloids}
+knitr::kable(head(alkaloids))
+```
+
+This dataset has 605 observations, with data about different steroidal alkaloids in the fruits of different tomato germplasm grown in 3 locations across 2 years. There is also some other metadata too.
+
+For those who are chemistry minded, here is a little pathway context for the compounds we are investigating today.
+
+![Figure from [Syzmańsky et al., Nature Genetics 2020](https://www.nature.com/articles/s41588-020-0690-6)](https://media.springernature.com/full/springer-static/esm/art%3A10.1038%2Fs41588-020-0690-6/MediaObjects/41588_2020_690_Fig12_ESM.jpg?as=webp)
+
+## Scatterplots
+
+A very simple first pass way to understand if you have relationships within your data is to make scatterplots of the variables you think might be correlated. Let's start by investigating how the different alkaloid concentrations are correlated to each other. First we will see how alpha-tomatine content (`Tomatine`) is related to total steroidal alkaloid content (`Total`).
+
+```{r alphatomatine vs total alkaloids}
+alkaloids %>%
+  ggplot(aes(x = Total, y = Tomatine)) +
+  geom_point() +
+  labs(x = "Total Steroidal Alkaloids (µg/100 g)",
+       y = "Alpha-Tomatine (µg/100 g)")
+```
+
+It seems like there are two separate groups here - the points with a steeper slope, and the points with a less steep slope. We can color our points based on what `Class` of tomato the data comes from, maybe that will reveal something. In the meanwhile let's make this plot look a bit nicer. The package [`scales`](https://www.rdocumentation.org/packages/scales/versions/0.4.1) has some nice functions that help you control the scaling of your plots, in this case, making each of the axes have numbers in [`comma_format()`](https://www.rdocumentation.org/packages/scales/versions/0.4.1/topics/comma_format). I also am using the hex codes for a color-blind friendly qualitative color scheme developed by [Paul Tol](https://personal.sron.nl/~pault/#sec:qualitative).
+
+```{r alphatomatine vs total alkaloids color}
+library(scales)
+
+alkaloids %>%
+  ggplot(aes(x = Total, y = Tomatine, color = Class)) +
+  geom_point(alpha = 0.8) +
+  scale_x_continuous(labels = comma_format(big.mark = ",")) + # requires the package scales
+  scale_y_continuous(labels = comma_format(big.mark = ",")) + # requires the package scales
+  scale_color_manual(values = c("#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE")) +
+  theme_minimal() +
+  labs(x = "Total Steroidal Alkaloids (µg/100 g fresh weight)",
+       y = "Alpha-Tomatine (µg/100 g fresh weight)",
+       title = "Relationship between Alpha-Tomatine and Total Steroidal Alkaloids \nAcross Different Germplasm in the Red Tomato Clade")
+```
+
+All of the tomatoes in the two extremes of this plot are from the `Class` Wild Cherry. What would this look like if we removed these fruits? Note, I adjusted the color scale to remove the hex code associated with Wild Cherry but keeping the other colors the same.
+
+```{r alphatomatine vs total no wild cherry}
+alkaloids %>%
+  filter(Class != "Wild Cherry") %>%
+  ggplot(aes(x = Total, y = Tomatine, color = Class)) +
+  geom_point() +
+  scale_x_continuous(labels = comma_format(big.mark = ",")) + # requires the package scales
+  scale_y_continuous(labels = comma_format(big.mark = ",")) + # requires the package scales
+  scale_color_manual(values = c("#4477AA", "#EE6677", "#228833", "#CCBB44")) +
+  theme_minimal() +
+  labs(x = "Total Steroidal Alkaloids (µg/100 g fresh weight)",
+       y = "Alpha-Tomatine (µg/100 g fresh weight)",
+       title = "Relationship between Alpha-Tomatine and Total Steroidal Alkaloids \nAcross Different Germplasm in the Red Tomato Clade")
+```
+
+## Adding `geom_smooth()`
+
+```{r adding geom smooth}
+alkaloids %>%
+  ggplot(aes(x = Total, y = Tomatine, color = Class)) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "lm") +
+  scale_x_continuous(labels = comma_format(big.mark = ",")) + # requires the package scales
+  scale_y_continuous(labels = comma_format(big.mark = ",")) + # requires the package scales
+  scale_color_manual(values = c("#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE")) +
+  theme_minimal() +
+  labs(x = "Total Steroidal Alkaloids (µg/100 g fresh weight)",
+       y = "Alpha-Tomatine (µg/100 g fresh weight)",
+       title = "Relationship between Alpha-Tomatine and Total Steroidal Alkaloids \nAcross Different Germplasm in the Red Tomato Clade")
+```
+
+
+### Faceted scatterplots
+
+We may be able to see trends by tomato class more easily if we facet our scatterplots. I also am demonstrating here how within the ggplot function you can make alter the aesthetics you plot - here I am turning data that is present as µg/100 g to mg/100 g by dividing by 1000 and changing the axis labels accordingly.
+```{r faceted sc atterplots}
+alkaloids %>%
+  ggplot(aes(x = Total/1000, y = Tomatine/1000, color = Class)) +
+  geom_point(alpha = 0.8) +
+  scale_color_manual(values = c("#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE")) +
+  facet_wrap(vars(Class), scales = "free") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(x = "Total Steroidal Alkaloids (mg/100 g fresh weight)",
+       y = "Alpha-Tomatine (mg/100 g fresh weight)",
+       title = "Relationship between Alpha-Tomatine and Total Steroidal Alkaloids \nAcross Different Germplasm in the Red Tomato Clade")
+```
+
+
+## Correlation matrix with `cor()`
+
+[`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor) is a function from base R that will allow you to create a correlation matrix.
+
+Before we use `cor()` we will clean up our dataset to include only the variables we want to correlate. 
+```{r alkaloid colnames}
+colnames(alkaloids)
+```
+
+From looking at the colnames and reading the supplemental information, we can see that some columns are composites of others. For example, the column `TotalAcetoxytomatine` = `Acetoxytomatine1` + `Acetoxytomatine2` + `Acetoxytomatine3`. So we want to pull only the columns that represent the total for any given alkaloids. There should be 10 columns.
+
+```{r totals only}
+# create a vector of the names we want to keep
+alkaloid_total_names <- c("Dehydrotomatidine",
+                          "Tomatidine",
+                          "TotalDehydrotomatine",
+                          "Tomatine",
+                          "TotalHydroxytomatine",
+                          "TotalAcetoxytomatine",
+                          "DehydrolycoperosideFGdehydroesculeosideA",
+                          "TotalLycoperosideFGEsculeosideA",
+                          "TotalEsculeosideB",
+                          "Total")
+
+# make a new df including some metadata and the alkaloid_total_names
+alkaloids_totals <- alkaloids %>%
+  select(ID, Year, Environment, Block, Genotype, Class, all_of(alkaloid_total_names))
+
+# did it work? look at colnames()
+colnames(alkaloids_totals)
+```
+
+Now we can create a correlation matrix to see how each of our 10 alkaloids is correlated to the concentration of each other alkaloid (including the compile metric of `Total` which sums all the alkaloids).
+```{r alkaloids cor}
+alkaloids_cor <- alkaloids_totals %>%
+  select(all_of(alkaloid_total_names)) %>%
+  cor()
+
+# look at our correlation matrix
+knitr::kable(alkaloids_cor) # kable makes a nicely formatted table
+```
+
+Note the diagonal is all composed of 1s. This makes sense because the correlation of each alkaloid with itself is 1.
+
+## Using `ggcorrplot()` from `ggcorrplot`
+
+Use the function `ggcorrplot()` without any additional arguments besides the correlation matrix `alkaloids_cor`. In general, I think if you want to make a bunch of correlation plots quickly, and don't intend to publish them, ``ggcorrplot()` works well, but the visuals of the plot are quite difficult to customize.
+```{r ggcorrplot}
+library(ggcorrplot)
+
+ggcorrplot(alkaloids_cor)
+```
+
+This is not a perfect plot but its a good starting point. Correlation matrices are inherently symmetric, meaning if we display only the top or bottom triangle, we do not lose any information. We will work on editing this plot in different ways to show more information and make it more beautiful. 
+
+We could also make the plot circles instead of squares at the same time.
+```{r ggcorrplot lower circle}
+ggcorrplot(alkaloids_cor, 
+           method = "circle",
+           type = "lower")
+```
+
+In general, I think if you want to make a bunch of correlation plots quickly, and don't intend to publish them, ``ggcorrplot()` works well, but the visuals of the plot are quite difficult to customize.
+
+## Using `corrplot()` from `corrplot`
+
+Similarly, you can use a base R plotting based package `corrplot()` to make correlation plots. The customization syntax here is quite different from what we've been working with in ggplot, but I wanted you to feel familiar with some base R tools.
+```{r corrplot}
+library(corrplot)
+
+corrplot(alkaloids_cor, type = "lower")
+```
+
+I have used `corrplot()` in publications before and felt like I couldn't customize the plots as much as I wanted. In the process of putting together this content, I learned some news ways to customize these plots that are actually very nice. Here are some parameters you can modify in R. You can also order your variables by hierarchical clustering.
+
+First we will start (as we always do) by wrangling.
+```{r rcorr wrangling}
+# create matrix for correlation
+alkaloids_to_cor <- alkaloids_totals %>%
+  select(all_of(alkaloid_total_names)) %>%
+  as.matrix() # rcorr() needs a matrix
+
+library(Hmisc) # does cor() but also computes significance levels
+
+# create a matrix of pvalues for the correlations
+alkaloids_rcorr = rcorr(alkaloids_to_cor, type = "pearson")
+
+# create a vector of the alkaloid names for labeling
+alkaloid_labels <- c("Dehydrotomatidine",
+                     "Tomatidine",
+                     "Dehydrotomatine",
+                     "Alpha-Tomatine",
+                     "Hydroxytomatine",
+                     "Acetoxytomatine",
+                     "Dehydrlycoperoside F, G, \nor Dehydroescueloside A",
+                     "Lycoperoside F, G, \nor Escueloside A",
+                     "Escueloside B",
+                     "Total Steroidal Alkaloids")
+
+# change row and column names of the correlation matrix
+# so they are how we want them to be plotted
+colnames(alkaloids_rcorr$r) <- alkaloid_labels
+rownames(alkaloids_rcorr$r) <- alkaloid_labels
+
+# change row and column names of the pvalue matrix
+# so they are how we want them to be plotted
+colnames(alkaloids_rcorr$P) <- alkaloid_labels
+rownames(alkaloids_rcorr$P) <- alkaloid_labels
+```
+
+Now we are ready to plot
+```{r rcorr customized, fig.height=6, fig.width = 6}
+corrplot(alkaloids_rcorr$r, # the correlation matrix
+         type = "lower", # lower triangle
+         tl.col = "black", # axis labels are black
+         p.mat  = alkaloids_rcorr$P, # pvalue matrix
+         sig.level = 0.05, # how sig does a cor need to be to be included
+         insig = "blank", # do not display insignificant correlations
+         addCoef.col = "black", # display correlations in black
+         diag = FALSE, # don't show the diagonal (because this is all 1)
+         number.cex = 0.6) # size of correlation font
+```
+
+## `GGally`
+
+### `ggcorr()`
+
+Another ggplot extension package `ggally` has the function [`ggcorr()`](https://briatte.github.io/ggcorr/) which also allows the creation of correlation plots, but ones that are more easily customizable. `ggcorr()` objects are moderately customizable. They make work for some of you so I'm sharing how to make them.
+
+Note, `GGally::ggcorr()` does not take a correlation matrix, but instead takes the data you want to make a correlation matrix for. You can specific the method of correlation in the arguments. The default is Pearson's correlation.
+
+```{r ggcorr}
+library(GGally)
+
+to_corr <- alkaloids_totals %>%
+  select(all_of(alkaloid_total_names)) 
+
+ggcorr(to_corr)
+```
+
+There is only one labeled axis - this is because there is no diagonal in these plots, like we saw with `ggcorrplot()` and `corrplot()`. 
+
+We can now spend some time improving the aesthetics of our plot.
+```{r ggcorr customized}
+ggcorr(to_corr, # data for correlation
+       low = "#f1a340", # -1 correlation color
+       mid = "#f7f7f7", # 0 correlation color
+       high = "#998ec3") # 1 correlation color
+
+ggcorr(to_corr,
+       low = "#f1a340", mid = "#f7f7f7", high = "#998ec3",
+       geom = "circle",
+       label = TRUE, 
+       label_size = 2, 
+       label_round = 2,
+       layout.exp = 3)
+```
+
+For this example, we have very long label names which are really difficult to wrap, but if your labels are more reasonable this may work well for you.
+
+### `ggpairs()`
+
+We can also use the function `GGally::ggpairs()` to make a matrix of correlation related plots.
+```{r ggpairs}
+alkaloids_totals %>%
+  ggpairs(columns = c(10, 14, 16), # pick the 10th 14th and 16th columns
+          aes(color = Class))
+```
+
+Let's customized a bit.
+```{r ggpairs customized}
+# remove zeroes since they don't log transform
+# make log transformed columns
+alkaloids_totals_log <- alkaloids_totals %>%
+  filter(Tomatine != 0, 
+         TotalLycoperosideFGEsculeosideA != 0,
+         Total != 0) %>%
+  mutate(log10_tomatine = log10(Tomatine),
+         log10_FGA = log10(TotalLycoperosideFGEsculeosideA),
+         log10_total = log10(Total))
+
+alkaloids_totals_log %>%
+    ggpairs(columns = c(17, 18, 19),
+          aes(color = Class, alpha = 0.5), # note alpha inside aes which is weird idk why
+          columnLabels = c("Alpha-Tomatine", "Lycoperoside F/G\n Escueloside A", "Total Alkaloids"))
+```
+
+## Manually making correlation plots with `reshape::melt()` and `ggplot`
+
+Because some of the correlation specific packages are hard to customize, I am going to show you how to make your own plots by reshaping your data with `reshape2::melt()` and some base R functions, and plotting using the standard ggplot syntax.
+
+```{r melt cor}
+library(reshape2) # contains melt()
+
+# take cor matrix and convert to df with 3 columns: Var1, Var2, and value
+melted_alkaloids_cor <- melt(alkaloids_cor)
+
+# what does it look like?
+head(melted_alkaloids_cor)
+```
+
+First pass minimalist plotting
+```{r manual plotting 1}
+melted_alkaloids_cor %>%
+  ggplot(aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile()
+```
+
+Lots to fix! What if we want only the upper or lower triangle, again since this plot is symmetric.
+
+### Upper triangle
+
+Keep only the upper triangle.
+```{r create upper triangle}
+# "save as"
+alkaloids_upper <- alkaloids_cor
+
+# use function lower.tri() and set the lower triangle all to NA
+# then we can keep only the upper triangle
+alkaloids_upper[lower.tri(alkaloids_upper)] <- NA
+
+# melt to go back to long format
+melted_alkaloids_upper <- melt(alkaloids_upper, na.rm = TRUE)
+
+# did it work?
+head(melted_alkaloids_upper) # yup
+```
+
+### Lower triangle
+
+Create a lower triangle object to plot.
+```{r create lower triangle}
+# "save as"
+alkaloids_lower <- alkaloids_cor
+
+# use function upper.tri() and set the upper triangle all to NA
+# then we can keep only the lower triangle
+alkaloids_lower[upper.tri(alkaloids_lower)] <- NA
+
+# melt to go back to long format
+melted_alkaloids_lower <- melt(alkaloids_lower, na.rm = TRUE)
+
+# did it work?
+head(melted_alkaloids_lower) # yup
+```
+
+Plot
+```{r manual-lower}
+# remember we made alkaloid_labels
+View(alkaloid_labels)
+
+melted_alkaloids_lower %>%
+  ggplot(aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  geom_text(aes(label = round(value, 2)), color = "black") +
+  scale_fill_gradient2(low = "#f1a340",
+                       mid = "#f7f7f7",
+                       high = "#998ec3",
+                       limits = c(-1, 1)) +
+  scale_x_discrete(labels = alkaloid_labels) +
+  scale_y_discrete(labels = alkaloid_labels) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.justification = c(1, 0),
+        legend.position = c(0.5, 0.7),
+        legend.direction = "horizontal") +
+  labs(fill = "Correlation \ncoefficient",
+       x = "",
+       y ="",
+       title = "Correlation between steroidal alkaloids using \nPearson's correlation coefficient")
+```
+
+## In class
+
+In class, we will practice using ggplot and other extension packages to visualize correlations within a dataset.
+
+You can find the in class content [here](3_07_correlations/07_correlations_recitation.html).
+
+### Useful resources:
+
+-   [`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor)
+-   [`Hmisc::rcorr()`](https://www.rdocumentation.org/packages/Hmisc/versions/4.7-1/topics/rcorr)
+-   [`ggcorrplot::ggcorrplot()`](https://www.rdocumentation.org/packages/ggcorrplot/versions/0.1.3/topics/ggcorrplot)
+-   [`corrplot::corrplot()`](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html)
+-   [`GGally`](https://ggobi.github.io/ggally/)
+-   [`GGally:ggcorr()`](https://ggobi.github.io/ggally/reference/ggcorr.html)
+-   [`GGally:ggpairs()`](https://ggobi.github.io/ggally/reference/ggpairs.html)
+
+
+

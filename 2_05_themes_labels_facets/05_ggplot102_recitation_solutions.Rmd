@@ -164,7 +164,9 @@ breed_rank_tidy %>%
   filter(breed %in% dogs_to_include$breed) %>%
   ggplot(aes(x = year, y = rank)) +
     geom_point() +
-    facet_wrap(vars(breed))
+    facet_wrap(vars(breed), 
+               labeller = labeller(breed = label_wrap_gen(20))) +
+    theme(axis.text.x = element_text(angle = 90))
 ```
 
 Alter the aesthetics of this plot until you think it looks good.
@@ -192,12 +194,12 @@ breed_rank %>%
   mutate(rank_inc = (x2020_rank - x2013_rank)) %>%
   select(breed, rank_inc, everything()) %>%
   slice_min(n = 1, order_by = rank_inc) %>%
-  select(breed, rank_sum, x2013_rank, x2020_rank)
+  select(breed, rank_inc, x2013_rank, x2020_rank)
 
 breed_rank %>%
   mutate(rank_inc = (x2020_rank - x2013_rank)) %>%
   select(breed, rank_inc, everything()) %>%
   slice_max(n = 1, order_by = rank_inc) %>%
-  select(breed, rank_sum, x2013_rank, x2020_rank)
+  select(breed, rank_inc, x2013_rank, x2020_rank)
 ```
 
