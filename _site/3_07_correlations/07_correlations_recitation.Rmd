@@ -1,0 +1,50 @@
+---
+title: "Visualizing Correlations Recitation Solutions"
+author: "You"
+date: "10/4/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+We will be using some data collection from the [National Health and Nutrition Examination Survey](https://www.cdc.gov/nchs/nhanes/index.htm) which collects data to assess the health and nutritional status of people in the United States. The data from 2009-2012 has been compiled in an R package called `NHANES`.
+
+```{r load libraries and data, warning = FALSE, message = FALSE}
+# install.packages("NHANES")
+library(NHANES)
+
+# functionality and correlation packages
+library(tidyverse)
+library(corrplot)
+library(ggcorrplot)
+library(GGally)
+library(Hmisc)
+library(reshape2)
+library(scales)
+
+knitr::kable(head(NHANES))
+```
+
+## 1. How correlated are different measures of blood pressure?
+
+In the NHANES dataset, there are 3 measurements for each systolic (the first/top number) and diastolic blood (the second/bottom number) pressure. How reproducible is each type of blood pressure measurement over the 3 samplings? Make visualizations to convey your findings.
+
+
+## 2. How correlated are different physical measurements, health, and lifestyle variables?
+
+In the NHANES dataset, there are data for subject `BMI`, `Pulse`, `BPSysAve`, `BPDiaAve`, `TotalChol`.
+
+Create a series of plots/plot to show the relationship between these variables with each other.
+
+
+

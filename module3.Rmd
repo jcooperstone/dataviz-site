@@ -23,7 +23,7 @@ Don't click on this until you try them yourself! [Recitation solutions](3_06_dis
 
 [Course materials](3_07_correlations/07_correlations.html)
 
-Recitation activities
+[Recitation activities](3_07_correlations/07_correlations_recitation.html)
 
 ### Annotating statistics
 
