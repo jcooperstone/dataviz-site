@@ -25,6 +25,8 @@ Don't click on this until you try them yourself! [Recitation solutions](3_06_dis
 
 [Recitation activities](3_07_correlations/07_correlations_recitation.html)
 
+Don't click on this until you try them yourself! [Recitation  solutions](3_07_correlations/07_correlations_recitation_solutions.html)
+
 ### Annotating statistics
 
 Course materials

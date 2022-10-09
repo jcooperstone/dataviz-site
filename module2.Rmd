@@ -34,3 +34,5 @@ Don't click on this until you try them yourself! [Recitation solutions](2_04_ggp
 Don't click on this until you try them yourself! [Recitation solutions](2_05_themes_labels_facets/05_ggplot102_recitation_solutions.html)
 
 ## [Module 2 Assignment](assignments/module_2.html)
+
+[Module 2 solutions](assignments/module_2_answers.html)

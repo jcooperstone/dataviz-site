@@ -403,7 +403,7 @@ melted_alkaloids_lower %>%
 
 In class, we will practice using ggplot and other extension packages to visualize correlations within a dataset.
 
-You can find the in class content [here](3_07_correlations/07_correlations_recitation.html).
+You can find the in class content [here](3_07_correlations/07_correlations_recitation.html)
 
 ### Useful resources:
 
