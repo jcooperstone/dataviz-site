@@ -29,6 +29,8 @@ Don't click on this until you try them yourself! [Recitation  solutions](3_07_co
 
 ### Annotating statistics
 
-Course materials
+[Course materials](3_08_add_stats/08_add_stats.html)
 
-Recitation activities
+[Recitation activities](3_08_add_stats/08_add_stats_recitation.html)
+
+Recitation solutions

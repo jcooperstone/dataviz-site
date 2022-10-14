@@ -1,7 +1,7 @@
 ---
 title: "Annotating Statistics onto Plots"
 author: "Jessica Cooperstone"
-date: "10/11/2022"
+date: "10/18/2022"
 output:
   html_document:
     toc: true
@@ -15,7 +15,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r xkcd null hypothesis, fig.alt = "A comit where two stick figures are talking. One says "I can't believe schools are still teaching kids about the null hypothesis. I remember reading a big study that conclusively disproved it years ago.", fig.cap= "Figure from [XKCD](https://www.explainxkcd.com/wiki/index.php/1478:_P-Values)", out.width = "70%", fig.align = "center", echo = FALSE}
+```{r xkcd null hypothesis, fig.cap= "Figure from [XKCD](https://www.explainxkcd.com/wiki/index.php/1478:_P-Values)", out.width = "30%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("https://www.explainxkcd.com/wiki/images/0/04/null_hypothesis.png")
 ```
 
@@ -31,7 +31,7 @@ Before we get started, let's load our libraries.
 
 We are going to use [data](https://allisonhorst.github.io/palmerpenguins/) that was collection about body characteristics of penguins on Palmer Station in Antarctica. This data is in a dataframe called `penguins` in the package `palmerpenguins` which you can download from CRAN.
 
-```{r palmer penguins hex, fig.alt = "A hex sticker of 3 cute penguins with "palmer penguins" written in the background", fig.cap = "Illustration by [Allison Horst](https://allisonhorst.github.io/palmerpenguins/articles/art.html) out.width = "20%", fig.align = "center", echo = FALSE}
+```{r palmer penguins hex, out.width = "20%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("img/palmerpenguins_hex.png")
 ```
 
@@ -51,7 +51,7 @@ knitr::kable(head(penguins)) # kable to make a pretty table
 
 ## 2 group comparisons (t-tests or similar)
 
-Is there a significant difference in the `body_weight_g` of male and female penguins?
+> Our question: Is there a significant difference in the `body_weight_g` of male and female penguins?
 
 Before we run the statistics, let's make a plot to see what this data looks like.
 
@@ -64,7 +64,7 @@ unique(penguins$sex)
   drop_na(body_mass_g, sex) %>%
   ggplot(aes(x = sex, y = body_mass_g, color = sex)) + 
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter() +
+  geom_jitter(height = 0, width = 0.3) +
   scale_x_discrete(labels = c("Female", "Male")) +
   theme_minimal() +
   theme(legend.position = "none") +
@@ -84,7 +84,7 @@ It looks like there is a difference here. Before adding the statistics to our pl
 
 Briefly, in order to use parametric procedures (like a t-test), we need to be sure our data meets the assumptions for 1) normality and 2) constant variance. 
 
-```{r palmer penguins hex, fig.alt = "An orange normal distribution and a blue bimodal distribution, where the orange distribution tells the blue one it is not normal", fig.cap = "Illustration by [Allison Horst](https://github.com/allisonhorst/stats-illustrations) out.width = "70%", fig.align = "center", echo = FALSE}
+```{r normal distribution, fig.alt = "An orange normal distribution and a blue bimodal distribution, where the orange distribution tells the blue one it is not normal", fig.cap = "Illustration by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("https://github.com/allisonhorst/stats-illustrations/blob/main/other-stats-artwork/not_normal.png")
 ```
 
@@ -164,12 +164,23 @@ penguins_by_sex +
   stat_compare_means(method = "wilcox.test") 
 ```
 
-#### Manually with `annotate()`
+#### Manually with `geom_text()` or `annotate()`
+
+In general, plotting using `geom_text()` is easier, and follows classic `geom_()` syntax (e.g., includes `aes()`) but for some reason these don't pass as vectorized objects so sometimes it yields low quality images. Using `annotate()` passes as vectors and thus tends to be higher quality. You can decide which you want to use depending on your purpose.
 
 If I'm being honest, the most common way that I would add statistics to a plot if I was trying to do just a few simple plots at once, would be with [`annotate()`](https://ggplot2.tidyverse.org/reference/annotate.html) . I like to use `annotate()` over [`geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.html) or [`geom_label()`](https://ggplot2.tidyverse.org/reference/geom_text.html) because it is vectorized and don't become low quality down the road.
+
+With `geom_text()`
+```{r geom_text asterisk}
+penguins_by_sex +
+  geom_text(aes(x = 2, y = 6500, label = "*"), # x, y, and label within aes()
+            color = "black", size = 6)
+```
+
+With `annotate()`
 ```{r annotate asterisk}
 penguins_by_sex +
-  annotate(geom = "text", 
+  annotate(geom = "text", # note no aes()
            x = 2, y = 6500, 
            label = "*", 
            size = 6)
@@ -196,7 +207,7 @@ by_sex_pval <- penguins %>%
 # plot
 penguins_by_sex +
   annotate(geom = "text", x = 2, y = 6500, label = "*", size = 6) +
-  annotate(geom = "text",x = 2, y = 7200,
+  annotate(geom = "text", x = 2, y = 7200,
            label = glue("Wilcoxon signed rank test \np-value = {by_sex_pval$p}"))
 ```
 
@@ -210,9 +221,9 @@ Are there significant differences in body mass
 (penguins_f_massbyspecies <- penguins %>%
   drop_na(body_mass_g, species, sex) %>%
   filter(sex == "female") %>%
-  ggplot(aes(x = species, y = body_mass_g, color = species)) +
+  ggplot(aes(x = species, y = body_mass_g, fill = species)) +
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter() +
+  ggdist::geom_dots(side = "both", color = "black", alpha = 0.5) +
   theme_minimal() +
   theme(legend.position = "none") +
   labs(x = "Penguin Species",
@@ -225,7 +236,7 @@ Are there significant differences in body mass
 
 #### Normality
 
-```{r}
+```{r normality testing}
 # testing normality by group
 penguins %>%
   drop_na(body_mass_g, sex) %>% # remove NAs
@@ -244,7 +255,7 @@ Ok looks like we have normally distributed data among the different species of f
 
 #### Constant variance
 [`levene_test()`](https://www.rdocumentation.org/packages/rstatix/versions/0.7.0/topics/levene_test) which is part of the `rstatix` package.  Again, this is a pipe-friendly wrapper for the function [`levene.test()`](https://www.rdocumentation.org/packages/lawstat/versions/3.4/topics/levene.test).
-```{r constant variance sex}
+```{r constant variance ANOVA sex}
 penguins %>%
   drop_na(body_mass_g, sex, species) %>% # remove NAs
   filter(sex == "female") %>%
@@ -257,7 +268,7 @@ We have constant variance. Along with normally distributed data, this means that
 The most commonly used function to run ANOVA in R is called [`aov()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/aov) which is a part of the `stats` package that is pre-loaded with base R. So no new packages need to be installed here.
 
 If we want to learn more about the function `aov()` we can do so using the code below. The help documentation will show up in the bottom right quadrant of your RStudio.
-```{r}
+```{r aov?}
 ?aov()
 ```
 
@@ -276,14 +287,14 @@ summary(aov_female_massbyspecies)
 ```
 
 We can take the output of our ANOVA and use the function `tidy()` within the `broom` package to turn our output into a tidy table.  Here, the notation `broom::tidy()` means I want to use the function `tidy()` that is a part of the `broom` package.  This works even though I haven't called `library(broom)` at the beginning of my script.
-```{r}
+```{r tidy anova}
 tidy_anova <- broom::tidy(aov_female_massbyspecies)
 
-print(tidy_anova)
+knitr::kable(tidy_anova)
 ```
 
 See how this is different from just saving the ANOVA summary? Open both `anova_summary` and `tidy_anova` and note the differences.
-```{r}
+```{r anova summary}
 anova_summary <- summary(aov_female_massbyspecies)
 ```
 
@@ -291,7 +302,7 @@ anova_summary <- summary(aov_female_massbyspecies)
 ### Posthoc group analysis
 
 NNow that we see we have a significant difference somewhere in the body mass of the 3 species of female penguins, we can do a posthoc test to see which groups are significantly different. We will do our post-hoc analysis using Tukey's Honestly Significant Difference test and the function [`HSD.test()`](https://www.rdocumentation.org/packages/agricolae/versions/1.3-5/topics/HSD.test) which is a part of the useful package `agricolae`.
-```{r}
+```{r tukey hsd}
 tukey_massbyspecies <- HSD.test(aov_female_massbyspecies, 
                       trt = "species", 
                       console = TRUE) # prints the results to console
@@ -300,7 +311,7 @@ tukey_massbyspecies <- HSD.test(aov_female_massbyspecies,
 Like we did with the aov object, you can also look at the resulting HSD.test object (here, `tukey_massbyspecies`) in your environment pane.
 
 Here, instead of using the `broom` package, you can convert the part of the `tukey_bill_length` object that contains the post-hoc groupings into a dataframe using `as.data.frame()`.
-```{r}
+```{r tidy tukey}
 tidy_tukey <- as.data.frame(tukey_massbyspecies$groups)
 
 tidy_tukey
@@ -309,7 +320,7 @@ tidy_tukey
 ### Plot
 
 #### Using `stat_compare_means()`
-```{r}
+```{r anova stat_compare_means}
 penguins_f_massbyspecies +
   stat_compare_means()
 
@@ -317,13 +328,15 @@ penguins_f_massbyspecies +
   stat_compare_means(method = "anova")
 ```
 
-#### Manually with `annotate()`
+#### Manually with `geom_text()` or `annotate()`
+
+In general, plotting using `geom_text()` is easier, and follows classic `geom_()` syntax (e.g., includes `aes()`) but for some reason these don't pass as vectorized objects so sometimes it yields low quality images. Using `annotate()` passes as vectors and thus tends to be higher quality. You can decide which you want to use depending on your purpose.
 
 We want to add the letters to this plot, so we can tell which groups of penguin `species` are significantly different.
 
 Before we can do this, we will need to do some of everyone's favorite task, wrangling. We are going to figure out what the maximum `body_mass_g` for each species is, so it will help us determine where to put our letter labels.  Then, we can add our labels to be higher than the largest data point. We will calculate this for each group, so that the letters are always right about our boxplot.
 
-```{r}
+```{r body mass max}
 body_mass_max <- penguins %>%
   filter(sex == "female") %>%
   drop_na(body_mass_g, species) %>%
@@ -342,7 +355,7 @@ Let's add our post-hoc group info to `body_mass_max`, since those two dataframes
 
 In this case, it doesn't matter which `_join()` we use because our dfs all have the exact same rows.
 
-```{r}
+```{r tidy and join}
 tidier_tukey <- tidy_tukey %>%
   rownames_to_column() %>% # converts rownames to columns
   rename(species = rowname) # renames the column now called rowname to species
@@ -352,50 +365,31 @@ body_mass_for_plotting <- full_join(tidier_tukey, body_mass_max,
                                by = "species")
 ```
 
-Let's plot.
-```{r}
-penguins_f_massbyspecies +
-  annotate(geom = "text",
-           x = c(1, 2, 3),
-           y = 5 + body_mass_for_plotting$max_body_mass,
-           label = body_mass_for_plotting$groups)
-
+Let's plot. First using `geom_text()`
+```{r plot anova geom_text}
 penguins_f_massbyspecies +
   geom_text(data = body_mass_for_plotting,
             aes(x = species,
-                y = 100 + max_body_mass, 
-                color = species, # group = species will also work
+                y = 175 + max_body_mass, 
                 label = groups))
 ```
 
-Almost there. We want the letters to be over the right box plot (coloring here by `sex` helps us to see what is going on better).  Let's fix it.
-```{r}
-bill_length_plot +
-  geom_text(data = bill_for_plotting,
-            aes(x = species,
-                y = 3 + max_bill_length_mm, 
-                color = sex,
-                label = groups),
-            position = position_dodge(width = 0.75),
-            show.legend = FALSE) +
-  labs(caption = "Groups with different letters are statistically different using a\n two way ANOVA and Tukey's post-hoc test")
+Next using `annotate()`.
+```{r plot anova annotate}
+penguins_f_massbyspecies +
+  annotate(geom = "text",
+           x = c(3,2,1),
+           y = 175 + body_mass_for_plotting$max_body_mass,
+           label = body_mass_for_plotting$groups)
 ```
 
 ## In class
 
-In class, we will practice using ggplot and other extension packages to visualize correlations within a dataset.
+In class, we will practice adding statistical analysis to our plots.
 
-You can find the in class content [here](3_07_correlations/07_correlations_recitation.html).
+You can find the in class content [here](3_08_add_stats/08_add_stats_recitation.html).
 
 ### Useful resources:
-
--   [`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor)
--   [`Hmisc::rcorr()`](https://www.rdocumentation.org/packages/Hmisc/versions/4.7-1/topics/rcorr)
--   [`ggcorrplot::ggcorrplot()`](https://www.rdocumentation.org/packages/ggcorrplot/versions/0.1.3/topics/ggcorrplot)
--   [`corrplot::corrplot()`](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html)
--   [`GGally`](https://ggobi.github.io/ggally/)
--   [`GGally:ggcorr()`](https://ggobi.github.io/ggally/reference/ggcorr.html)
--   [`GGally:ggpairs()`](https://ggobi.github.io/ggally/reference/ggpairs.html)
 
 There have been previous [Code Club](https://biodash.github.io/codeclub/) sessions about adding statistics to plots:
 
