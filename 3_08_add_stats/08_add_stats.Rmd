@@ -15,7 +15,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r xkcd null hypothesis, fig.cap= "Figure from [XKCD](https://www.explainxkcd.com/wiki/index.php/1478:_P-Values)", out.width = "30%", fig.align = "center", echo = FALSE}
+```{r xkcd null hypothesis, fig.alt = "A cartoon that says 'I can't believe schools are still teaching kids about the null hypothesis - I remember reading a big study that conclusively disprovied it years ago", fig.cap= "Figure from [XKCD](https://www.explainxkcd.com/wiki/index.php/1478:_P-Values)", out.width = "30%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("https://www.explainxkcd.com/wiki/images/0/04/null_hypothesis.png")
 ```
 
@@ -31,7 +31,7 @@ Before we get started, let's load our libraries.
 
 We are going to use [data](https://allisonhorst.github.io/palmerpenguins/) that was collection about body characteristics of penguins on Palmer Station in Antarctica. This data is in a dataframe called `penguins` in the package `palmerpenguins` which you can download from CRAN.
 
-```{r palmer penguins hex, out.width = "20%", fig.align = "center", echo = FALSE}
+```{r palmer penguins hex, fig.cap = "From [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/)", fig.alt = "a hexagon sticker in blue with a picture of a 3 cute cartoon penguins that says 'palmer penguins'", out.width = "20%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("img/palmerpenguins_hex.png")
 ```
 
@@ -84,8 +84,8 @@ It looks like there is a difference here. Before adding the statistics to our pl
 
 Briefly, in order to use parametric procedures (like a t-test), we need to be sure our data meets the assumptions for 1) normality and 2) constant variance. 
 
-```{r normal distribution, fig.alt = "An orange normal distribution and a blue bimodal distribution, where the orange distribution tells the blue one it is not normal", fig.cap = "Illustration by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
-knitr::include_graphics("https://github.com/allisonhorst/stats-illustrations/blob/main/other-stats-artwork/not_normal.png")
+```{r normal distribution, echo=FALSE, fig.align="center", fig.alt="An orange normal distribution and a blue bimodal distribution where the orange distribution tells the blue one it is not normal", fig.cap="Illustration by [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width="70%",}
+knitr::include_graphics("img/not_normal.png")
 ```
 
 #### Nornality
