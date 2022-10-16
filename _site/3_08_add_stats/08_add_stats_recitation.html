@@ -1378,19 +1378,6 @@ window.initializeCodeFolding = function(show) {
 
 }
 </script>
-<script>
-window.initializeSourceEmbed = function(filename) {
-  $("#rmd-download-source").click(function() {
-    var src = $("#rmd-source-code").html();
-    var a = document.createElement('a');
-    a.href = "data:text/x-r-markdown;base64," + src;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  });
-};
-</script>
 <style type="text/css">.hljs-literal {
 color: #990073;
 }
@@ -1434,11 +1421,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-#rmd-source-code {
-  display: none;
-}
-</style>
 
 
 
@@ -1622,8 +1604,6 @@ div.tocify {
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-<li role="separator" class="divider"></li>
-<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
 
@@ -1662,7 +1642,6 @@ library(rcompanion)</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQWRkaW5nIFN0YXRpc3RpY3MgUmVjaXRhdGlvbiIKYXV0aG9yOiAiWW91IgpkYXRlOiAiMTAvMTgvMjAyMiIKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICB0b2M6IHRydWUKICAgIHRvY19kZXB0aDogNAogICAgdG9jX2Zsb2F0OiB0cnVlCiAgICB0aGVtZTogZmxhdGx5CiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlCiAgICBjb2RlX2ZvbGRpbmc6IHNob3cKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKCiMjIEludHJvZHVjdGlvbgoKVG9kYXkgeW91IHdpbGwgYmUgcHJhY3RpY2luZyB3aGF0IHdlIGxlYXJuZWQgaW4gdG9kYXkncyBjbGFzcyBvbiBbYWRkaW5nIHN0YXRpc3RpY3MgdG8geW91ciBwbG90c10oM18wOF9hZGRfc3RhdHMvMDhfYWRkX3N0YXRzLmh0bWwpLgoKIyMjIExvYWQgZGF0YQoKV2Ugd2lsbCBiZSB1c2luZyB0aGUgTkhBTkVTIGRhdGEgYWdhaW4gZnJvbSB0aGUgcGFja2FnZSBbYE5IQU5FU2BdKGh0dHBzOi8vY3Jhbi5yLXByb2plY3Qub3JnL3dlYi9wYWNrYWdlcy9OSEFORVMvTkhBTkVTLnBkZikuIAoKYGBge3IgbG9hZCBsaWJyYXJpZXMsIG1lc3NhZ2UgPSBGQUxTRSwgd2FybmluZyA9IEZBTFNFfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShOSEFORVMpCmxpYnJhcnkocnN0YXRpeCkKbGlicmFyeShnZ3B1YnIpCmxpYnJhcnkoZ2x1ZSkKbGlicmFyeShyY29tcGFuaW9uKQpgYGAKCiMjIDEuIElzIHRvdGFsIGNob2xlc3Rlcm9sIChgVG90Q2hvbGApIGRpZmZlcmVudCBieSBhZ2UgKGBBZ2VEZWNhZGVgKT8KCiMjIyMgQ2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyBpZiB5b3UgbmVlZCBhIGhpbnQuCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICdmb2xkLWhpZGUnLCBldmFsID0gRkFMU0V9CiMgSGludCAtIHlvdSB3YW50IHRvIHRlc3QgeW91ciBhc3N1bXB0aW9ucyB0byBzZWUgd2hhdCB0ZXN0cyB0byBkby4gWW91IG1pZ2h0IG5lZWQgdG8gdXNlIGRpZmZlcmVudCBwb3N0aG9jIGNvbXBhcmlzb24gbWV0aG9kcyB0aGFuIHdlIGRpZCBpbiBjbGFzcy4KCiMgQW5vdGhlciBoaW50IC0gdGhlIGZ1bmN0aW9uIHJjb21wYW5pb246OmNsZFRlc3QoKSB3aWxsIGNvbnZlcnQgdGhlIHJlc3VsdGluZyBjb21wYXJpc29uIHRhYmxlIGZyb20gYSBwb3N0aG9jIER1bm4gdGVzdCB0byBjcmVhdGUgYSBjb2x1bW4gd2l0aCB0aGUgbGV0dGVycyBpbmRpY2F0aW5nIHdoaWNoIGdyb3VwcyBhcmUgc2lnbmlmaWNhbnRseSBkaWZmZXJlbnQgZnJvbSBlYWNoIG90aGVyLgpgYGAKCg==</div>
 
 
 </div>
@@ -1700,7 +1679,6 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("08_add_stats_recitation.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

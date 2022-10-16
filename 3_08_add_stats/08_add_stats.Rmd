@@ -302,7 +302,7 @@ anova_summary <- summary(aov_female_massbyspecies)
 
 ### Posthoc group analysis
 
-NNow that we see we have a significant difference somewhere in the body mass of the 3 species of female penguins, we can do a posthoc test to see which groups are significantly different. We will do our post-hoc analysis using Tukey's Honestly Significant Difference test and the function [`HSD.test()`](https://www.rdocumentation.org/packages/agricolae/versions/1.3-5/topics/HSD.test) which is a part of the useful package `agricolae`.
+Now that we see we have a significant difference somewhere in the body mass of the 3 species of female penguins, we can do a posthoc test to see which groups are significantly different. We will do our post-hoc analysis using Tukey's Honestly Significant Difference test and the function [`HSD.test()`](https://www.rdocumentation.org/packages/agricolae/versions/1.3-5/topics/HSD.test) which is a part of the useful package `agricolae`.
 ```{r tukey hsd}
 tukey_massbyspecies <- HSD.test(aov_female_massbyspecies, 
                       trt = "species", 

@@ -8,7 +8,6 @@ output:
     toc_depth: 4
     toc_float: true
     theme: flatly
-    code_download: true
     code_folding: show
 ---
 
