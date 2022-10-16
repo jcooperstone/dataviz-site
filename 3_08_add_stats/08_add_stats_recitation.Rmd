@@ -1,0 +1,43 @@
+---
+title: "Adding Statistics Recitation"
+author: "You"
+date: "10/18/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today you will be practicing what we learned in today's class on [adding statistics to your plots](3_08_add_stats/08_add_stats.html).
+
+### Load data
+
+We will be using the NHANES data again from the package [`NHANES`](https://cran.r-project.org/web/packages/NHANES/NHANES.pdf). 
+
+```{r load libraries, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(NHANES)
+library(rstatix)
+library(ggpubr)
+library(glue)
+library(rcompanion)
+```
+
+## 1. Is total cholesterol (`TotChol`) different by age (`AgeDecade`)?
+
+#### Click the button below if you need a hint.
+```{r class.source = 'fold-hide', eval = FALSE}
+# Hint - you want to test your assumptions to see what tests to do. You might need to use different posthoc comparison methods than we did in class.
+
+# Another hint - the function rcompanion::cldTest() will convert the resulting comparison table from a posthoc Dunn test to create a column with the letters indicating which groups are significantly different from each other.
+```
+

@@ -232,6 +232,7 @@ Are there significant differences in body mass
        subtitle = "Collected from Palmer Station, Antarctica",
        caption = "Data accessed from the R package palmerpenguins"))
 ```
+
 ### Testing assumptions
 
 #### Normality
