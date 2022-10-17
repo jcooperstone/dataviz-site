@@ -34,3 +34,7 @@ Don't click on this until you try them yourself! [Recitation  solutions](3_07_co
 [Recitation activities](3_08_add_stats/08_add_stats_recitation.html)
 
 Recitation solutions
+
+## [Module 3 Assignment](assignments/module_3.html)
+
+

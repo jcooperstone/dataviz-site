@@ -1,0 +1,60 @@
+---
+title: "Module 3 Assignment"
+author: "You"
+date: "Due 10-28-2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+This is your assignment for Module 3 Data Exploration, focused on the material you learned in the lectures and recitation activities on [data distributions](3_06_distributions/06_distributions.html), [correlations](3_07_correlations/07_correlations.html), and [annotating statistics](3_08_add_stats/08_add_stats.html). 
+
+Submission info:
+
+- Please submit this assignment by uploading a **knitted .html** to Carmen
+- Your headers should be logical and your report and code annotated with descriptions of what you're doing
+- Make sure you include the Code Download button so that I can see your code as well
+- Customize the YAML and the document so you like how it looks
+
+Remember there are often many ways to reach the same end product. I have showed you many ways in class to achieve a similar end product, you only need to show me one of them. As long as your answer is reasonable, you will get full credit even if its different than what I intended.
+
+> This assignment will be due on Friday, October 28, 2022, at 11:59pm.
+
+### Data
+The [data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md) we will be using was collected by the US Department of Education and collated by [tuitiontracker.org](https://www.tuitiontracker.org/). You can learn more about the data by going through the readme [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md).
+```{r, message = FALSE, warning = FALSE}
+tuition_cost <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/tuition_cost.csv')
+
+salary_potential <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/salary_potential.csv')
+```
+
+For a little hint, here are the packages I used to complete this task. Yours might not be exactly the same.
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(scales)
+library(ggridges)
+library(ggdist)
+library(ggpubr)
+library(rstatix)
+library(corrplot)
+library(Hmisc)
+```
+
+
+## 1. Data distributions visualization (3 pts)
+
+Create a visualization that shows the distribution of tuition costs (both `in_state_tuition` and `out_of_state_tuition`) across public, private, and for-profit universities and colleges. You can use whatever type of plot you think is appropriate to show this distribution across different types of universities. Your plot should be publication ready quality.
+
+
+## 2. Adding statistics visualization (4 pts)
+
+Make a plot that shows the difference in `early_career_pay` across private and public universities/colleges. Is there any statistical difference in pay across these two categories of institutions? Is the same true for `mid_career_pay`? This can be either one or two plots, its up to you. Make sure you are doing the right statistical test appropriate for your data.
+
+
+## 3. Understanding correlations visualization (3 pts)
+
+Make a visualization that investigates and then visualizes correlation between `early_career_pay`, `mid_career_pay` and university tuition (both in state and out of state) showing correlation coefficients. Show how this is different across public and private universities. If you feel like you want to make a couple plots to display this relationship, that is fine.
+

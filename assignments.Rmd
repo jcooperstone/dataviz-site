@@ -17,7 +17,7 @@ There will be 4 module assignments.
 
 - Module 1: no assignment 
 - [Module 2](assignments/module_2.html), [Module 2 solutions](assignments/module_2_answers.html)
-- Module 3
+- [Module 3](assignments/module_3.html)
 - Module 4
 
 ### Class reflections
