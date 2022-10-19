@@ -5,7 +5,7 @@ date: "10/25/2022"
 output:
   html_document:
     toc: true
-    toc_depth: 4
+    toc_depth: 5
     toc_float: true
     theme: flatly
     code_download: true
@@ -17,7 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-```{r}
+Today we are going to start [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course.
+
+```{r, message = FALSE, warning = FALSE}
 library(tidyverse) 
 library(readxl) # reading in excel sheets
 library(factoextra)
@@ -26,80 +28,51 @@ library(FactoMineR)
 
 ### Read in data
 
-We are going to use some [untargeted metabolomics data](https://nph-onlinelibrary-wiley-com.proxy.lib.ohio-state.edu/doi/10.1111/nph.17693) on the different small molecular weight metabolites present in a diverse selection of apples for class material, that was collected by Emma Bilbrey from my team. This data is highly dimensional so PCA is helpful for us to get an overall impression of the data.
-
-The table we are going to read in is Table S10.
+Today we are going to continue to use the same real research data from my group from the lessons on [distributions](3_06_distributions/06_distributions.html) and [correlations](3_07_corrleations/07_correlations.html). We will be reading in the supplementary data from a [paper](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/tpg2.20192) written by Michael Dzakovich, and published in The Plant Genome. The data is present in a Excel worksheet, so we will use the function `read_excel()` from the tidyverse (but not core tidyverse) package `readxl`. We want to import Supplemental Table 3. You can indicate which sheet you want to import in the arguments to `read_excel()`.
 
 ```{r}
-raw_neg <- read_excel("data/nph17693-sup-0002-supinfo.xlsx", # read excel file with data
-                      sheet = "Table S10 LCMS Neg Data", # sheet within the excel file with data
-                      col_names = TRUE, # we want to keep the first row as column names
-                      trim_ws = TRUE) # we want to trim any white space
-
-# what are the dimensions of the data
-dim(raw_neg)
-```
-
-```{r}
-neg_imputed <- raw_neg # getting our data frame ready for the apply function
-neg_imputed[] <- lapply(neg_imputed,
-                                 function(x) ifelse(is.na(x), min(x, na.rm = TRUE)/2, x))
-# apply this fn to each column: If there is an NA in a column, replace it with the minimum of that column (dont use an NA as the minimum) and divide it by 2. If NA==FALSE, let it stay the same
-dim(neg_imputed)
-```
-
-
-```{r}
-neg_long <- neg_imputed %>%
-  pivot_longer(cols = 4:ncol(.),
-               names_to = "feature",
-               values_to = "abundance")
-```
-
-
-```{r}
-neg_long_log2 <- neg_long %>%
-  mutate(log2_abundance = if_else(abundance > 0, log2(abundance), abundance)) %>%
-  select(-abundance)
-```
-
-```{r}
-neg_wide_log2 <- neg_long_log2 %>%
-  pivot_wider(names_from = feature,
-              values_from = log2_abundance)
+alkaloid_blups <- read_excel("data/tpg220192-sup-0002-supmat.xlsx",
+                             sheet = "S3 BLUP Diversity Panel")
 ```
 
 
 
 ```{r}
-neg_pca <- prcomp(raw_neg[,-c(1:3)],
-                  scale = TRUE,
-                  center = TRUE)
+alkaloid_total_names <- c("Dehydrotomatidine",
+                          "Tomatidine",
+                          "TotalDehydrotomatine",
+                          "Tomatine",
+                          "TotalHydroxytomatine",
+                          "TotalAcetoxytomatine",
+                          "DehydrolycoperosideFGdehydroesculeosideA",
+                          "TotalLycoperosideFGEsculeosideA",
+                          "TotalEsculeosideB",
+                          "Total")
+
+alkaloid_blups_trim <- alkaloid_blups %>%
+  select(Genotype, Species, Class, all_of(alkaloid_total_names))
 ```
 
 ```{r}
-fviz_eig(neg_pca)
+alkaloids_pca <- prcomp(alkaloid_blups_trim[,-c(1:3)],
+                        scale = TRUE, center = TRUE)
+
+fviz_pca_ind(alkaloids_pca)
+
+scores <- as.data.frame(alkaloids_pca$x,
+                        scale = TRUE)
+
+scores %>%
+  ggplot(aes(x = PC1, y = PC2)) +
+  geom_point()
+
+Alkaloids_PCA <- PCA(alkaloid_blups_trim, 
+                     quali.sup = 1:3, 
+                     graph = FALSE,
+                     scale.unit = TRUE)
+
+fviz_pca(Alkaloids_PCA)
 ```
 
-```{r}
-fviz_pca_ind(neg_pca)
-```
 
-```{r}
-pcaPosQCX <- as.data.frame(neg_pca$x)
-
-PosQCLabel <- factor(neg_wide_log2$Label,
-                   levels = c("Diverse", "Pedigree", "Progeny", "QC"))
-```
-
-```{r}
-ggplot(data=pcaPosQCX,
-       aes(x=PC1,
-           y=PC2,
-           color=PosQCLabel,
-           shape=PosQCLabel,
-           fill=PosQCLabel)) +
-  geom_point(size=2) +
-  theme_bw() 
-```
 

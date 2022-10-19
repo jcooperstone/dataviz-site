@@ -88,7 +88,7 @@ Briefly, in order to use parametric procedures (like a t-test), we need to be su
 knitr::include_graphics("img/not_normal.png")
 ```
 
-#### Nornality
+#### Normality
 
 We will test normality by the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test) using the function `rstatix::shapiro_test()`. This function is a pipe-friendly wrapper for the function [`shapiro.test()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/shapiro.test), which just means you can use it with pipes.
 ```{r nornality sex}
@@ -386,9 +386,8 @@ penguins_f_massbyspecies +
 
 ## In class
 
-In class, we will practice adding statistical analysis to our plots.
+In class, we will practice adding statistical analysis to our plots. 
 
-You can find the in class content [here](3_08_add_stats/08_add_stats_recitation.html).
 
 ### Useful resources:
 

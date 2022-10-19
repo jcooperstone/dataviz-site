@@ -1,0 +1,78 @@
+---
+title: "Principal Components Analysis"
+author: "Jessica Cooperstone"
+date: "10/25/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today we are going to start [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course.
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse) 
+library(readxl) # reading in excel sheets
+library(factoextra)
+library(FactoMineR)
+```
+
+### Read in data
+
+Today we are going to continue to use the same real research data from my group from the lessons on [distributions](3_06_distributions/06_distributions.html) and [correlations](3_07_corrleations/07_correlations.html). We will be reading in the supplementary data from a [paper](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/tpg2.20192) written by Michael Dzakovich, and published in The Plant Genome. The data is present in a Excel worksheet, so we will use the function `read_excel()` from the tidyverse (but not core tidyverse) package `readxl`. We want to import Supplemental Table 3. You can indicate which sheet you want to import in the arguments to `read_excel()`.
+
+```{r}
+alkaloid_blups <- read_excel("data/tpg220192-sup-0002-supmat.xlsx",
+                             sheet = "S3 BLUP Diversity Panel")
+```
+
+
+
+```{r}
+alkaloid_total_names <- c("Dehydrotomatidine",
+                          "Tomatidine",
+                          "TotalDehydrotomatine",
+                          "Tomatine",
+                          "TotalHydroxytomatine",
+                          "TotalAcetoxytomatine",
+                          "DehydrolycoperosideFGdehydroesculeosideA",
+                          "TotalLycoperosideFGEsculeosideA",
+                          "TotalEsculeosideB",
+                          "Total")
+
+alkaloid_blups_trim <- alkaloid_blups %>%
+  select(Genotype, Species, Class, all_of(alkaloid_total_names))
+```
+
+```{r}
+alkaloids_pca <- prcomp(alkaloid_blups_trim[,-c(1:3)],
+                        scale = TRUE, center = TRUE)
+
+fviz_pca_ind(alkaloids_pca)
+
+scores <- as.data.frame(alkaloids_pca$x,
+                        scale = TRUE)
+
+scores %>%
+  ggplot(aes(x = PC1, y = PC2)) +
+  geom_point()
+
+Alkaloids_PCA <- PCA(alkaloid_blups_trim, 
+                     quali.sup = 1:3, 
+                     graph = FALSE,
+                     scale.unit = TRUE)
+
+fviz_pca(Alkaloids_PCA)
+```
+
+
+
