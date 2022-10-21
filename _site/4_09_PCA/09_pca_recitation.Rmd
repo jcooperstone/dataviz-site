@@ -1,0 +1,58 @@
+---
+title: "Principal Components Analysis 🍕 Recitation"
+author: "You"
+date: "10/25/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today is the first recitation for [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course. Today's material is on conducting principal components analysis (PCA) using R, and visualizing the results with some tools we've already learned to use, and some new wrangling and viz tips along the way.
+
+```{r, fig.alt = "A picture of NY style gooey pizza", fig.cap = "[Source](https://www.asenzya.com/blog/2020/03/23/new-york-style-pizza/)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/pizza.png")
+```
+
+```{r libraries, message = FALSE, warning = FALSE}
+library(tidyverse) # everything
+library(readxl) # reading in excel sheets
+library(factoextra) # easy PCA plotting
+library(glue) # easy pasting
+library(ggrepel) # repelling labels away from their points
+library(patchwork) # for combining and arranging plots
+```
+
+#### Read in data
+
+We will be using data about pizza, which includes data collected about the nutritional information of 300 different grocery store pizzas, from 10 brands compiled by [f-imp](https://github.com/f-imp) and posted to [Github](https://github.com/f-imp/Principal-Component-Analysis-PCA-over-3-datasets/blob/master/datasets/Pizza.csv).
+
+```{r}
+pizza <- read_csv(file = "https://raw.githubusercontent.com/f-imp/Principal-Component-Analysis-PCA-over-3-datasets/master/datasets/Pizza.csv")
+```
+
+> How different are each of the different brands of pizzas analyzed overall? 
+
+## 1. Run a PCA
+
+
+## 2. Make a scree plot of the percent variance explained by each component
+
+
+## 3. Make a scores plot of samples, coloring each sample by its brand
+
+
+## 4. Make a loadings plot of samples
+
+
+## 5. Create either a biplot, or a visualization that shows both your scores and loadings plot together.
+
