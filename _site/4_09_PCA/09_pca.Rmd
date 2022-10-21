@@ -17,27 +17,43 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-Today we are going to start [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course.
+Today we are going to start [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course. Today's material is on conducting principal components analysis (PCA) using R, and visualizing the results with some tools we've already learned to use, and some new wrangling and viz tips along thew ay.
 
-```{r, message = FALSE, warning = FALSE}
-library(tidyverse) 
+PCA is a data reduction approach, and useful if you have many variables, for example, thousands of genes or metabolites. PCA creates summary variables (the principal components) which maximize the variation in the dataset. It can be categorized as an unsupervised approach, as PCA doesn't know which samples belong to your different groups. When you look at a scores plot, points that are closer together are more similar based on your input data, and those further apart are more different. The location of the loadings helps you understand what is driving those differences in your scores plot.
+
+If you are unfamiliar with PCA, I'd recommend these two [Youtube videos by Josh Starmer of StatQuest](https://www.youtube.com/c/joshstarmer) which [explain PCA in 5 mins](https://www.youtube.com/watch?v=HMOI_lkzW08), or [with more detail in 20 min](https://www.youtube.com/watch?v=FgakZw6K1QQ). Bam 💥! 
+
+```{r libraries, message = FALSE, warning = FALSE}
+library(tidyverse) # everything
 library(readxl) # reading in excel sheets
-library(factoextra)
-library(FactoMineR)
+library(factoextra) # easy PCA plotting
+library(glue) # easy pasting
 ```
 
-### Read in data
+#### Read in data
 
 Today we are going to continue to use the same real research data from my group from the lessons on [distributions](3_06_distributions/06_distributions.html) and [correlations](3_07_corrleations/07_correlations.html). We will be reading in the supplementary data from a [paper](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/tpg2.20192) written by Michael Dzakovich, and published in The Plant Genome. The data is present in a Excel worksheet, so we will use the function `read_excel()` from the tidyverse (but not core tidyverse) package `readxl`. We want to import Supplemental Table 3. You can indicate which sheet you want to import in the arguments to `read_excel()`.
 
-```{r}
+```{r read data}
 alkaloid_blups <- read_excel("data/tpg220192-sup-0002-supmat.xlsx",
                              sheet = "S3 BLUP Diversity Panel")
 ```
 
+Let's take a look at this new data sheet.
+```{r head blups}
+knitr::kable(head(alkaloid_blups))
+```
 
+What are the dimensions of this dataframe?
+```{r dim blups}
+dim(alkaloid_blups)
+```
 
-```{r}
+### Light wrangling
+
+Here we have the best linear unbiased predictors (BLUPs) representing the alkaloid content of 107 genotypes of tomatoes. There is extra meta-data here we won't use, so like we did in [correlations](3_07_correlations/07_correlations.html), we are going to create a vector to indicate which column name reprents the alkaloids we want to include in our principal components analysis. Then we can create a new trimmed dataframe.
+
+```{r alkaloid totals trim}
 alkaloid_total_names <- c("Dehydrotomatidine",
                           "Tomatidine",
                           "TotalDehydrotomatine",
@@ -51,28 +67,394 @@ alkaloid_total_names <- c("Dehydrotomatidine",
 
 alkaloid_blups_trim <- alkaloid_blups %>%
   select(Genotype, Species, Class, all_of(alkaloid_total_names))
+
+# did it work?
+colnames(alkaloid_blups_trim) # yes
 ```
 
-```{r}
+## Run PCA
+There are many packages that have functions that run PCA (including ) but I think the most common function used is a part of base R, and is called [`prcomp()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/prcomp). 
+
+> Note, PCA will allow zeroes, but will throw an error if you feed it NAs.
+
+```{r run PCA}
 alkaloids_pca <- prcomp(alkaloid_blups_trim[,-c(1:3)],
-                        scale = TRUE, center = TRUE)
+                        scale = TRUE, # default is false
+                        center = TRUE) # true is the default
+```
 
-fviz_pca_ind(alkaloids_pca)
+Let's investigate `alkaloids_pca`.
+```{r glimpse pca}
+glimpse(alkaloids_pca)
+```
 
-scores <- as.data.frame(alkaloids_pca$x,
-                        scale = TRUE)
-
-scores %>%
-  ggplot(aes(x = PC1, y = PC2)) +
-  geom_point()
-
-Alkaloids_PCA <- PCA(alkaloid_blups_trim, 
-                     quali.sup = 1:3, 
-                     graph = FALSE,
-                     scale.unit = TRUE)
-
-fviz_pca(Alkaloids_PCA)
+```{r print pca}
+print(alkaloids_pca)
 ```
 
 
+```{r class pca}
+class(alkaloids_pca)
+```
 
+We can see that the resulting PCA object is a prcomp object, and is a list of 5 lists and vectors.
+
+This includes:
+
+- `sdev`: the standard deviations (square roots of the eigenvalues of the covariance matrix) of the principal components
+- `rotation`: the PCs for the variables (i.e., the variable loadings)
+- `x`: the PCs for samples (i.e., the scores)
+- `center`: the centering used
+- `scale`: the scaling used
+
+
+
+
+We can also look at the output of our PCA in a different way using the function `summary()`.
+```{r summary pca}
+summary(alkaloids_pca) 
+```
+
+We can convert this summary into something later usable by extraction the element `importance` from `summary(alkaloids_pca)` and converting it to a dataframe.
+
+```{r extract importance}
+importance <- summary(alkaloids_pca)$importance %>%
+  as.data.frame()
+
+knitr::kable(head(importance))
+```
+
+By looking at the summary we can see, for example, that the first two PCs explain `r round((importance[3,2])*100, 2)`% of variance.
+
+We are going to go over making scree, scores and loadings plots using helper functions, and manually via ggplot. The helper functions  allow you look at each plot type simply. This is an important step because when you make your plots with ggplot, you want to be sure they look how they should.
+
+## Scree plot
+
+A [scree plot](https://en.wikipedia.org/wiki/Scree_plot#:~:text=In%20multivariate%20statistics%2C%20a%20scree,principal%20component%20analysis%20(PCA).) shows what percentage of total variance is explained by each principal component.
+
+### Using `fviz_eig()`
+
+We can do this quickly using [`fviz_eig()`](https://rpkgs.datanovia.com/factoextra/reference/eigenvalue.html).
+```{r fviz_eig}
+fviz_eig(alkaloids_pca)
+```
+
+You can actually do this very easily with base R plotting as well. If you weren't planning to publish this type of plot, it might not be important it look beautiful, and then both of these options would be great and quick.
+```{r plot alkaloids_pca}
+plot(alkaloids_pca)
+```
+
+
+### Manually
+If you wanted to make a scree plot manually, you could by plotting using a wrangled version of the `importance` dataframe we made earlier.
+
+```{r importance wrangling manual plot 1}
+importance_tidy <- importance %>%
+  rownames_to_column(var = "measure") %>%
+  pivot_longer(cols = PC1:PC10,
+               names_to = "PC",
+               values_to = "value")
+
+importance_tidy %>%
+  filter(measure == "Proportion of Variance") %>%
+  ggplot(aes(x = PC, y  = value)) +
+  geom_col()
+```
+
+Almost! PC10 is displaying right after PC1 because alphabetically, this is the order. Let's fix it.
+
+```{r importance relevel}
+# create a vector with the order we want
+my_order <- colnames(importance)
+
+# relevel according to my_order
+importance_tidy$PC <- fct_relevel(importance_tidy$PC, levels = my_order)
+
+# check to see if it worked
+levels(importance_tidy$PC)
+```
+
+Let's plot again.
+```{r scree plot}
+importance_tidy %>%
+  filter(measure == "Proportion of Variance") %>%
+  ggplot(aes(x = PC, y  = value)) +
+  geom_col()
+```
+Success!
+
+If we want to tighten up this plot we can.
+```{r scree plot prettier}
+importance_tidy %>%
+  filter(measure == "Proportion of Variance") %>%
+  ggplot(aes(x = PC, y  = value)) +
+  geom_col(alpha = 0.1, color = "black") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(x = "Principal component",
+       y = "Percent variance explained",
+       title = "Scree plot of 10 alkalois analyzed across 107 tomato accessions")
+  
+```
+
+This is a perfectly ready scree plot for the supplementary materials of a publication.
+
+## Scores plot
+
+When people talk about PCA plots, what they most often mean is PCA scores plots. Here, each point represents a sample, and we are plotting their coordinates typically for the first 2 PCs. Sometimes people make 3D PCA plots with the first 3 PCs but I think these are not easy to look in 2D and I wouldn't recommend you to put them in your papers.
+
+#### Using `fviz_pca_ind()`
+
+We can also look at a scores plot using [`fviz_pca_ind()`](https://rpkgs.datanovia.com/factoextra/reference/fviz_pca.html) where ind means individuals. Here, each point is a sample.
+```{r scores fviz_pca_ind}
+fviz_pca_ind(alkaloids_pca)
+```
+
+Because our `alkaloids_pca` doesn't have any meta-data, this is a hard to interpret plot, where each number indicates the rownumber of that sample. Making the scores plot this way is useful because it shows us the shape of the plot which we can use to confirm that we have made a ggplot that looks like its been created correctly.
+
+#### Manually
+
+We want to plot the scores, which are in provided in `alkaloids_pca$x`.
+
+We can convert the list into a dataframe of scores values by using `as.data.frame()`. Then we can bind back our relevant metadata so they're all together. Note, to use `bind_cols()` both datasets need to be in the same order. In this case they are so we are good.
+```{r scores wrangling}
+# create a df of alkaloids_pca$x
+scores_raw <- as.data.frame(alkaloids_pca$x)
+
+# bind meta-data
+scores <- bind_cols(alkaloid_blups[,1:3], # first 3 columns
+                    scores_raw)
+```
+
+Now we can plot.
+```{r scores plotting 1}
+scores %>%
+  ggplot(aes(x = PC1, y = PC2, color = Species)) +
+  geom_point() 
+```
+
+Our shapes are looking the same, this is good. Let's pretty up our plot.
+
+```{r scores plotting 2}
+# create objects indicating percent variance explained by PC1 and PC2
+PC1_percent <- round((importance[2,1])*100, # index 2nd row, 1st column, times 100
+                     1) # round to 1 decimal
+PC2_percent <- round((importance[2,2])*100, 1) 
+
+# plot
+(scores_plot <- scores %>%
+  ggplot(aes(x = PC1, y = PC2, fill = Species)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_point(shape = 21, color = "black") +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Scores Plot of 10 Alkaloids Present in 107 Tomato Accessions"))
+```
+
+This looks nice.
+
+## Loadings plot
+
+### Using `fviz_pca_var()`
+
+We can also look at a loadings plot using [`fviz_pca_var()`](https://rpkgs.datanovia.com/factoextra/reference/fviz_pca.html) where var means variables. Here, each point is a variable.
+```{r loadings fviz_pca_var}
+fviz_pca_var(alkaloids_pca)
+```
+
+### Manually
+
+We can also make a more customized loadings plot manually using ggplot and using the dataframe `alkaloids_pca$rotation`.
+
+```{r loadings wrangling}
+# grab raw loadings, without any metadata
+loadings_raw <- as.data.frame(alkaloids_pca$rotation)
+
+loadings <- loadings_raw %>%
+  rownames_to_column(var = "alkaloid")
+```
+
+We can then plot with ggplot like normal.
+
+```{r loadings plot 1}
+loadings %>%
+  ggplot(aes(x = PC1, y = PC2, label = alkaloid)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_point() +
+  geom_text() +
+  scale_fill_brewer() +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Loadings Plot") 
+```
+
+We have two problems with this plot.
+
+1. The names are abbreviated and not how we want them to appear
+2. The label names are on top of the points/each other
+
+We can fix both of these problems.
+
+We can create a vector of the labels as we want them to appear, as we have done previously.
+```{r relabelling}
+alkaloid_labels <- c("Dehydrotomatidine",
+                     "Tomatidine",
+                     "Dehydrotomatine",
+                     "Alpha-Tomatine",
+                     "Hydroxytomatine",
+                     "Acetoxytomatine",
+                     "Dehydrlycoperoside F, G, \nor Dehydroescueloside A",
+                     "Lycoperoside F, G, \nor Escueloside A",
+                     "Escueloside B",
+                     "Total Steroidal Alkaloids")
+```
+
+Then we can re-plot with these labels.
+```{r loadings plot 2}
+loadings %>%
+  ggplot(aes(x = PC1, y = PC2, label = alkaloid_labels)) +
+  geom_point() +
+  geom_text() +
+  scale_fill_brewer() +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Loadings Plot") 
+```
+
+Ok the label names are better but they're still smushed. The package [`ggrepel`](https://ggrepel.slowkow.com/index.html) has some good functions to help us. You can try using [`geom_text_repel()`](https://ggrepel.slowkow.com/reference/geom_text_repel.html) and [`geom_label_repel()`](https://ggrepel.slowkow.com/reference/geom_text_repel.html).
+
+```{r ggrepel cartoon, fig.alt = "A cartoon that says ggrepel, wonderfully repulsive labels, and has some fuzzy monsters and a sewing theme making a plot with buttons, and labels that are repelled away indicating what color they are. There is a ball of yarn indicating segments, and patches indicating labels.", fig.cap = "Artwork by [Allison Horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/ggrepel_cartoon.jpeg")
+```
+With `geom_text_repel()`
+```{r geom_text_repel}
+library(ggrepel)
+
+(loadings_plot <- loadings %>%
+  ggplot(aes(x = PC1, y = PC2, label = alkaloid_labels)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 0, linetype = "dashed") +  
+  geom_point() +
+  geom_text_repel() +
+  scale_fill_brewer() +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Loadings Plot using geom_text_repel()"))
+```
+
+With `geom_label_repel()`
+```{r geom_label_repel}
+loadings %>%
+  ggplot(aes(x = PC1, y = PC2, label = alkaloid_labels)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_point() +
+  geom_label_repel() +
+  scale_fill_brewer() +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Loadings Plot using geom_label_repel()") 
+```
+
+## `patchwork`
+You can pop these two plots side by side easing using the package [`patchwork`](https://patchwork.data-imaginist.com/).
+```{r patchwork cartoon, fig.alt = "Fuzzy cartoon monsters in white gloves and uniforms hanging multiple plots together on a wall, with an artist monster wearing a beret and smock directing them to the correct orientation. There is a blueprint plan on the wall showing how the plots should be arranged. Stylized title font reads “patchwork - combine & arrange your ggplots!”", fig.cap = "Artwork by [Allison Horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/patchwork.jpeg")
+```
+
+```{r pathwork 1, fig.width = 10}
+library(patchwork)
+
+scores_plot + loadings_plot
+```
+
+Adding the plots was easy, but now we see that they scaling of the plots is not exactly the same and doesn't promote easy comparison. Let's fix that.
+
+```{r patchwork re-ranging and plot}
+# setting the range of the plot
+(scores_plot_ranged <- scores_plot +
+  coord_cartesian(xlim = c(-2, 6.5), ylim = c(-5, 6.5)))
+
+# what is the ratio of the space on each side of the axis for the scores plot?
+(x_ratio <- 2/(2+6.5))
+(y_ratio <- 5/(5+6.5))
+
+# check the ending range for the loadings plot
+# 0.6 units looks good for both x and y
+# what should the low range value be so that both plots are equally scaled?
+
+# making the loadings plot match this range
+(loadings_plot_ranged <- loadings_plot +
+  coord_cartesian(xlim = c(-0.1846, 0.6), ylim = c(-0.4602, 0.6)))
+```
+Plot
+```{r patchwork reranged, fig.width = 10}
+scores_plot_ranged + loadings_plot_ranged
+```
+
+
+## Biplot
+
+### Using `fviz_pca()`.
+
+You can make a biplot quickly with [`fviz_pca()`](https://rpkgs.datanovia.com/factoextra/reference/fviz_pca.html). Note, `fviz_pca_biplot()` and `fviz_pca()` are the same.
+```{r fviz_pca}
+fviz_pca(alkaloids_pca)
+```
+
+Instead of making this plot manually, let's go through how to alter the existing plot made with `fviz_pca()`. We can do this because `factoextra` creates ggplot objects. To start off, we need to be using a dataframe that includes our metadata.
+```{r fviz_pca altered 1}
+fviz_pca(alkaloids_pca, # pca object
+         label = "var",
+         repel = TRUE,
+         geom.var = "text") +
+  geom_point(aes(fill = alkaloid_blups$Species), shape = 21) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Biplot Plot of 10 Alkaloids Present in 107 Tomato Accessions",
+       fill = "Species")
+```
+
+This is almost what we want - except we have only the abbreviated names for the alkaloids. Since in a biplot, we are really plotting two different sets of data (the scores and the loadings)there isn't the ability to use `labeller` or similar with `fviz_pca` for the loadings only. There is a workaround though, we can go into our PCA object, change the rownames of `alkaloids_pca$rotation` to be our longer labels, and that should inherit to our new plot.
+```{r fviz_pca relabelled plot 2}
+# save as a new df
+alkaloids_pca_labelled <- alkaloids_pca
+
+# assign alkaloid_labels to rownames
+rownames(alkaloids_pca_labelled$rotation) <- alkaloid_labels
+
+# plot
+fviz_pca(alkaloids_pca_labelled, # pca object
+         label = "var",
+         repel = TRUE,
+         geom.var = c("text", "point"),
+         col.var = "black") +
+  geom_point(aes(fill = alkaloid_blups$Species), shape = 21) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(x = glue("PC1: {PC1_percent}%"), 
+       y = glue("PC2: {PC2_percent}%"), 
+       title = "PCA Biplot Plot of 10 Alkaloids Present in 107 Tomato Accessions",
+       fill = "Species")
+```
+
+Voila.
+
+## In class
+
+In class, we will practice adding running PCA and making scree, scores, and loadings plots. 
+
+### Useful resources
+
+- [Code club about PCA by Jelmer Poelstra](https://biodash.github.io/codeclub/s03e03_pca/)
+- [factoextra](https://www.rdocumentation.org/packages/factoextra/versions/1.0.7)
