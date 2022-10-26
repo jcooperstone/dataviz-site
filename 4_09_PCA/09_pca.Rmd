@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-Today we are going to start [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course. Today's material is on conducting principal components analysis (PCA) using R, and visualizing the results with some tools we've already learned to use, and some new wrangling and viz tips along thew ay.
+Today we are going to start [Module 4](_site/module4.html) where we put together a lot of the material we've learned in the first 3 modules of this course. Today's material is on conducting principal components analysis (PCA) using R, and visualizing the results with some tools we've already learned to use, and some new wrangling and viz tips along the way.
 
 PCA is a data reduction approach, and useful if you have many variables, for example, thousands of genes or metabolites. PCA creates summary variables (the principal components) which maximize the variation in the dataset. It can be categorized as an unsupervised approach, as PCA doesn't know which samples belong to your different groups. When you look at a scores plot, points that are closer together are more similar based on your input data, and those further apart are more different. The location of the loadings helps you understand what is driving those differences in your scores plot.
 

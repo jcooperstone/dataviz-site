@@ -1,0 +1,246 @@
+---
+title: "Manhattan Plots"
+author: "Jessica Cooperstone"
+date: "11/01/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today we are going to continue putting it together in [Module 4](_site/module4.html). Today's material is on making [Manhattan plots](https://en.wikipedia.org/wiki/Manhattan_plot), which is a commonly used plot type for visualizing the result of genome wide association studies (GWAS). The name comes from its resemblance to the skyscrapers in Manhattan, poking above the background of the rest of the buildings.
+
+```{r manhattan plot wiki, fig.alt = "A Manhattan plot from Wikipedia, on the x-axis is chromosome position, and on the y is negative log10 pvalue. Points represents associations between allelic variation at each marker, with a trait of interest. Here there are 22 chromosomes and regions of interest on chr 6, 8, 12 and 19", fig.cap= "Figure from [Wikipedia](https://en.wikipedia.org/wiki/Manhattan_plot#:~:text=A%20Manhattan%20plot%20is%20a,GWAS)%20to%20display%20significant%20SNPs.)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/1/12/Manhattan_Plot.png")
+```
+
+The plot visualizes the relationship between a trait and genetic markers. The x-axis shows the position on each chromosome, and the y-axis shows the negative log (usually log10) p-value of the quantitative response of a trait to that specific marker. Negative log10 p-value is used because a significant p-value is always small, and this transformation converts low p-value to a number that can be seen easily among the background of non-significant associations.
+
+If you work in genetics/genomics, it is likely you will create Manhattan plots. Even if you think you'll never make one of these types of plots, its a useful activity to see additional ways of customizing your plots.
+
+```{r libraries, message = FALSE, warning = FALSE}
+library(tidyverse) # everything
+library(glue) # easy pasting
+```
+
+#### Read in data
+
+Today we are going to continue to use some different real research data collected by Emma Bilbrey from my team where we conducted many GWAS in apple. This work was published in 2021 in New Phytologist and can be found [here](https://nph.onlinelibrary.wiley.com/doi/abs/10.1111/nph.17693). This data is more complex than a typical GWAS so we are only going to use a small portion of it. 
+
+We will be reading in [Table S16](https://nph-onlinelibrary-wiley-com.proxy.lib.ohio-state.edu/action/downloadSupplement?doi=10.1111%2Fnph.17693&file=nph17693-sup-0007-TableS16.csv) which includes the -log10 p-values for the GWAS conducted across all apples for all features found in the LC-MS negative ionization mode metabolomics dataset. 
+
+The data is present in a .csv file, so we will use the function `read_csv()` from the tidyverse. We want to import Supplemental Table 16. You can indicate which sheet you want to import in the arguments to `read_excel()`.
+
+This will take a second, its a big file.
+```{r read data}
+gwas <- read_csv("data/nph17693-sup-0007-tables16.csv") # be patient
+```
+
+What are the dimensions of this dataframe? What kind of object is it?
+```{r dim blups}
+dim(gwas)
+
+class(gwas)
+```
+
+Because this dataframe is so big, if we use `head(gwas)` we will get a print out of the first 6 rows, and all the columns. In thi case there are 4704 columns so that will be unwieldy.
+
+Emma came up with a simple way to approach this when she was writing her code, she wrote herself a little function that she could use regularly to extract out the first 5 rows, and the first 5 columns, without having to index each time.
+
+If we wanted to just see the first 5 rows, the first 5 columsn we could do this:
+```{r}
+gwas[1:5,1:5]
+```
+
+
+```{r}
+head_short <- function(x){
+  x[1:5,1:5] # this function shows the first 5 rows and columns of an object
+  } 
+```
+
+Now instead of indexing all the time, we can just run `head_short()` which I think is easier. We will talk a little bit more about writing functions in the class on making many plots at once.
+```{r}
+head_short(gwas)
+```
+
+### Data investigating
+
+How many markers are included here?
+```{r}
+nrow(gwas)
+```
+
+How many linkage groups do we have? (Each linkage group is a chromosome.)
+```{r}
+unique(gwas$Linkage_Group)
+```
+
+What is the range of `Genetic_Distance` foreach chromosome?
+```{r}
+gwas %>%
+  group_by(Linkage_Group) %>%
+  summarize(min_genetic_distance = min(Genetic_Distance),
+            max_genetic_distance = max(Genetic_Distance))
+```
+
+How are the `Index` distributed across `Linkage_Group`?
+```{r}
+gwas %>%
+  group_by(Linkage_Group) %>%
+  summarize(min_index = min(Index),
+            max_index = max(Index))
+```
+
+Ok here we can see `Index` does not repeat, but `Genetic_Distance` restarts with each chromosome.
+
+## Manhattan Plots
+At its core, a Manhattan plot is a scatter plot. The data we are working with has `r (ncol(gwas)-3)` traits, which here are relative metabolite abundance. We are going to pick one metabolite to start working with.
+
+We will start with the feature that represents chlorogenic acid, a caffeoyl-quinic acid you find in apples. The column we want is `X353.09194_2.23795`. The data is already present as the -log10 p-value for the relationship between allelic variation at that marker, and relative abundance of chlorogenic acid.
+
+```{r manhattan plot}
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point()
+```
+
+See how color is plotted on a continuous scale? This is because `Linkage_Group` is a continuous, numeric variable. Since each chromosome is actually discrete, let's convert `Linkage_Group` to a factor and then plot again.
+
+### `Linkage_Group` as a factor
+```{r linkage group as factor}
+gwas$Linkage_Group <- as.factor(gwas$Linkage_Group)
+
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point()
+```
+
+Better but this really isn't what we want. We want our x-axis to indicate the chromosome number in the middle of the block of that chromosome, not label by `Index` which just is a key for linking back to each specific marker.
+
+### Set axis
+If we want to label the x-axis with breaks for each chromosome, we have to do some wrangling first. Just like we did some calculations in the lesson on [adding statistics](https://datavisualizing.netlify.app/3_08_add_stats/08_add_stats.html#Manually_with_geom_text()_or_annotate()21), we will calculate some min, center, and max for each chromosome so we know where to put the labels.
+
+```{r set axis}
+(set_axis <- gwas %>%
+  group_by(Linkage_Group) %>%
+  summarize(min = min(Index),
+            max = max(Index),
+            center = (max - min)/2))
+```
+
+```{r}
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point() +
+  scale_x_continuous(breaks = (set_axis$center + set_axis$min), 
+                     labels = set_axis$Linkage_Group) +
+  theme_classic() +
+  theme(legend.position = "none") + # legend not really necessary
+  labs(x = "Chromosome",
+       y = expression("-log"[10]* "P-Value",
+       title = "GWAS of chlorogenic acid in apple")
+```
+
+### Alternate colors
+
+Having a rainbow of colors is not really necessary here,a nd in fact telling exactly where chromosome 15 ends and 16 begins is difficult because the colors are so similar.
+
+What you will see in a lot of papers is people simply alternate the colors of their points by chromosome so you can easily tell which points belong to which chromosome.
+
+```{r alternate colors}
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point() +
+  scale_x_continuous(breaks = (set_axis$center + set_axis$min), 
+                     labels = set_axis$Linkage_Group) +
+  scale_color_manual(values = rep(c("black", "darkgray"), 17)) +
+  theme_classic() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + 
+  labs(x = "Chromosome",
+       y = expression("-log"[10]* "P-Value"),
+       title = "Manhattan Plot after GWAS for Chlorogenic Acid in Apple")
+```
+
+### Removing that annoyingfront gap
+The gap between chromosome 1 and the y-axis of the plot sort of bothers me. Let's remove it.
+
+```{r remove front gap}
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point() +
+  scale_x_continuous(expand = c(0,0),
+                     breaks = (set_axis$center + set_axis$min), 
+                     labels = set_axis$Linkage_Group) +
+  scale_color_manual(values = rep(c("black", "darkgray"), 17)) +
+  theme_classic() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + 
+  labs(x = "Chromosome",
+       y = expression("-log"[10]* "P-Value"),
+       title = "Manhattan Plot after GWAS for Chlorogenic Acid in Apple")
+```
+
+
+### Add p-value hline
+```{r add line for sig pvalue}
+# what would the pvalue cut off with a bonferroni correction be?
+bonferroni_pval <- -log10(0.05/nrow(gwas))
+
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point() +
+  geom_hline(yintercept = bonferroni_pval, color = "grey", linetype= "dashed") +
+  scale_x_continuous(expand = c(0,0),
+                     breaks = (set_axis$center + set_axis$min), 
+                     labels = set_axis$Linkage_Group) +
+  scale_color_manual(values = rep(c("black", "darkgray"), 17)) +
+  theme_classic() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + 
+  labs(x = "Chromosome",
+       y = expression("-log"[10]* "P-Value"),
+       title = "Manhattan Plot after GWAS for Chlorogenic Acid in Apple")
+```
+
+### Color sig points
+
+```{r}
+# select all SNPs with -log10 pvalue > bonferroni cutoff for chlorogenic acid
+chlorogenic_acid_sig <- gwas %>%
+  filter(X353.09194_2.23795 > bonferroni_pval)
+
+gwas %>%
+  ggplot(aes(x = Index, y = X353.09194_2.23795, color = Linkage_Group)) +
+  geom_point() +
+  geom_point(data = chlorogenic_acid_sig, 
+             aes(x = Index, y = X353.09194_2.23795), color = "red") +
+  geom_hline(yintercept = bonferroni_pval, color = "grey", linetype= "dashed") +
+  scale_x_continuous(expand = c(0,0),
+                     breaks = (set_axis$center + set_axis$min), 
+                     labels = set_axis$Linkage_Group) +
+  scale_color_manual(values = rep(c("black", "darkgray"), 17)) +
+  theme_classic() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + 
+  labs(x = "Chromosome",
+       y = expression("-log"[10]* "P-Value"),
+       title = "Manhattan Plot after GWAS for Chlorogenic Acid in Apple")
+```
+
+## In class
+
+In class, we will practice making Manhattan plots. 
+
+### Useful resources
+
