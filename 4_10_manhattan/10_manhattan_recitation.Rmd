@@ -1,0 +1,39 @@
+---
+title: "Manhattan Plots Recitation Solutions"
+author: "You"
+date: "11/01/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+We are going to practice making Manhattan plots today.
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse) # for everything
+library(ggrepel) # for repelling labels
+library(qqman) # for gwas data
+
+gwasResults <- qqman::gwasResults
+```
+
+## Investigate your data.
+
+### What are your columns?
+
+### How many markers are there?
+
+### How are the markers distributed across the chromosomes?
+
+## Make a Manhattan plot.
+Color by chromosome, make sure the x-axis breaks are appropriate, be sure your y-axis is -log10 pvalue. Label the top 3 most significant points with their SNP number.
+

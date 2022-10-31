@@ -19,19 +19,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Don't click on this until you try them yourself! [Recitation solutions](4_09_PCA/09_PCA_recitation_solutions.html)
 
-### Manhattan plots
+### Manhattan plots and making lots of plots at once
+
+[Course materials](4_10_manhattan/10_manhattan.html)
+
+[Recitation activities](4_10_manhattan/10_manhattan_recitation.html)
+
+### Interactive plots by Daniel
 
 Course materials
 
 Recitation activities
 
-### Interactive plots
-
-Course materials
-
-Recitation activities
-
-### Making lots of plots at once
+### ggplot extension packages and `ComplexHeatmap`
 
 Course materials
 
