@@ -25,6 +25,8 @@ Don't click on this until you try them yourself! [Recitation solutions](4_09_PCA
 
 [Recitation activities](4_10_manhattan/10_manhattan_recitation.html)
 
+Don't click on this until you try them yourself! [Recitation solutions](4_10_manhattan/10_manhattan_recitation_solutions.html)
+
 ### Interactive plots by Daniel
 
 Course materials
@@ -36,6 +38,8 @@ Recitation activities
 Course materials
 
 Recitation activities
+
+### Module 4 Assignment
 
 ### Capstone assignment open session 1
 

@@ -41,10 +41,10 @@ By the end of this course, students should successfully be able to:
 library(readxl)
 library(knitr)
 schedule <- read_excel("files/schedule_modules.xlsx",
-                       sheet = "Schedule")
+                       sheet = "Schedule_date")
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.width = 6}
 kable(schedule)
 ```
 

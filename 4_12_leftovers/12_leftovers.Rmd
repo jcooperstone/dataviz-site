@@ -1,0 +1,196 @@
+---
+title: "Leftover tidbits"
+author: "Jessica Cooperstone"
+date: "11/15/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today we are going to go over a bunch of stuff I thought was interesting but didn't fit specifically into any of the other lessons. This includes some cool ggplot extension packages we haven't gone over yet, and the package [`ComplexHeatmap`](https://jokergoo.github.io/ComplexHeatmap-reference/book/).
+
+```{r was sad now i'm happy, fig.alt = "A digital cartoon with two illustrations: the top shows the R-logo with a scary face, and a small scared little fuzzy monster holding up a white flag in surrender while under a dark storm cloud. The text above says “at first I was like…” The lower cartoon is a friendly, smiling R-logo jumping up to give a happy fuzzy monster a high-five under a smiling sun and next to colorful flowers. The text above the bottom illustration reads “but now it’s like…”", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/sad-now-happy.png")
+```
+
+### Load libraries
+```{r}
+library(tidyverse) # for everything
+```
+
+
+## Really start using an Rproject
+
+
+## gghighlight
+Preventing plot spaghetti.
+
+https://www.rdocumentation.org/packages/gapminder/versions/0.3.0
+
+```{r}
+library(gghighlight) # for highlighting
+library(gapminder) # where data is
+```
+
+```{r}
+gapminder_americas <- gapminder %>%
+  filter(continent == "Americas")
+
+gapminder_americas %>%
+  ggplot(aes(x = year, y = lifeExp, group = country, color = country)) +
+  geom_line() +
+  gghighlight(country == "United States") +
+  theme_minimal() +
+  labs(x = "Year",
+       y = "Life Expectancy (years)",
+       title = "Life Expectancy in Countries in the Americas",
+       subtitle = "From 1952 to 2007",
+       caption = "Data from gapminder.org")
+
+gapminder_americas %>%
+  ggplot(aes(x = year, y = lifeExp)) +
+  geom_line(aes(color = country)) +
+  gghighlight() +
+  theme_minimal() +
+  theme(legend.position = "none",
+        strip.text.x = element_text(size = 14)) +
+  facet_wrap(~country) +
+  labs(x = "Year",
+       y = "Life Expectancy (years)",
+       title = "Life Expectancy in Countries in the Americas",
+       subtitle = "From 1952 to 2007",
+       caption = "Data from gapminder.org")
+```
+
+
+
+## gganimate
+
+https://gganimate.com/reference/transition_states.html
+
+```{r}
+library(gganimate)
+library(ggrepel) # for text/label repelling
+library(magick) # for gif rendering
+
+plot_to_animate <- gapminder_americas %>%
+  ggplot(aes(x = lifeExp, y = pop, fill = country, label = country)) +
+  geom_point(shape = 21, color = "black") +
+  geom_text_repel() +
+  scale_y_log10() +
+  theme_classic() +
+  theme(legend.position = 'none') +
+  labs(title = "Population and Life Expectancy in the Americas",
+       subtitle = 'Year: {closest_state}', 
+       x = "Life Expectancy", 
+       y = "Log10 Population") +
+  transition_states(year) # what to gif over
+
+# set parameters for your animation
+animated_plot <- animate(plot = plot_to_animate, 
+                        duration = 10, 
+                        fps = 10, 
+                        width = 700, 
+                        height = 700,
+                        renderer = magick_renderer())
+```
+
+Print your animation.
+```{r, eval = FALSE}
+animated_plot
+```
+
+
+Save your animation.
+```{r}
+# save it
+anim_save(filename = "gapminder_gif.gif",
+          animation = last_animation())
+```
+
+
+## ggradar
+Coffee
+
+```{r}
+# devtools::install_github("ricardo-bion/ggradar", 
+#                          dependencies = TRUE)
+library(ggradar)
+library(scales)
+tuesdata <- tidytuesdayR::tt_load('2020-07-07')
+
+coffee <- tuesdata$coffee_ratings
+
+coffee_radar <- coffee %>%
+  select(species, aroma:cupper_points) %>% # first column is the groups
+  mutate_at(vars(-species), rescale) %>% # columns need to be between 0 and 1
+  group_by(species) %>%
+  summarize_if(is.numeric, mean) 
+
+ggradar(coffee_radar)
+
+mtcars %>%
+     add_rownames( var = "group" ) %>%
+     mutate_each(funs(rescale), -group) %>%
+     tail(4) %>% select(1:10) -> mtcars_radar
+
+ggradar(mtcars_radar) 
+```
+
+```{r}
+set.seed(4)
+df <- data.frame(matrix(runif(30), ncol = 10))
+df[, 1] <- paste0("G", 1:3)
+colnames(df) <- c("Group", paste("Var", 1:9))
+
+ggradar(df)
+```
+
+
+```{r}
+glimpse(coffee)
+```
+
+
+https://github.com/ricardo-bion/ggradar
+
+## gridExtra
+
+## ConplexHeatmap
+
+The package [`ComplexHeatmap`](https://jokergoo.github.io/ComplexHeatmap-reference/book/index.html) allows the visualization of associations across datasets to discover new patterns.
+```{r}
+# install.packages("ggsignif")
+library(ggsignif)
+library(palmerpenguins)
+
+penguins %>%
+  drop_na(species, body_mass_g) %>%
+  ggplot(aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() +
+  geom_signif(comparisons = list(c("Adelie", "Chinstrap"), 
+                       c("Adelie", "Gentoo"),
+                       c("Chinstrap", "Gentoo")),
+              map_signif_level = TRUE, textsize = 6) +
+  coord_cartesian(ylim = c(NA, 7000))
+```
+
+
+
+## In class
+
+In class, we will practice making Manhattan plots.
+
+### Useful resources
+
+-   [the `apply()` family of functions](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/lapply)

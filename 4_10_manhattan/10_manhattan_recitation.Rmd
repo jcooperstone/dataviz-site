@@ -1,5 +1,5 @@
 ---
-title: "Manhattan Plots Recitation Solutions"
+title: "Manhattan Plots Recitation"
 author: "You"
 date: "11/01/2022"
 output:

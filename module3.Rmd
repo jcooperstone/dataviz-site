@@ -36,5 +36,5 @@ Don't click on this until you try them yourself! [Recitation  solutions](3_07_co
 Don't click on this until you try them yourself! [Recitation  solutions](3_08_add_stats/08_add_stats_recitation_solutions.html)
 
 ## [Module 3 Assignment](assignments/module_3.html)
-
+[Module 3 solutions](assignments/module_3_answers.html)
 

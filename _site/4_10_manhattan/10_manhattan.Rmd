@@ -47,7 +47,7 @@ This will take a second, its a big file.
 gwas <- read_csv("data/nph17693-sup-0007-tables16.csv") # be patient
 ```
 
-```{r read data actually, echo = FALSE, cache = TRUE}
+```{r read data actually, echo = FALSE}
 gwas <- read_csv("~/OneDrive - The Ohio State University/BuckeyeBox Data/JLC_Files/OSU/teaching/data-viz/extra_stuff/nph17693-sup-0007-tables16.csv") # be patient
 ```
 
