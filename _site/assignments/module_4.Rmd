@@ -1,0 +1,65 @@
+---
+title: "Module 4 Assignment"
+author: "You"
+date: "Due 11-30-2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+This is your assignment for Module 4 Putting It All Together, focused on the material you learned in the lectures and recitation activities on [PCA](4_09_PCA/09_pca.html), [Manhattan plots](4_10_manhattan/10_manhattan.html), [interactive plots](4_11_interactive_plots/4_11_interactive_plots.html), and the [leftovers](4_12_leftovers/4_12_leftovers.html)
+
+Submission info:
+
+- Please submit this assignment by uploading a **knitted .html** to Carmen
+- Your headers should be logical and your report and code annotated with descriptions of what you're doing. Starting on this assignment, I will be considering for overall format and readability of your assignment as part of your grade. I am doing this because the format of your report will be considered for your final capstone assignment. This means you should have reasonable headers and header levels, understandable flow between plots and code, and use Markdown language when appropriate.
+- Make sure you include the Code Download button so that I can see your code as well
+- Customize the YAML and the document so you like how it looks
+
+Remember there are often many ways to reach the same end product. I have showed you many ways in class to achieve a similar end product, you only need to show me one of them. As long as your answer is reasonable, you will get full credit even if its different than what I intended.
+
+> This assignment will be due on Wednesday, November 30, 2022, at 11:59pm.
+
+### Data
+The [data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/2022-02-01/readme.md) we will be using is the same we used in the [ggplot102 recitation](2_05_themes_labels_facets/05_ggplot102_recitation.html) that includes information about dog breed trait information from the American Kennel Club.
+
+Download the data using the code below. Don't use the code from week 5 recitation.
+```{r, message = FALSE, warning = FALSE}
+breed_traits <- readr::read_csv('data/breed_traits_fixed.csv')
+
+trait_description <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv')
+
+breed_rank_all <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv')
+```
+
+For a little hint, here are the packages I used to complete this task. Yours might not be exactly the same.
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(factoextra)
+library(glue)
+library(patchwork)
+library(ggrepel)
+library(plotly)
+library(gghighlight)
+```
+
+
+## 1. Principal components analysis (PCA) of American Kennel Club dog bred trait data (6 pts)
+
+Run a PCA on `breed_traits` for all of the numeric data present in that dataset. Create the following plots and make them of publication quality:
+
+1. A scree plot
+2. A scores plot
+3. A loadings plot
+4. A two panel plot that has the scores plot and the scree plot together
+
+## 2. Make your PCA plot interactive (2 pts)
+
+Make your PCA scores plot interactive, and so that when you hover each point, you can see what the name of that dog breed is (and only the breed of that dog).
+
+## 3. See how your PCA related to breed popularity (2 pts)
+
+Using `breed_traits` and `breed_rank_all`, label the points that show data for the top 10 dog breeds in 2020 and color them different from the rest of the points. Your plot does not need to be interactive.

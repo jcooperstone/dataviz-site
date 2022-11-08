@@ -1,0 +1,56 @@
+---
+title: "Interactive plot with Plotly"
+author: "Daniel Quiroz"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    number_sections: true
+    toc_float: true
+    theme: flatly
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Intoduction
+
+Today we are going to work with microbiome data. In this recitation we
+are going to provide two microbiome data from pig gut microbiome and
+environmental microbiome. The pig microbiome data is the result of
+shotgun metagenomic sequencing.
+
+-   Pig microbiome study: [paper](https://journals.asm.org/doi/10.1128/spectrum.02506-22),
+    [data](https://buckeyemailosu-my.sharepoint.com/:x:/g/personal/cooperstone_1_osu_edu/EY4vRHdMuKpOiuy-itag7ocB63AB3ukhjc0Y5jGRovfkvg?e=RnMz8e).
+
+# Pig gut microbiome data
+
+The goal of this recitation is to replicate the following plot, which
+expresses the relationship between the Bacteroidetes and Firmicutes
+while the rest of the Phyla levels were assigned to *others*.
+
+```{r echo = FALSE, fig.alt='Bacteroidetes and Firmicutes abundance in pigs'}
+knitr::include_graphics("img/updated_stacked_barplot.jpeg")
+```
+
+## How many rows and columns do the data have?
+
+## How many phyla do the data contains and how many columns represents metadata of the experiment?
+
+### Create a new column with a new phyla assignation
+
+Keep the phyla level when they are Firmicutes or Bacteroidetes,
+otherwise assign Phyla to "Other level".
+
+> Hint: You may need to pivot the data to evaluate the column names as
+> observations
+
+### Compute the cumulative abundance by the new Phyla levels that you created
+
+### Create the bar plot in ggplot
+
+### Create the plot interactive
+
+```{r eval=FALSE, include=FALSE}
+ggplotly(your_awesome_plot)
+```

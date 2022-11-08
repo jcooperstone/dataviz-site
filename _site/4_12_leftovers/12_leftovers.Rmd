@@ -17,35 +17,71 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-Today we are going to go over a bunch of stuff I thought was interesting but didn't fit specifically into any of the other lessons. This includes some cool ggplot extension packages we haven't gone over yet, and the package [`ComplexHeatmap`](https://jokergoo.github.io/ComplexHeatmap-reference/book/).
+Today we are going to go over a bunch of stuff I thought was interesting but didn't fit specifically into any of the other lessons. This includes some cool ggplot extension packages we haven't gone over yet, and heatmaps that utilize base R plotting.
 
-```{r was sad now i'm happy, fig.alt = "A digital cartoon with two illustrations: the top shows the R-logo with a scary face, and a small scared little fuzzy monster holding up a white flag in surrender while under a dark storm cloud. The text above says “at first I was like…” The lower cartoon is a friendly, smiling R-logo jumping up to give a happy fuzzy monster a high-five under a smiling sun and next to colorful flowers. The text above the bottom illustration reads “but now it’s like…”", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+```{r was sad now happy, fig.alt = "A digital cartoon with two illustrations: the top shows the R-logo with a scary face, and a small scared little fuzzy monster holding up a white flag in surrender while under a dark storm cloud. The text above says “at first I was like…” The lower cartoon is a friendly, smiling R-logo jumping up to give a happy fuzzy monster a high-five under a smiling sun and next to colorful flowers. The text above the bottom illustration reads “but now it’s like…”", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("img/sad-now-happy.png")
 ```
 
 ### Load libraries
-```{r}
+Loading the libraries that are for each section. Individual libraries are before each section so you can see which go with what plot types.
+```{r load libraries}
 library(tidyverse) # for everything
 ```
 
+## Really start using an Rproject 📽️
 
-## Really start using an Rproject
+```{r rproj illustration, fig.alt = "A cartoon of a cracked glass cube looking frustrated with casts on its arm and leg, with bandaids on it, containing “setwd”, looks on at a metal riveted cube labeled “R Proj” holding a skateboard looking sympathetic, and a smaller cube with a helmet on labeled “here” doing a trick on a skateboard.", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/rproj.png")
+```
 
+I have noticed that many of you are still not using RProjects. I would really recommend that for easy file management that you do. Here is an [a chapter in R for Data Science](https://r4ds.had.co.nz/workflow-projects.html) on how to set one up. If you want to start using Git in the future, you will need to set up a project.
 
-## gghighlight
-Preventing plot spaghetti.
+## gghighlight 🔦
 
-https://www.rdocumentation.org/packages/gapminder/versions/0.3.0
+```{r gghighlight illustration, fig.alt = "A cartoon of 3 fuzzy monsters making a ggplot. Titled gghighlight: highlight geoms in ggplot, and shows an example of a line plot with many grey lines in the background, and a purple and blue line highlighted in color allowing the viewer to see the series that have a max temp value over 20.", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/gghighlight.jpeg")
+```
 
-```{r}
+The package [`gghighlight`](https://yutannihilation.github.io/gghighlight/index.html) allows you to highlight certain geoms in ggplot. Doing this helps your reader focus on the thing you want them to, and helps prevent plot spaghetti. To practice with `gghighlight` we are going to use some data from the R package [`gapminder`](https://www.rdocumentation.org/packages/gapminder/versions/0.3.0)
+
+### Install
+```{r gghighlight install, eval = FALSE}
+installl.packages("gghighlight")
+install.packages("gapminder")
+```
+
+### Load libraries
+First let's load our libraries.
+```{r gghlighlight libraries}
 library(gghighlight) # for highlighting
 library(gapminder) # where data is
 ```
 
-```{r}
+### Wrangle
+We can create a dataframe that includes only the data for the countries in the continent Americas.
+```{r gghlighlight wrangling}
 gapminder_americas <- gapminder %>%
   filter(continent == "Americas")
+```
 
+### Plot
+If we look at all the countries at once, we get plot spaghetti 🍝.
+```{r gghighlight base plot, warning = FALSE, message = FALSE}
+gapminder_americas %>%
+  ggplot(aes(x = year, y = lifeExp, group = country, color = country)) +
+  geom_line() +
+  theme_minimal() +
+  labs(x = "Year",
+       y = "Life Expectancy (years)",
+       title = "Life Expectancy in Countries in the Americas",
+       subtitle = "From 1952 to 2007",
+       caption = "Data from gapminder.org")
+```
+
+Create a lineplot showing the life expectacy over 1952 to 2007 for all countries, highlighting the United States.
+```{r gghighlight US, warning = FALSE, message = FALSE}
+# highlight just the US
 gapminder_americas %>%
   ggplot(aes(x = year, y = lifeExp, group = country, color = country)) +
   geom_line() +
@@ -56,14 +92,19 @@ gapminder_americas %>%
        title = "Life Expectancy in Countries in the Americas",
        subtitle = "From 1952 to 2007",
        caption = "Data from gapminder.org")
+```
 
+Facet our plot, and highlight the country for each facet.
+```{r gghighlight facet, warning = FALSE, message = FALSE}
+# facet and highlight each country
 gapminder_americas %>%
   ggplot(aes(x = year, y = lifeExp)) +
   geom_line(aes(color = country)) +
   gghighlight() +
   theme_minimal() +
   theme(legend.position = "none",
-        strip.text.x = element_text(size = 14)) +
+        strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(angle = 90)) +
   facet_wrap(~country) +
   labs(x = "Year",
        y = "Life Expectancy (years)",
@@ -72,17 +113,73 @@ gapminder_americas %>%
        caption = "Data from gapminder.org")
 ```
 
+## patchwork, a little more 📈📊📉
 
+```{r patchwork illustration, fig.alt = "Fuzzy cartoon monsters in white gloves and uniforms hanging multiple plots together on a wall, with an artist monster wearing a beret and smock directing them to the correct orientation. There is a blueprint plan on the wall showing how the plots should be arranged. Stylized title font reads “patchwork - combine & arrange your ggplots!”", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/patchwork.png")
+```
 
-## gganimate
+We have talked a bit about [`patchwork`](https://patchwork.data-imaginist.com/) in the [lecture on PCA](https://datavisualizing.netlify.app/4_09_pca/09_pca#patchwork) but its such a useful package I wanted to go over it a bit more. The goal of `patchwork` is to make it very simple to combine plots together.
+
+### Load libraries
+```{r patchwork library}
+library(patchwork)
+library(palmerpenguins) # for making some plots to assemble
+```
+
+### Make some plots
+
+```{r patchwork make plots}
+plot1 <- penguins %>%
+  ggplot(aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot()
+
+plot2 <- penguins %>%
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point()
+
+plot3 <- penguins %>%
+  drop_na() %>%
+  ggplot(aes(x = island, y = flipper_length_mm, color = species)) +
+  geom_boxplot() +
+  facet_wrap(vars(sex))
+```
+
+### Combine plots
+
+```{r patchwork regular combine}
+(plot1 + plot2) / plot3 
+```
+
+```{r patchwork add panel labels and title}
+(plot1 + plot2) / plot3 + plot_annotation(tag_levels = "A",
+                                          title = "Here is some information about penguins")
+```
+
+## gganimate 💃
+
+```{r gganimate illustration, fig.alt = "Cartoon of a bunch of monsters watching data points of varing color and shape fly across a screen like fireworks. Several monsters are lighting the data off like fireworks. Stylized text reads “gganimate: action figures!”", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/gganimate.png")
+```
 
 https://gganimate.com/reference/transition_states.html
 
-```{r}
+### Install
+```{r gganimate install, eval = FALSE}
+install.packages("gganimate") # gganimate
+install.packages("gapminder") # gapminder data for example
+install.packages("magick") # for gif rendering
+```
+
+### Load libraries
+```{r gganimate libraries}
 library(gganimate)
 library(ggrepel) # for text/label repelling
 library(magick) # for gif rendering
+```
 
+### Plot
+```{r gganimate make plot and set params}
 plot_to_animate <- gapminder_americas %>%
   ggplot(aes(x = lifeExp, y = pop, fill = country, label = country)) +
   geom_point(shape = 21, color = "black") +
@@ -105,92 +202,121 @@ animated_plot <- animate(plot = plot_to_animate,
                         renderer = magick_renderer())
 ```
 
+### Print
 Print your animation.
-```{r, eval = FALSE}
+```{r gganimate show animation, eval = FALSE}
 animated_plot
 ```
 
+```{r gganimate actually show animation, echo = FALSE}
+knitr::include_graphics("gapminder_gif.gif")
+```
 
+
+### Save
 Save your animation.
-```{r}
+```{r gganimate save animation, eval = FALSE}
 # save it
 anim_save(filename = "gapminder_gif.gif",
           animation = last_animation())
 ```
 
+## ggradar 📡
+The package [`ggradar`](https://github.com/ricardo-bion/ggradar) allows you to create radar plots, which allow the plotting of multidimensional data on a two dimension chart. Typically with these plots, the goal is to compare the variables on the plot across different groups. We are going to try this out with the coffee tasting data from the [distributions recitation](3_06_distributions/06_distributions_recitation_solutions.html)
 
-## ggradar
-Coffee
+Install `ggradar` if you don't already have it. This package is not available on CRAN for the newest version of R, so we can use `devtools` and `install_github()` to install it. You could also try using `install.packages()` and see if that works for you.
+```{r ggradar install, eval = FALSE}
+devtools::install_github("ricardo-bion/ggradar",
+                         dependencies = TRUE)
+```
 
-```{r}
-# devtools::install_github("ricardo-bion/ggradar", 
-#                          dependencies = TRUE)
+```{r ggradar libraries data, warning = FALSE, message = FALSE}
 library(ggradar)
-library(scales)
+library(scales) # for scaling data
+
+# load coffee data from distributions recitation
 tuesdata <- tidytuesdayR::tt_load('2020-07-07')
 
+# extract out df on coffee_ratings
 coffee <- tuesdata$coffee_ratings
 
+# what are the column names again?
+colnames(coffee)
+```
+
+```{r ggradar wrangling}
 coffee_radar <- coffee %>%
   select(species, aroma:cupper_points) %>% # first column is the groups
   mutate_at(vars(-species), rescale) %>% # columns need to be between 0 and 1
   group_by(species) %>%
   summarize_if(is.numeric, mean) 
 
+coffee_labels <- c("Aroma",
+                   "Flavor",
+                   "Aftertaste",
+                   "Acidity",
+                   "Body",
+                   "Balance",
+                   "Uniformity",
+                   "Clean cup",
+                   "Sweetness",
+                   "Cupper points")
+```
+
+```{r ggradar coffee radar plot}
 ggradar(coffee_radar)
-
-mtcars %>%
-     add_rownames( var = "group" ) %>%
-     mutate_each(funs(rescale), -group) %>%
-     tail(4) %>% select(1:10) -> mtcars_radar
-
-ggradar(mtcars_radar) 
 ```
 
-```{r}
-set.seed(4)
-df <- data.frame(matrix(runif(30), ncol = 10))
-df[, 1] <- paste0("G", 1:3)
-colnames(df) <- c("Group", paste("Var", 1:9))
-
-ggradar(df)
+```{r ggradar coffee radar plotclean}
+ggradar(coffee_radar,
+        axis.labels = coffee_labels,
+        legend.position = "bottom",
+        axis.label.size = 3,
+        grid.label.size = 5) +
+  theme(legend.key = element_rect(fill = NA, color = NA),
+        plot.title = element_text(size = 16),
+        legend.text = element_text(size = 12)) +
+  labs(title = "Difference in average coffee cupper score \nin Arabica and Robusta beans")
 ```
 
+## Heatmaps 🟥⬜️🟦
 
-```{r}
-glimpse(coffee)
+### Install
+```{r pheatmap install, eval = FALSE}
+install.packages("pheatmap")
 ```
 
+### Load libraries
+```{r pheatmap library}
+library(pheatmap)
+```
 
-https://github.com/ricardo-bion/ggradar
+### Plot
+```{r pheatmap plot}
+pheatmap(mtcars)
+```
 
-## gridExtra
-
-## ConplexHeatmap
-
-The package [`ComplexHeatmap`](https://jokergoo.github.io/ComplexHeatmap-reference/book/index.html) allows the visualization of associations across datasets to discover new patterns.
-```{r}
-# install.packages("ggsignif")
-library(ggsignif)
-library(palmerpenguins)
-
-penguins %>%
-  drop_na(species, body_mass_g) %>%
-  ggplot(aes(x = species, y = body_mass_g, color = species)) +
-  geom_boxplot() +
-  geom_signif(comparisons = list(c("Adelie", "Chinstrap"), 
-                       c("Adelie", "Gentoo"),
-                       c("Chinstrap", "Gentoo")),
-              map_signif_level = TRUE, textsize = 6) +
-  coord_cartesian(ylim = c(NA, 7000))
+```{r pheatmap plot scaled clustered}
+pheatmap(mtcars, 
+         scale = "column",
+         cluster_rows = TRUE) # cluster rows based on similarity
 ```
 
 
+### ConplexHeatmap
+
+The package [`ComplexHeatmap`](https://jokergoo.github.io/ComplexHeatmap-reference/book/index.html) allows more customized and complicated heatmaps to be produced. If you are interested in making heatmaps, this package is worth to check out.
 
 ## In class
 
-In class, we will practice making Manhattan plots.
+In class, we will practice making use of these leftovers.
 
 ### Useful resources
 
--   [the `apply()` family of functions](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/lapply)
+- [`gghighlight`](https://yutannihilation.github.io/gghighlight/)
+- [`patchwork`](https://patchwork.data-imaginist.com/)
+- [`gganimate`](https://gganimate.com/)
+- [`ggradar`](https://www.rdocumentation.org/packages/ggradar/versions/0.2)
+- [`pheatmap`](https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap)
+- [pheatmap()](https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap)
+- [ComplexHeatmap]()

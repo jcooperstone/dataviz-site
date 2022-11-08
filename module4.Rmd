@@ -29,17 +29,17 @@ Don't click on this until you try them yourself! [Recitation solutions](4_10_man
 
 ### Interactive plots by Daniel
 
-Course materials
+[Course materials](4_11_interactive_plots/11_interactive_plots.html)
+
+[Recitation activities](4_11_interactive_plots/11_interactive_plots_recitation.html)
+
+### ggplot extension packages and heatmaps
+
+[Course materials](4_12_leftovers/12_leftovers.html)
 
 Recitation activities
 
-### ggplot extension packages and `ComplexHeatmap`
-
-Course materials
-
-Recitation activities
-
-### Module 4 Assignment
+## [Module 4 Assignment](assignments/module_4.html)
 
 ### Capstone assignment open session 1
 

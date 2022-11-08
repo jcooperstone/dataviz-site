@@ -1,0 +1,278 @@
+---
+title: "Interactive plots with plotly and ggplotly"
+author: "Daniel Quiroz"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    number_sections: true
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+# Goals of this Lecture
+
+* Get familiar with plotly
+* Discuss options for interactive plots
+
+
+# What is plotly?
+
+[Plotly website:](https://plotly.com/r/getting-started/)
+"plotly is an R package for creating interactive web-based graphs via the
+open source JavaScript graphing library plotly.js."
+
+We are going to explore `plotly` as a `ggplot2` extension that will allow as
+to create interactive plots from ggplot2 objects.
+
+```{r echo=FALSE}
+knitr::include_graphics("img/Plotly-logo.png")
+```
+
+Logo retrieved from [Plotly website:](https://plotly.com/r/getting-started/)
+
+# Why use plotly?
+
+Plotly is one the most popular platforms to create interactive plots because it is 
+well maintained, clearly documented, very beautiful, and easily integrated into ggplot2.
+
+## Installing `plotly`
+
+```{r eval=FALSE, include=TRUE}
+# From CRAN
+install.packages("plotly")
+
+# From github
+devtools::install_github("ropensci/plotly")
+```
+
+## `ggplotly()`
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/ggplotly.png")
+```
+
+Image retrieved from this [blog](https://afbanapon.medium.com/introduction-to-plotly-and-ggplot2-animation-package-in-r-7caeca7b7f8c).
+
+## Description
+
+This function converts a `ggplot2::ggplot()` object to a plotly object.
+
+```r
+ggplotly(
+  p = ggplot2::last_plot(),
+  width = NULL,
+  height = NULL,
+  tooltip = "all",
+  dynamicTicks = FALSE,
+  layerData = 1,
+  originalData = TRUE,
+  source = "A",
+  ...
+)
+```
+
+Now, we are going to explore using plotly on ggplot objects using
+[`ggplotly()`](https://www.rdocumentation.org/packages/plotly/versions/4.10.0/topics/ggplotly).
+
+# Scatter plots
+
+```{r loding libraries, message=FALSE, warning=FALSE, paged.print=FALSE}
+# Tip: Always load libraries at the beginning of the markdown documents
+
+library(tidyverse)
+library(plotly)
+library(ggsci) # for color palettes
+
+```
+
+
+## Basic scatter plot
+
+```{r scaterplot, warning=FALSE, paged.print=FALSE, message=FALSE,fig.alt="Palmer pengui body mass by bill lenght"}
+ggpenguins <- palmerpenguins::penguins %>% 
+  ggplot(aes( bill_length_mm , body_mass_g, color = species )) + 
+  geom_point() + 
+  scale_color_d3() + # from ggsci
+  theme_bw() +
+  labs(x = "Bill length, in mm",
+       y = "Body mass, in g",
+       fill = "Species",
+       title = "Palmer penguin body mass by bill length")
+
+ggpenguins
+```
+
+
+
+Things you can do with an interactive plot:
+
+* Zoom in and out
+* Turn off groups (click on the legend)
+* Download plot as .png
+
+```{r ggplotly scatter}
+ggplotly(ggpenguins)
+```
+
+
+## PCA
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+# Library here just to make emphasis 
+library(ggfortify)
+```
+
+
+In this case we are going to explore a new library `ggfortify` that accepts
+`prcomp` results and creates an automatic scores PCA plot.
+
+After you perform PCA analysis, you can use `autorplot()` to create a ggplot2 
+object for using in the `ggplotly()` function.
+
+```{r pca, fig.alt="Scores plot of iris data"}
+df <- iris[1:4] # Extract numeric variables
+
+pca_res <- prcomp(df, scale. = TRUE) # Making PCA
+
+p <- autoplot(pca_res, data = iris, colour = 'Species') + # PCA autoplot
+  scale_color_d3() +
+  labs(title = "Scores plot of iris data")
+
+ggplotly(p)
+```
+
+
+# Distribution plots
+
+## Boxplots
+
+Data used here is `midwest` from `ggplot2` which contains demographic information from census data collected in the 2000 US census. The variable `percollege` includes what percentage of the respondents are college educated.
+
+```{r boxplot, fig.alt= "Percentage of college educated respondents"}
+boxplot <- ggplot(midwest, aes(state, percollege, color = state) ) + 
+  geom_boxplot() +
+  scale_color_d3() +
+  theme_bw() + 
+  coord_flip() +
+  labs(title = "Percentage of college educated respondents")
+
+ggplotly(boxplot)
+```
+
+
+## Barplots
+
+
+```{r barplot, fig.alt="Class of cars in the mpg dataset"}
+stack_barplot <- ggplot(mpg, aes(class))   + 
+  geom_bar(aes(fill = drv)) + 
+  scale_fill_d3() + 
+  theme_bw() +
+  labs(title = "Class of cars in the mpg datase")
+
+ggplotly(stack_barplot)
+```
+
+
+# Hover label aesthetics
+
+## Tooltip
+
+Tooltip is an argument that controls the text that is shown when you hover 
+the mouse over data. By default, all `aes` mapping variables are shown. You can 
+modify the order and the variables that are shown in the tooltip.
+
+In the penguins data we have more variables that may want to include in the
+text shown in our plotly plot such as sex and island. 
+
+```{r}
+# dt[seq(10),] subset the ten first row and then use glimpse to shorten the output
+glimpse(palmerpenguins::penguins[seq(10), ]) 
+```
+
+```{r}
+ggplotly(ggpenguins)
+```
+
+
+> "colour" is requiered and "color" is not supported in ggplotly()
+
+```{r}
+ggplotly(ggpenguins,
+         tooltip = c("colour") )
+```
+
+
+## Changing hover details
+
+You might not like the default hover text aesthetics, and can change them!
+You can do this using style and layout and adding these
+functions using the pipe `%>%`.
+
+Code taken from [BioDash](https://biodash.github.io/codeclub/s02e12_plotly/)
+
+```{r}
+# setting fonts for the plot
+font <- list(
+  family = "Arial",
+  size = 15,
+  color = "white")
+
+# setting hover label specs
+label <- list(
+  bgcolor = "#3d1b40",
+  bordercolor = "transparent",
+  font = font) # we can do this bc we already set font
+
+# amending our ggplotly call to include new fonts and hover label specs
+ggplotly(ggpenguins, tooltip = "colour") %>%
+  style(hoverlabel = label) %>%
+  layout(font = font)
+```
+
+# Saving ggplotly() objects
+
+After you have done an amazing job creating a beautiful ggplot and made it 
+interactive, you might want to save in a file. Here, you have two options, 
+create a markdown and knit your interactive plot in a *html* file,
+if you knit in a static file such as pdf or word file, you will lose
+the interactive part of your plot.
+
+You will need to assign the interactive plot to an object, and then, export
+or save your plot to an *html* file.
+
+You can export your interactive plots by using the `saveWidget` function from
+the `htmlwidgets`. If you do not have this package, you can install it by:
+
+```{r include=TRUE, eval=FALSE}
+install.packages("htmlwidgets")
+```
+
+
+```{r eval=FALSE, include=TRUE}
+library(htmlwidgets)
+
+# assign ggplotly plot to an object
+ggplotly_to_save <- ggplotly(ggpenguins, tooltip = "colour") %>%
+  style(hoverlabel = label) %>%
+  layout(font = font)
+
+# save
+saveWidget(widget = ggplotly_to_save,
+           file = "ggplotlying.html")
+```
+
+## In class
+
+In class, we will practice using ggplotly() and other extensions to visualize
+microbiome data.
+
+You can find the in class content  [here](4_11_interactive_plots/4_11_interactive-plots_recitation.html)
+
+## Helpful resources
+
+* Using different fonts: [link](https://r-graph-gallery.com/custom-fonts-in-R-and-ggplot2.html)
+* ggfortify: [link](https://cran.r-project.org/web/packages/ggfortify/vignettes/plot_pca.html)
+* ggsci: [link](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
