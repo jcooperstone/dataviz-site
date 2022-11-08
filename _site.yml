@@ -21,13 +21,13 @@ navbar:
     - text: "Modules"
       menu:
         - text: "1: Principles"
-        - href: module1.html
+          href: module1.html
         - text: "2: Coding fundamentals"
-        - href: module2.html
+          href: module2.html
         - text: "3: Data exploration"
-        - href: module3.html
+          href: module3.html
         - text: "4: Putting it together"
-        - href: module4.html
+          href: module4.html
     - text: "Assignments"
       href: assignments.html
     - icon: fa fa-github
