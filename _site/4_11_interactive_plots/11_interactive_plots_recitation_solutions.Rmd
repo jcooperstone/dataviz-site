@@ -16,9 +16,8 @@ editor_options:
 # Intoduction
 
 Today we are going to work with microbiome data. In this recitation we
-are going to provide two microbiome data from pig gut microbiome and
-environmental microbiome. The pig microbiome data is the result of
-shotgun metagenomic sequencing.
+are going to provide microbiome data as the result of the shotgun sequencing
+of the pig gut microbiome.
 
 -   Pig microbiome study: [paper](https://journals.asm.org/doi/10.1128/spectrum.02506-22),
     [data](https://buckeyemailosu-my.sharepoint.com/:x:/g/personal/cooperstone_1_osu_edu/EY4vRHdMuKpOiuy-itag7ocB63AB3ukhjc0Y5jGRovfkvg?e=RnMz8e).
