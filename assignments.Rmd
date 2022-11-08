@@ -18,7 +18,7 @@ There will be 4 module assignments.
 - Module 1: no assignment 
 - [Module 2](assignments/module_2.html), [Module 2 solutions](assignments/module_2_answers.html)
 - [Module 3](assignments/module_3.html), [Module 3 solutions](assignments/module_3_answers.html)
-- Module 4
+- [Module 4](assignments/module_4.html)
 
 ### Class reflections
 After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future.

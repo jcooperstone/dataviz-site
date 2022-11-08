@@ -28,7 +28,7 @@ The [data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2022/
 
 Download the data using the code below. Don't use the code from week 5 recitation.
 ```{r, message = FALSE, warning = FALSE}
-breed_traits <- readr::read_csv('data/breed_traits_fixed.csv')
+breed_traits <- readr::read_csv('https://raw.githubusercontent.com/jcooperstone/dataviz-site/master/assignments/data/breed_traits_fixed.csv')
 
 trait_description <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv')
 
