@@ -33,6 +33,8 @@ Don't click on this until you try them yourself! [Recitation solutions](4_10_man
 
 [Recitation activities](4_11_interactive_plots/11_interactive_plots_recitation.html)
 
+Don't click on this until you try them yourself! [Recitation solutions](4_11_interactive_plots/11_interactive_plots_recitation_solutions.html)
+
 ### ggplot extension packages and heatmaps
 
 [Course materials](4_12_leftovers/12_leftovers.html)
