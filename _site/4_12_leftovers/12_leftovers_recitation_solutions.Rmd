@@ -51,8 +51,9 @@ Create a visualization that shows the happiness scores for all countries from 20
 I've put the data on Github so you can easily download it with the code below. Note, the question asks you to make a plot considering continent so I've also provided you a key that has each country, and the continent to which it belows for you to join together.
 
 ```{r viz1 data}
-happiness <- read_csv("data/hapiscore_whr.csv")
-country_continent <- read_csv("data/country_continent.csv")
+happiness <- read_csv("https://github.com/jcooperstone/dataviz-site/raw/master/4_12_leftovers/data/hapiscore_whr.csv")
+
+country_continent <- read_csv("https://github.com/jcooperstone/dataviz-site/raw/master/4_12_leftovers/data/country_continent.csv")
 ```
 
 Wrangle

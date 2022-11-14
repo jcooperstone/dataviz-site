@@ -52,8 +52,9 @@ I've put the data on Github so you can easily download it with the code below. N
 
 ### Load data
 ```{r viz1 data}
-happiness <- read_csv("data/hapiscore_whr.csv")
-country_continent <- read_csv("data/country_continent.csv")
+happiness <- read_csv("https://github.com/jcooperstone/dataviz-site/raw/master/4_12_leftovers/data/hapiscore_whr.csv")
+
+country_continent <- read_csv("https://github.com/jcooperstone/dataviz-site/raw/master/4_12_leftovers/data/country_continent.csv")
 ```
 
 ### Wrangle
