@@ -39,7 +39,7 @@ Don't click on this until you try them yourself! [Recitation solutions](4_11_int
 
 [Course materials](4_12_leftovers/12_leftovers.html)
 
-Recitation activities
+[Recitation activities](4_12_leftovers/12_leftovers_recitation.html)
 
 ## [Module 4 Assignment](assignments/module_4.html)
 
