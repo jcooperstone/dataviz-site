@@ -318,5 +318,4 @@ In class, we will practice making use of these leftovers.
 - [`gganimate`](https://gganimate.com/)
 - [`ggradar`](https://www.rdocumentation.org/packages/ggradar/versions/0.2)
 - [`pheatmap`](https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap)
-- [pheatmap()](https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap)
-- [ComplexHeatmap]()
+- [ComplexHeatmap](https://jokergoo.github.io/ComplexHeatmap-reference/book/)

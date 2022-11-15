@@ -41,9 +41,6 @@ Don't click on this until you try them yourself! [Recitation solutions](4_11_int
 
 [Recitation activities](4_12_leftovers/12_leftovers_recitation.html)
 
+Don't click on this until you try them yourself! [Recitation solutions](4_12_leftovers/12_leftovers_recitation_solutions.html)
+
 ## [Module 4 Assignment](assignments/module_4.html)
-
-### Capstone assignment open session 1
-
-### Capstone assignment open session 2
-
