@@ -13,28 +13,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Data distributions
 
-[Course materials](3_06_distributions/06_distributions.html)
-
-[Recitation activities](3_06_distributions/06_distributions_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation solutions](3_06_distributions/06_distributions_recitation_solutions.html)
+* [Course materials](3_06_distributions/06_distributions.html)
+* [Recitation activities](3_06_distributions/06_distributions_recitation.html)
+* Recitation solutions
 
 ### Correlations
 
-[Course materials](3_07_correlations/07_correlations.html)
-
-[Recitation activities](3_07_correlations/07_correlations_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation  solutions](3_07_correlations/07_correlations_recitation_solutions.html)
+* [Course materials](3_07_correlations/07_correlations.html)
+* [Recitation activities](3_07_correlations/07_correlations_recitation.html)
+* Recitation solutions
 
 ### Annotating statistics
 
-[Course materials](3_08_add_stats/08_add_stats.html)
-
-[Recitation activities](3_08_add_stats/08_add_stats_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation  solutions](3_08_add_stats/08_add_stats_recitation_solutions.html)
+* [Course materials](3_08_add_stats/08_add_stats.html)
+* [Recitation activities](3_08_add_stats/08_add_stats_recitation.html)
+* Recitation solutions
 
 ## [Module 3 Assignment](assignments/module_3.html)
-[Module 3 solutions](assignments/module_3_answers.html)
+
+* Module 3 solutions
 

@@ -13,35 +13,28 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Principal components analysis
 
-[Course materials](4_09_PCA/09_PCA.html)
-
-[Recitation activities](4_09_PCA/09_PCA_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation solutions](4_09_PCA/09_PCA_recitation_solutions.html)
+* [Course materials](4_09_PCA/09_PCA.html)
+* [Recitation activities](4_09_PCA/09_PCA_recitation.html)
+* Recitation solutions
 
 ### Manhattan plots and making lots of plots at once
 
-[Course materials](4_10_manhattan/10_manhattan.html)
+* [Course materials](4_10_manhattan/10_manhattan.html)
+* [Recitation activities](4_10_manhattan/10_manhattan_recitation.html)
+* Recitation solutions
 
-[Recitation activities](4_10_manhattan/10_manhattan_recitation.html)
+### Interactive plots (by Daniel)
 
-Don't click on this until you try them yourself! [Recitation solutions](4_10_manhattan/10_manhattan_recitation_solutions.html)
-
-### Interactive plots by Daniel
-
-[Course materials](4_11_interactive_plots/11_interactive_plots.html)
-
-[Recitation activities](4_11_interactive_plots/11_interactive_plots_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation solutions](4_11_interactive_plots/11_interactive_plots_recitation_solutions.html)
+* [Course materials](4_11_interactive_plots/11_interactive_plots.html)
+* [Recitation activities](4_11_interactive_plots/11_interactive_plots_recitation.html)
+* Recitation solutions
 
 ### ggplot extension packages and heatmaps
 
-[Course materials](4_12_leftovers/12_leftovers.html)
-
-[Recitation activities](4_12_leftovers/12_leftovers_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation solutions](4_12_leftovers/12_leftovers_recitation_solutions.html)
+* [Course materials](4_12_leftovers/12_leftovers.html)
+* [Recitation activities](4_12_leftovers/12_leftovers_recitation.html)
+* Recitation solutions
 
 ## [Module 4 Assignment](assignments/module_4.html)
-[Module 4 solutions](assignments/module_4_answers.html)
+
+* Module 4 solutions

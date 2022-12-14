@@ -11,28 +11,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown for reproducible research
 
-[Course material](2_03_rmarkdown/03_Rmd.html)
-
-[Recitation activities](2_03_rmarkdown/03_Rmd_recitation.Rmd)
-
-Don't click on this until you try them yourself! [Recitation solutions](2_03_rmarkdown/03_Rmd_recitation_solutions.Rmd)
+* [Course material](2_03_rmarkdown/03_Rmd.html)
+* [Recitation activities](2_03_rmarkdown/03_Rmd_recitation.Rmd)
+* Recitation solutions
 
 ## ggplot 101
 
-[Course material](2_04_ggplot/04_ggplot.html)
-
-[Recitation activities](2_04_ggplot/04_ggplot_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation solutions](2_04_ggplot/04_ggplot_recitation_solutions.html)
+* [Course material](2_04_ggplot/04_ggplot.html)
+* [Recitation activities](2_04_ggplot/04_ggplot_recitation.html)
+* Recitation solutions
 
 ## Facets, scales, labels, and themes (ggplot 102)
 
-[Course material](2_05_themes_labels_facets/05_ggplot102.html)
-
-[Recitation activities](2_05_themes_labels_facets/05_ggplot102_recitation.html)
-
-Don't click on this until you try them yourself! [Recitation solutions](2_05_themes_labels_facets/05_ggplot102_recitation_solutions.html)
+* [Course material](2_05_themes_labels_facets/05_ggplot102.html)
+* [Recitation activities](2_05_themes_labels_facets/05_ggplot102_recitation.html)
+* Recitation solutions
 
 ## [Module 2 Assignment](assignments/module_2.html)
 
-[Module 2 solutions](assignments/module_2_answers.html)
+* Module 2 solutions
