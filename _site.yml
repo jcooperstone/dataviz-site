@@ -8,6 +8,7 @@ favicon: img/favicon.png
 creative_commons: CC BY-NC-SA
 base_url: https://datavisualizing.netlify.app
 repository_url: https://github.com/jcooperstone/dataviz-site
+google_analytics: "G-N2NPP9EK0Q"
 twitter:
   site: "@CooperstoneLab"
 navbar:

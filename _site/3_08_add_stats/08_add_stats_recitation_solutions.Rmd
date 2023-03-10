@@ -1,0 +1,201 @@
+---
+title: "Adding Statistics Recitation Solutions"
+author: "Jessica Cooperstone"
+date: "10/18/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today you will be practicing what we learned in today's class on [adding statistics to your plots](3_08_add_stats/08_add_stats.html).
+
+### Load data
+
+We will be using the NHANES data again from the package [`NHANES`](https://cran.r-project.org/web/packages/NHANES/NHANES.pdf). 
+
+```{r load libraries, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(NHANES)
+library(rstatix)
+library(ggpubr)
+library(glue)
+library(rcompanion)
+```
+
+## 1. Is total cholesterol (`TotChol`) different by age (`AgeDecade`)?
+
+#### Click the button below if you need a hint.
+```{r class.source = 'fold-hide', eval = FALSE}
+# Hint - you want to test your assumptions to see what tests to do. You might need to use different posthoc comparison methods than we did in class.
+
+# Another hint - the function rcompanion::cldTest() will convert the resulting comparison table from a posthoc Dunn test to create a column with the letters indicating which groups are significantly different from each other.
+```
+
+### Base plot 
+Plot to get an overview.
+```{r}
+(totchol_age_baseplot <- NHANES %>%
+  drop_na(AgeDecade, TotChol) %>%
+  ggplot(aes(x = AgeDecade, y = TotChol, color = AgeDecade)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(x = "Age, by Decade",
+       y = "Total Cholesterol (mmol/L)",
+       title = "Differences in total cholesterol by age in NHANES 2009/2010, and 2011/2012"))
+```
+
+Use `stat_compare_means()`
+```{r}
+NHANES %>%
+  drop_na(AgeDecade, TotChol) %>%
+  ggplot(aes(x = AgeDecade, y = TotChol, color = AgeDecade)) +
+  geom_boxplot() +
+  stat_compare_means() +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(x = "Age, by Decade",
+       y = "Total Cholesterol (mmol/L)",
+       title = "Differences in total cholesterol by age in NHANES 2009/2010, and 2011/2012")
+```
+
+### Testing assumptions
+#### Normality
+```{r normality testing}
+# testing normality by group
+NHANES %>%
+  drop_na(AgeDecade, TotChol) %>% # remove NAs
+  group_by(AgeDecade) %>%
+  shapiro_test(TotChol) # test for normality
+```
+
+Not normal.
+
+#### Constant variance
+```{r constant variance}
+NHANES %>%
+  drop_na(AgeDecade, TotChol) %>% # remove NAs
+  levene_test(TotChol ~ AgeDecade) # test for constant variance
+```
+
+Non constant variance. Non-parametric it is.
+
+#### Log transformed tests
+```{r}
+NHANES_log <- NHANES %>%
+  mutate(TotChol_log2 = log2(TotChol))
+```
+
+##### Normality
+```{r log normality testing}
+# testing normality by group
+NHANES_log %>%
+  drop_na(AgeDecade, TotChol_log2) %>% # remove NAs
+  group_by(AgeDecade) %>%
+  shapiro_test(TotChol_log2) # test for normality
+```
+
+Still pretty not normal via Shapiro Test. Let's look at the log2 transformed total choletserol distributions across the different age groups.
+```{r}
+NHANES_log %>%
+  drop_na(TotChol_log2, AgeDecade) %>%
+  ggplot(aes(x = TotChol_log2)) +
+  geom_histogram() +
+  facet_wrap(vars(AgeDecade))
+```
+
+These actually look reasonably normal to me.
+
+##### Constant variance
+```{r log constant variance}
+NHANES_log %>%
+  drop_na(AgeDecade, TotChol_log2) %>% # remove NAs
+  levene_test(TotChol_log2 ~ AgeDecade) # test for constant variance
+```
+
+Still not constant variance.
+
+### Kruskal Wallis test
+```{r}
+(kruskal_chol <- NHANES %>%
+  drop_na(AgeDecade, TotChol) %>% # remove NAs
+  kruskal_test(TotChol ~ AgeDecade))
+```
+
+Ok significant difference exists. Where is it?
+
+### Post-hoc analysis
+Run Dunn test
+```{r}
+(kruskal_chol_posthoc <- NHANES %>%
+  drop_na(AgeDecade, TotChol) %>% # remove NAs
+  dunn_test(TotChol ~ AgeDecade,
+            p.adjust.method = "BH")) # Benjamini Hochberg multiple testing correction
+```
+
+Use `rcompanion::cldList()` to create the groups for us
+```{r}
+# combine group1 and group2 to make one column called comparison
+# then replace hyphens with something else because cldList can only have one hyphen
+kruskal_chol_posthoc_1 <- kruskal_chol_posthoc %>%
+  mutate(group1_rep = str_replace_all(group1, pattern = "-", replacement = "to"),
+         group2_rep = str_replace_all(group2, pattern = "-", replacement = "to")) %>%
+  mutate(comparison = glue("{group1_rep} -{group2_rep}"))
+
+# run cldList()
+(group_cldList <- cldList(p.adj ~ comparison,
+        data = kruskal_chol_posthoc_1,
+        threshold = 0.05))
+```
+
+Create groups from `kruskal_chol_posthoc` results manually.
+```{r}
+unique(NHANES$AgeDecade)
+
+group_manual <- data.frame(group = c("a", "a", "b", "c", "de", "d", "e", "c"))
+```
+
+Make a dataframe that has the maximum total cholesterol for each age so that we know where to place the numbers on the plot.
+```{r}
+(max_chol <- NHANES %>%
+  drop_na(TotChol, AgeDecade) %>%
+  group_by(AgeDecade) %>%
+  summarize(max_tot_chol = max(TotChol)))
+```
+
+Bind the groups to the maximum cholesterol df.
+```{r}
+dunn_for_plotting <- bind_cols(max_chol, group_cldList$Letter) %>%
+  rename(Letter = `...3`)
+```
+
+### Plot
+```{r}
+# using geom_text()
+totchol_age_baseplot +
+  geom_text(data = dunn_for_plotting,
+            aes(x = AgeDecade, 
+                y = max_tot_chol + 1,
+                label = Letter)) +
+  labs(caption = "Groups with different letters are significant different using the Kruskal Wallis test, \nand the Dunn test for pairwise comparisons at p < 0.05")
+
+# using annotate()
+totchol_age_baseplot +
+  annotate(geom = "text",
+           x = seq(1:8),
+           y = dunn_for_plotting$max_tot_chol + 1,
+           label = dunn_for_plotting$Letter) +
+  labs(caption = "Groups with different letters are significant different using the Kruskal Wallis test, \nand the Dunn test for pairwise comparisons at p < 0.05")
+```
+

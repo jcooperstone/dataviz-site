@@ -1,0 +1,37 @@
+---
+title: "Assignments"
+output:
+  distill::distill_article:
+    toc: true
+---
+
+
+
+# Assignment descriptions 
+### Module assignments
+After each module, there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date.
+
+There will be 4 module assignments.
+
+- Module 1: no assignment 
+- [Module 2](assignments/module_2.html)
+- [Module 3](assignments/module_3.html)
+- [Module 4](assignments/module_4.html)
+
+### Class reflections
+After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future.
+
+There will be 10 class reflections (you can select which classes you want to reflect upon).
+
+**Due Date:** Reflections are due 1 week after each class. For example, if class is on Tuesday September 1, the reflection for that class is due on Tuesday September 8 by 11:59pm.
+
+### Capstone assignment
+At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.
+
+There will be 1 capstone assignment.
+
+# Late assignments
+I expect you will turn assignments in on time. Late assignments are not accepted. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for discussion about a possible deadline extension. 
+
+```{.r .distill-force-highlighting-css}
+```

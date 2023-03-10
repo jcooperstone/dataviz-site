@@ -1,0 +1,171 @@
+---
+title: "Leftover tidbits recitation solutions"
+author: "Jessica Cooperstone"
+date: "11/15/2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: true
+    theme: flatly
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Introduction
+
+Today's recitation materials are on a bunch of stuff I thought was interesting but didn't fit specifically into any of the other lessons. This includes some cool ggplot extension packages we haven't gone over yet, and heatmaps that utilize base R plotting.
+
+### Load libraries
+Loading the libraries that are for each section. Individual libraries are before each section so you can see which go with what plot types.
+```{r load libraries, message = FALSE, warning = FALSE}
+library(tidyverse) # for everything
+library(gghighlight) # for highlighting
+library(gganimate) # animating plots
+library(ggrepel) # for text/label repelling
+library(magick) # for gif rendering
+library(scales) # for easy scaling
+library(plotly) # for ggplotly
+library(glue) # for easy pasting
+
+library(gapminder) # for data for viz2
+```
+
+
+## Really start using an Rproject 📽️
+
+```{r rproj illustration, fig.alt = "A cartoon of a cracked glass cube looking frustrated with casts on its arm and leg, with bandaids on it, containing “setwd”, looks on at a metal riveted cube labeled “R Proj” holding a skateboard looking sympathetic, and a smaller cube with a helmet on labeled “here” doing a trick on a skateboard.", fig.cap= "Artwork by [@allison_horst](https://twitter.com/allison_horst)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/rproj.png")
+```
+
+If you don't have a Rproject for class, set one up.
+
+## Visualization 1
+We are going to interrogate a  dataset from [Gapminder](https://www.gapminder.org/) that includes information about [Happiness Scores](http://gapm.io/dhapiscore_whr) collected across different countries and years. 
+
+Create a visualization that shows the happiness scores for all countries from 2008 to 2010. Highlight in some way the top 3 countries with the highest happiness scores per continent.
+
+I've put the data on Github so you can easily download it with the code below. Note, the question asks you to make a plot considering continent so I've also provided you a key that has each country, and the continent to which it belows for you to join together.
+
+```{r viz1 data}
+happiness <- read_csv("https://github.com/jcooperstone/dataviz-site/raw/master/4_12_leftovers/data/hapiscore_whr.csv")
+
+country_continent <- read_csv("https://github.com/jcooperstone/dataviz-site/raw/master/4_12_leftovers/data/country_continent.csv")
+```
+
+Wrangle
+```{r viz1 wrangle}
+# join happinesn and country_continent 
+# so we can see which continent goes which each country 
+happiness_country <- left_join(happiness, country_continent, by = "country")
+
+# make tidy data and convert year from character to numeric
+happiness_tidy <- happiness_country %>%
+  pivot_longer(cols = -c(country, continent),
+               names_to = "year",
+               values_to = "rating") %>%
+  mutate(year = as.numeric(year))
+
+# create a df that has the maximum happiness rating across the time 
+# period per country by continent
+max_happiness <- happiness_tidy %>%
+  filter(year %in% c(2008:2020)) %>%
+  drop_na(rating) %>%
+  group_by(continent, country) %>%
+  summarize(max_rating = max(rating)) 
+
+# pull the top 3 happiness countries for each continent
+top3_happiest <- max_happiness %>%
+  ungroup() %>%
+  group_by(continent) %>%
+  slice_max(max_rating, n = 3) %>%
+  ungroup()
+```
+
+Plot
+```{r viz1 plot}
+happiness_tidy %>%
+  filter(year %in% c(2008:2020)) %>%
+  ggplot(aes(x = year, y = rating, group = country, color = continent)) +
+  geom_line() +
+  scale_x_continuous(breaks = seq(2004, 2020, 4)) +
+  gghighlight(country %in% top3_happiest$country,
+              label_params = list(size = 3)) +
+  facet_wrap(vars(continent)) +
+  theme_classic() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, margin=margin(t=8))) +
+  labs(x = "Year",
+       y = "Happiness Rating (out of 100)",
+       title = "Happiness ratings for each country by continent over 2008 to 2020",
+       subtitle = "Data from Gapminder.org")
+```
+
+## Visualization 2
+Recreate a plot in the vein of the one [here](https://www.gapminder.org/tools/#$chart-type=bubbles&url=v1). You can make the same interactive plot (use the data from 2007, which is slightly older and different from what you see in the online plot), or choose to animate it over `year`. Or do both.
+
+Use the data `gapminder::gapminder` which you can access from R.
+
+### Interactive
+```{r viz2 interactive}
+glimpse(gapminder)
+
+income_by_lifeexp <- gapminder %>%
+  filter(year == 2007) %>%
+  ggplot(aes(gdpPercap, y = lifeExp, fill = continent, size = pop,
+             text = glue("Country: {country}
+                         Continent: {continent}
+                         GDP per capita: ${round(gdpPercap, 0)}
+                         Life expectancy: {round(lifeExp, 0)}"))) +
+  geom_point(shape = 21, color = "black") +
+  scale_x_continuous(trans = "log2", labels=scales::dollar_format()) +
+  scale_size_area(guide = "none") +
+  coord_cartesian(ylim = c(0, 90)) +
+  theme_minimal() +
+  theme(legend.position = "top") +
+  labs(x = "GDP per capita",
+       y = "Life expectancy",
+       fill = "Continent",
+       title = "Relationship between GDP per capita and life expectancy 
+from 1952 to 2007",
+       caption = "Data from Gapminder.org")
+
+ggplotly(income_by_lifeexp, tooltip = "text")
+```
+
+### Animated
+```{r viz2 animated}
+income_by_lifeexp_anim <- gapminder %>%
+  ggplot(aes(gdpPercap, y = lifeExp, fill = continent, size = pop,
+             text = glue("Country: {country}
+                         Continent: {continent}
+                         GDP per capita: ${round(gdpPercap, 0)}
+                         Life expectancy: {round(lifeExp, 0)}"))) +
+  geom_point(shape = 21, color = "black") +
+  scale_x_continuous(trans = "log2", labels=scales::dollar_format()) +
+  scale_size_area(guide = "none") +
+  coord_cartesian(ylim = c(0, 90)) +
+  theme_minimal() +
+  theme(legend.position = "top") +
+  labs(x = "GDP per capita",
+       y = "Life expectancy",
+       fill = "Continent",
+       title = "Relationship between GDP per capita and life expectancy 
+from 1952 to 2007",
+       subtitle = "Year = {closest_state}",
+       caption = "Data from Gapminder.org") +
+  transition_states(year)
+
+# set parameters for your animation
+(animated_plot <- animate(plot = income_by_lifeexp_anim, 
+                        duration = 10, 
+                        fps = 10, 
+                        width = 700, 
+                        height = 400,
+                        renderer = magick_renderer()))
+```
+
+
