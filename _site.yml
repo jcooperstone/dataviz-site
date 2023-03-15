@@ -33,6 +33,8 @@ navbar:
       href: assignments.html
     - icon: fa fa-github
       href: https://github.com/jcooperstone/dataviz-site
+includes:
+   in_header: filename.html
 output: 
   distill::distill_article:
     toc: TRUE
