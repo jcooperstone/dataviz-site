@@ -1,0 +1,20 @@
+---
+title: "Module 1 Assignment"
+author: "You"
+date: "Due 08-28-2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+This is your assignment for Module 1. 
+
+Please upload to Carmen:
+
+- 1 good visualization, along with 1 paragraph about why it is good
+- 1 bad visualization, along with 1 paragraph about why it is bad.
+
+> This assignment will be due on Monday, August 28, 2023, at 11:59pm so we can talk about them in class the next day.

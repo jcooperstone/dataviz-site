@@ -14,9 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 **Email address:** cooperstone dot 1 at osu dot edu (preferred contact method)    
 **Phone number:** 614-292-2843 (non-preferred contact method)   
 **TA**: Daniel Quiroz Moreno, quirozmoreno dot 1 at osu dot edu   
-**Office hours:**  
-- Daniel: Mondays 3-4pm in Howlett 340 or via Zoom  
-- Jess: Tuesdays 10-11am in Howlett 348 or via Zoom  
+**Office hours:** TBD 
 
 ## Course description
 This course aims to introduce students to the principles and practice of data visualization. Students will learn fundamental principles of data visualization and create figures that appropriately and ethically represent their data. Data visualizations will be created in the R programming environment, using tools including the grammar of graphics implemented in ggplot2. In the process of creating visualizations, students will also become familiar with data handling and wrangling in R.
@@ -30,9 +28,9 @@ By the end of this course, students should successfully be able to:
 - Apply principles learned in class, both theoretical and technical, to create effective visualizations.
 
 ## Course delivery
-**Mode of delivery:** This course is a hybrid-delivered course taught using “flipped classroom” instruction.  I will post weekly videos which you will watch (and code along with) on your own, and during class (which you can attend in person or virtually) we will have recitation style activities.  You are also welcome to come to class with questions about the weekly videos, or problems you are currently encountering in creating your visualizations.
+**Mode of delivery:** This course is a hybrid-delivered course where I provide ~ 50 min of lecture material, followed by ~1 hour of recitation activities to do in-class (with assistance from the instructor and the TA). You can attend class in person or virtually via Zoom. You are also welcome to come to class with questions about the weekly videos, or problems you are currently encountering in creating your visualizations.
 
-**Attendance and participation requirements:** This is a hybrid course, but is taught synchronously, meaning it is expected that you attend class, either in person or virtually during its meeting time.
+**Attendance and participation requirements:** This is a hybrid course, but is taught synchronously, meaning it is expected that you attend class, either in person or virtually (via Zoom) during its meeting time. I will not take attendance. If circumstances require you to miss class, it will be expected you watch the recorded sessions, and catch up on material on your own. I have found that students who attend classes more quickly and completely master course content.
 
 **Class recordings:** To help you master material, and to better accommodate students, classes will be recorded, and recordings uploaded directly after class to Carmen. You can find a link to a OneDrive folder with the recorded lectures on the Syllabus page on Carmen.
 
@@ -82,14 +80,16 @@ You do not need to be an R expert for this class, but I will assume working-leve
 See the Assignments tab for additional information.
 
 ### Assignment descriptions
-**Module assignments**
+
+#### Module assignments
+
 *Description*: After each module, there will be an assignment to provide practice for the techniques learned in class. Assignments will be posted at least one week prior to their due date, and due dates can be found on Carmen.
 
 *Grading*: Each part of the assignment will have a certain number of points associated with it, provided along with the assignment.
 
 *Academic Integrity*: Students may use class notes and class resource materials. Students are not permitted to collaborate on assignments. Students must complete work on their own.
 
-**Class reflections**
+#### Class reflections
 After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future.
 
 There will be 10 class reflections (you can select which classes you want to reflect upon).
@@ -103,8 +103,9 @@ There will be 10 class reflections (you can select which classes you want to ref
 
 *Academic Integrity*: Students may use class notes and class resource materials. Students are not permitted to collaborate on assignments. Students must complete work on their own.
 
-**Capstone assignment**
-*Description*: At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.
+#### Capstone assignment
+
+*Description*: At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why. You will be required to submit a capstone assignment “plan” by the beginning of November.
 
 *Grading*: Guidance will be provided for the grading of the capstone assignment. Assignments completed outside R Markdown, or not knitted to a .html are not acceptable.
 
@@ -116,17 +117,16 @@ I expect you will turn assignments in on time. Late assignments are not accepted
 Please refer to Carmen for assignment due dates.
 
 ### Grading scale
-93–100: A, 
-90–92.9: A-, 
-87–89.9: B+,
-83–86.9: B,
-80–82.9: B-, 
-77–79.9: C+, 
-73–76.9: C,
-70–72.9: C-, 
-67–69.9: D+, 
-60–66.9: D,
-Below 60: E,
+```{r, echo = FALSE}
+library(readxl)
+library(knitr)
+grading_scale <- read_excel("files/grading_scale.xlsx",
+                       sheet = "Sheet1")
+```
+
+```{r, echo = FALSE, fig.width = 4}
+kable(grading_scale)
+```
 
 ### Instructor feedback and response time
 - Grading and feedback: For assignments, you can generally expect feedback within 7 days.

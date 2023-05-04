@@ -35,6 +35,6 @@ knitr::opts_chunk$set(echo = TRUE)
 * [Recitation activities](4_12_leftovers/12_leftovers_recitation.html)
 * Recitation solutions
 
-## [Module 4 Assignment](assignments/module_4.html)
+## [Module 4 Assignment](assignments/module_4.html): due 12/5/23
 
 * Module 4 solutions

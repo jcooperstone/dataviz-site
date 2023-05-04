@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * [Recitation activities](3_08_add_stats/08_add_stats_recitation.html)
 * Recitation solutions
 
-## [Module 3 Assignment](assignments/module_3.html)
+## [Module 3 Assignment](assignments/module_3.html): due 10/31/23
 
 * Module 3 solutions
 

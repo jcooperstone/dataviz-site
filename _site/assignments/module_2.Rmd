@@ -1,7 +1,7 @@
 ---
 title: "Module 2 Assignment"
 author: "You"
-date: "Due 09-30-2022"
+date: "Due 10-03-2023"
 output: html_document
 ---
 
@@ -10,13 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Introduction
-This is your assignment for Module 2, focused on the material you learned in the lectures and recitation activities on [RMarkdown](2_03_rmarkdown/03_Rmd.html), [ggplot101](2_04_ggplot/04_ggplot.html), and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html). 
+This is your assignment for Module 2, focused on the material you learned in the lectures and recitation activities on [RMarkdown](2_03_rmarkdown/03_Rmd.html), [wrangling](2_04_wrangling/04_wrangling.html), [ggplot101](2_04_ggplot/04_ggplot.html), and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html). 
 
 You will submit this assignment by uploading a knitted .html to Carmen. Make sure you include the Code Download button so that I can see your code as well. Customize the YAML and the document so you like how it looks.
 
 Remember there are often many ways to reach the same end product.
 
-> This assignment will be due on Friday, September 30, 2022, at 11:59pm.
+> This assignment will be due on Tuesday, October 3, 2023, at 11:59pm.
 
 ### Data
 The [data](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-02-19) we will be using is collected by the National Science Foundation about the fields and number of Ph.D. degrees awarded each year.

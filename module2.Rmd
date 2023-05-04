@@ -15,6 +15,12 @@ knitr::opts_chunk$set(echo = TRUE)
 * [Recitation activities](2_03_rmarkdown/03_Rmd_recitation.Rmd)
 * Recitation solutions
 
+## Wrangling, the basics
+
+* Course material
+* Recitation activities
+* Recitation solutions
+
 ## ggplot 101
 
 * [Course material](2_04_ggplot/04_ggplot.html)
@@ -27,6 +33,6 @@ knitr::opts_chunk$set(echo = TRUE)
 * [Recitation activities](2_05_themes_labels_facets/05_ggplot102_recitation.html)
 * Recitation solutions
 
-## [Module 2 Assignment](assignments/module_2.html)
+## [Module 2 Assignment](assignments/module_2.html): due 10/3/23
 
 * Module 2 solutions

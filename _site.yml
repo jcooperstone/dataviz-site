@@ -1,7 +1,7 @@
 name: "dataviz-site"
-title: "Data Visualizing"
+title: "Data Visualization in R"
 description: |
-  Data Visualizing
+  Data Visualization in R
 output_dir: "_site"
 theme: theme.css
 favicon: img/favicon.png

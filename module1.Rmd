@@ -18,3 +18,5 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Good and bad visualizations
 
 * [Lecture material](1_02_good_and_bad/02_goodbad_quarto.html)
+
+## [Module 1 Assignment](assignments/module_1.html): due 8/28/23

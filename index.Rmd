@@ -3,7 +3,7 @@ title: |
   Data Visualization in R 
   
 description: |
-  HCS 7806, Fall 2022, Jessica Cooperstone 💻 🧰 📊 🥳
+  HCS 7100, Fall 2023, Jessica Cooperstone 💻 🧰 📊 🥳
 site: distill::distill_website
 ---
 

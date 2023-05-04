@@ -1,7 +1,7 @@
 ---
 title: "Module 3 Assignment"
 author: "You"
-date: "Due 10-28-2022"
+date: "Due 10-31-2023"
 output: html_document
 ---
 
@@ -21,7 +21,7 @@ Submission info:
 
 Remember there are often many ways to reach the same end product. I have showed you many ways in class to achieve a similar end product, you only need to show me one of them. As long as your answer is reasonable, you will get full credit even if its different than what I intended.
 
-> This assignment will be due on Friday, October 28, 2022, at 11:59pm.
+> This assignment will be due on Friday, October 31, 2023, at 11:59pm.
 
 ### Data
 The [data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md) we will be using was collected by the US Department of Education and collated by [tuitiontracker.org](https://www.tuitiontracker.org/). You can learn more about the data by going through the readme [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-03-10/readme.md).
