@@ -7,7 +7,7 @@
 <link href="01_principles_quarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="01_principles_quarto_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="01_principles_quarto_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.36">
+  <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Jessica Cooperstone, Ph.D.">
   <title>Principles of Data Visualization 💻 🧰 📊 🥳</title>
@@ -19,10 +19,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="01_principles_quarto_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link rel="stylesheet" href="xaringan-themer.css">
@@ -319,17 +324,24 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Principles of Data Visualization 💻 🧰 📊 🥳</h1>
-  <p class="subtitle">Week 1<br>8/23/2022</p>
-  <p class="author">Jessica Cooperstone, Ph.D.</p>
-</section>
+  <p class="subtitle">Week 1<br>8/22/2023</p>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jessica Cooperstone, Ph.D. 
+</div>
+</div>
+</div>
+
+</section>
 <section id="introductions" class="slide level2 center_title">
 <h2>Introductions 👋</h2>
 <div>
 <ul>
-<li>Name and pronouns</li>
+<li>Name</li>
 <li>Program</li>
 <li>Why you decided to take this class</li>
 <li>One thing you hope to learn</li>
@@ -371,19 +383,14 @@
 </section>
 <section id="attendance" class="slide level2 center_title smaller">
 <h2>Attendance</h2>
+<div>
 <ul>
 <li class="fragment"><p>
-</p><p>Class will taught in a hybrid, synchronous manner, meaning I expect you to attend class during class time. This attendance can happen in person, or virtually via <a href="https://go.osu.edu/dataviz-zoom">Zoom</a> I have found that students who attend in person are more engaged, and tend to master material more quickly. But, it is up to you how you want to attend.</p>
-<p></p>
-<p><br>
+Class will taught in a hybrid, synchronous manner, meaning I expect you to attend class during class time. This attendance can happen in person, or virtually via <a href="https://go.osu.edu/dataviz-zoom">Zoom</a> I have found that students who attend in person are more engaged, and tend to master material more quickly. But, it is up to you how you want to attend.
 </p></li>
-<li class="fragment"><p>I will record class time for those who want to 1) revisit material or 2) can’t attend for some reason. These recordings are not to replace coming to class.<br>
-<br>
-</p></li>
-<li class="fragment"><h4>
-<p>📌 please engage during class as much as you can</p>
-</h4></li>
+<li class="fragment">I will record class time for those who want to 1) revisit material or 2) can’t attend (this should be uncommon). These recordings are not to replace coming to class.</li>
 </ul>
+</div>
 </section>
 <section id="how-class-will-be" class="slide level2">
 <h2>How class will be?</h2>
@@ -391,6 +398,7 @@
 <li class="fragment"><p>A combination of lecture, code run-throughs, live coding, and hands-on exercises.</p></li>
 <li class="fragment"><p>Bring a laptop (not tablet) to class with R and RStudio downloaded</p></li>
 <li class="fragment"><p>Come with your questions!</p></li>
+<li class="fragment"><p>Engage as much as you can!</p></li>
 </ul>
 </section>
 <section id="previous-programming-experience" class="slide level2">
@@ -399,17 +407,15 @@
 <section id="assigments" class="slide level2 center_title smaller">
 <h2>Assigments</h2>
 <ul>
-<li class="fragment"><p><strong>Module assignments:</strong> After each module, there will be an assignment to provide practice for the techniques learned in class. There will be 4 of these.</p></li>
-<li class="fragment"><p><strong>Class reflections:</strong> After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future. There will be 10 of these.</p></li>
+<li class="fragment"><p><strong>Module assignments:</strong> After each module, there will be an assignment to provide practice for the techniques learned in class.</p></li>
+<li class="fragment"><p><strong>Class reflections:</strong> After 10 of the 15 weeks, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you’d like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you’ve found useful, what you’ve struggled with, and what you’d like to see more of in the future.</p></li>
 <li class="fragment"><p><strong>Capstone assignment:</strong> At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.</p></li>
 </ul>
 </section>
 <section id="late-assignments" class="slide level2 smaller">
 <h2>Late assignments</h2>
 <ul>
-<li class="fragment"><p>I expect you will turn assignments in on time. However, I am also reasonable want to see you master the material in this class. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for further discussion.</p></li>
-<li class="fragment"><p>Unexcused late assignments will be docked 10% of total possible points per day late, including weekends. For example, if as assignment is worth 10 points, and it is turned in 1 day late without prior discussion with the instructor, the maximum score that can be earned with be 9 points.</p></li>
-<li class="fragment"><p>📌 please turn assignments in on time</p></li>
+<li class="fragment">I expect you will turn assignments in on time. Late assignments are not accepted. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for discussion about a possible deadline extension.</li>
 </ul>
 </section></section>
 <section>
@@ -434,7 +440,6 @@
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Week</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Module</th>
 <th style="text-align: left;">Topic</th>
@@ -442,14 +447,12 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">2022-08-23</td>
+<td style="text-align: left;">2023-08-22</td>
 <td style="text-align: left;">1: Principles</td>
 <td style="text-align: left;">Principles of data visualization</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">2022-08-30</td>
+<td style="text-align: left;">2023-08-29</td>
 <td style="text-align: left;">1: Principles</td>
 <td style="text-align: left;">Good and bad visualizations</td>
 </tr>
@@ -464,14 +467,12 @@
 <div class="cell-output-display">
 <table>
 <colgroup>
-<col style="width: 6%">
-<col style="width: 14%">
-<col style="width: 30%">
-<col style="width: 48%">
+<col style="width: 15%">
+<col style="width: 32%">
+<col style="width: 52%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Week</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Module</th>
 <th style="text-align: left;">Topic</th>
@@ -479,20 +480,22 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">2022-09-06</td>
+<td style="text-align: left;">2023-09-05</td>
 <td style="text-align: left;">2: Coding fundamentals</td>
 <td style="text-align: left;">R Markdown for reproducible research</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">2022-09-13</td>
+<td style="text-align: left;">2023-09-12</td>
+<td style="text-align: left;">2: Coding fundamentals</td>
+<td style="text-align: left;">Wrangling, the basics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-09-19</td>
 <td style="text-align: left;">2: Coding fundamentals</td>
 <td style="text-align: left;">ggplot 101</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">2022-09-21</td>
+<tr class="even">
+<td style="text-align: left;">2023-09-26</td>
 <td style="text-align: left;">2: Coding fundamentals</td>
 <td style="text-align: left;">Themes, labels, facets (ggplot 102)</td>
 </tr>
@@ -506,15 +509,8 @@
 <div class="cell">
 <div class="cell-output-display">
 <table>
-<colgroup>
-<col style="width: 6%">
-<col style="width: 15%">
-<col style="width: 38%">
-<col style="width: 38%">
-</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Week</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Module</th>
 <th style="text-align: left;">Topic</th>
@@ -522,22 +518,24 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">2022-09-28</td>
+<td style="text-align: left;">2023-10-03</td>
 <td style="text-align: left;">3: Data exploration</td>
 <td style="text-align: left;">Data distributions</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">7</td>
-<td style="text-align: left;">2022-10-04</td>
+<td style="text-align: left;">2023-10-10</td>
 <td style="text-align: left;">3: Data exploration</td>
 <td style="text-align: left;">Correlations</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">8</td>
-<td style="text-align: left;">2022-10-11</td>
+<td style="text-align: left;">2023-10-17</td>
 <td style="text-align: left;">Open session, capstone prep</td>
 <td style="text-align: left;">Open session, capstone prep</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-10-24</td>
+<td style="text-align: left;">3: Data exploration</td>
+<td style="text-align: left;">Annotating statistics</td>
 </tr>
 </tbody>
 </table>
@@ -550,14 +548,12 @@
 <div class="cell-output-display">
 <table>
 <colgroup>
-<col style="width: 5%">
-<col style="width: 12%">
-<col style="width: 26%">
-<col style="width: 55%">
+<col style="width: 13%">
+<col style="width: 27%">
+<col style="width: 59%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Week</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Module</th>
 <th style="text-align: left;">Topic</th>
@@ -565,50 +561,32 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">9</td>
-<td style="text-align: left;">2022-10-18</td>
-<td style="text-align: left;">3: Data exploration</td>
-<td style="text-align: left;">Annotating statistics</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">10</td>
-<td style="text-align: left;">2022-10-25</td>
+<td style="text-align: left;">2023-10-31</td>
 <td style="text-align: left;">4: Putting it together</td>
 <td style="text-align: left;">Principal components analysis</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">11</td>
-<td style="text-align: left;">2022-11-01</td>
+<tr class="even">
+<td style="text-align: left;">2023-11-07</td>
 <td style="text-align: left;">4: Putting it together</td>
 <td style="text-align: left;">Manhattan plots and making lots of plots at once</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td style="text-align: left;">2022-11-08</td>
+<tr class="odd">
+<td style="text-align: left;">2023-11-14</td>
 <td style="text-align: left;">4: Putting it together</td>
 <td style="text-align: left;">Interactive plots</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td style="text-align: left;">2022-11-15</td>
-<td style="text-align: left;">4: Putting it together</td>
-<td style="text-align: left;">ggplot extension packages and complexheatmap</td>
-</tr>
 <tr class="even">
-<td style="text-align: right;">14</td>
-<td style="text-align: left;">2022-11-22</td>
+<td style="text-align: left;">2023-11-21</td>
 <td style="text-align: left;">No class, Thanksgiving</td>
 <td style="text-align: left;">Relaxing and eating</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">15</td>
-<td style="text-align: left;">2022-11-29</td>
+<td style="text-align: left;">2023-11-28</td>
 <td style="text-align: left;">4: Putting it together</td>
-<td style="text-align: left;">Capstone assignment open session</td>
+<td style="text-align: left;">ggplot extension packages and complexheatmap</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">16</td>
-<td style="text-align: left;">2022-12-05</td>
+<td style="text-align: left;">2023-12-05</td>
 <td style="text-align: left;">4: Putting it together</td>
 <td style="text-align: left;">Capstone assignment open session</td>
 </tr>
@@ -762,13 +740,13 @@ Figure adapted from one by <a href="https://twitter.com/rick_scavetta?lang=en">R
 <div class="cell column-page quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img data-src="01_principles_quarto_files/figure-revealjs/unnamed-chunk-16-1.png" width="336"></p>
+<p><img data-src="01_principles_quarto_files/figure-revealjs/unnamed-chunk-16-1.png" width="288"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img data-src="01_principles_quarto_files/figure-revealjs/unnamed-chunk-16-2.png" width="336"></p>
+<p><img data-src="01_principles_quarto_files/figure-revealjs/unnamed-chunk-16-2.png" width="288"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img data-src="01_principles_quarto_files/figure-revealjs/unnamed-chunk-16-3.png" width="336"></p>
+<p><img data-src="01_principles_quarto_files/figure-revealjs/unnamed-chunk-16-3.png" width="288"></p>
 </div>
 </div>
 </div>
@@ -840,7 +818,7 @@ Figure adapted from one by <a href="https://twitter.com/rick_scavetta?lang=en">R
 <li class="fragment"><p>How can you fairly represent your data? 🚯</p></li>
 </ol>
 <div class="footer footer-default">
-<p><a href="https://datavisualizing.netlify.app/module1.html">01 Principles</a>, © Jessica Cooperstone, 2022</p>
+<p><a href="https://datavisualizing.netlify.app/module1.html">01 Principles</a>, © Jessica Cooperstone, 2023</p>
 </div>
 </section></section>
     </div>
@@ -1060,12 +1038,15 @@ Figure adapted from one by <a href="https://twitter.com/rick_scavetta?lang=en">R
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -1076,13 +1057,6 @@ Figure adapted from one by <a href="https://twitter.com/rick_scavetta?lang=en">R
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
@@ -1134,7 +1108,24 @@ Figure adapted from one by <a href="https://twitter.com/rick_scavetta?lang=en">R
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -1164,31 +1155,50 @@ Figure adapted from one by <a href="https://twitter.com/rick_scavetta?lang=en">R
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

@@ -1,13 +1,13 @@
 ---
 title: "Annotating Statistics onto Plots"
 author: "Jessica Cooperstone"
-date: "10/18/2022"
+date: "Week 9"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 

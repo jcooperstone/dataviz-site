@@ -1,13 +1,13 @@
 ---
 title: "Principal Components Analysis 🍕 Recitation"
 author: "You"
-date: "10/25/2022"
+date: "Week 10"
 output:
   html_document:
     toc: true
     toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 

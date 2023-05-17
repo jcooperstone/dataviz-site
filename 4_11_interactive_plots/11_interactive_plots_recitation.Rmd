@@ -1,13 +1,14 @@
 ---
 title: "Interactive plot with Plotly"
 author: "Daniel Quiroz"
+date: "Week 12"
 output:
   html_document:
     toc: true
-    toc_depth: 4
-    number_sections: true
+    toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
+    code_download: true
 editor_options: 
   markdown: 
     wrap: 72

@@ -1,27 +1,31 @@
 ---
 title: "Wrangling your data, the basics 🤠"
 author: "Jessica Cooperstone"
+date: "Week 4"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r data masterpiece, fig.alt = "A fuzzy monster with a lasso and a cowboy hat using it to wrangle other fuzzy monsters, with the styled text "dplyr: go wrangling"", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+```{r data masterpiece, fig.alt = "A fuzzy monster with a lasso and a cowboy hat using it to wrangle other fuzzy monsters, with the styled text dplyr: go wrangling", fig.cap =  "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
 knitr::include_graphics("img/go_wrangling.png")
 ```
 
-# Introduction
+# Wrangling
 
-This is a new lecture from the previous delivery of this course. In my last teaching, I found that the process of wrangling data was **by far** the thing that people had the most trouble with. In recitations, and for module assignments, I would provide data in a way that would need some adjustment before visualization can be made - and if I'm being honest, I heard a lot of rumblings about this.
+## Introduction
 
-Still, I am going to leave in the course activities that request data to the wrangled before visualiation. I am doing this because real data is often not structured precisely how it needs to be to make the visualizations you want. I want to provide you all some practice to get comfortable with using your data lassos. This is something you **need** to get comfortable with on your coding journey.
+This is a new lecture from the previous delivery of this course. In the last offering, I found that the process of wrangling data was **by far** the thing that people had the most trouble with. In recitations, and for module assignments, I would provide data in a way that would need some adjustment before visualization can be made - and if I'm being honest, I heard a lot of rumblings about this.
+
+Still, I am going to leave in the course activities that request data to the wrangled before visualization. I am doing this because real data is often not structured precisely how it needs to be to make the visualizations you want. I want to provide you all some practice to get comfortable with using your data lassos. This is something you **need** to get comfortable with on your coding journey.
 
 But, I have added in this extra lecture to explicitly go over what I think are the most useful wrangling functions and tools you can use in R. I hope this introduces you to some of what is possible with R, so it will trigger your memory later when you need to use it.
 
@@ -46,6 +50,8 @@ We will be using many of these other packages in this course, but will talk abou
 
 You can find [here](https://tavareshugo.github.io/data_carpentry_extras/base-r_tidyverse_equivalents/base-r_tidyverse_equivalents.html) some examples of comparing tidyverse and base R syntax.
 
+Today we will be mostly talking through [functions that life within the `dplyr` package](https://dplyr.tidyverse.org/reference/index.html).
+
 ## Installing ggplot & tidyverse 
 
 To install packages in R that are on the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/), you can use the function `install.packages()`.
@@ -57,34 +63,507 @@ install.packages("ggplot2")
 
 We only need to install packages once. But, every time we want to use them, we need to "load" them, and can do this using the function `library()`.
 
+```{r load tidyverse}
+library(tidyverse)
+```
+
+It's a good habit to not ignore warnings/messages that R gives you.
+
 > **tl:dr** `install.packages()` once, `library()` every time.
 
 ## The pipe `|>` 
 
+[The pipe](https://r4ds.had.co.nz/pipes.html) `|>` (which used to be written `%>%`, and you will see this widely when googling/troubleshooting and sometimes see me default to this older syntax) is a tool that allows you to take the output of one function, and send it to the next function. 
+
+You can read the pipe as "and then" - here is a theoretical example.
+
+```{r conceptual pipe, eval = FALSE}
+take_this_data |>
+  then_this_function() |>
+  then_another_function() |> 
+  finally_a_last_function()
+```
+
+The easiest way to see how the pipe works is with an example. We are going to use the dataset `diamonds` which comes pre-loaded when you load the tidyverse.
+
+What is in the dataset `diamonds`? We can get a "glimpse" of it with the function [`glimpse`](https://dplyr.tidyverse.org/reference/glimpse.html), which is sort of like the tidyverse version of [`str()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str).
+```{r glimpse diamonds}
+glimpse(diamonds)
+```
+What if we want to see what is the average price of a diamond where `cut = "Premium"`. There are a few ways we can do this.
+
+```{r without pipes}
+# one way
+# filter for only the premium diamonds
+diamonds_premium <- filter(diamonds, cut == "Premium")
+
+# calculate the mean using summarize
+summarize(diamonds_premium, mean_price = mean(price))
+
+# or calculate mean using mean
+# the function mean() requires a vector
+mean(diamonds_premium$price)
+```
+
+Or, we can use the pipe `|>`. We are going to talk about `summarize()` in a minute.
+```{r pipes}
+diamonds |>
+  filter(cut == "Premium") |>
+  summarize(mean_price = mean(price))
+
+# if we want to use the function mean() we need to supply a vector
+diamonds |> 
+  filter(cut == "Premium") |>
+  pull(price) |> # pulls out price as a vector
+  mean()
+```
+
+Some reasons I like the pipe:
+
+* its easier to read (and doesn't have a lot of nested parentheses)
+* it doesn't require you to create lots of interim objects which you won't use again
+* its easy to troubleshoot
+
+> The keyboard shortcut for `|>` is `Ctrl/Cmd` + `Shift` + `M`
+
+Of course you can assign the output of a pipe to something using the assignment operator `<-` and then use it for other things.
+
+Ssome functions are not "pipe friendly" meaning they will not work using pipes. This is often because the data is not the first argument passed to the function. All tidyverse functions work with piping.
+
 ## Selecting columns with `select()`
+
+Often you will want to pick only certain columns in your dataframe, and you can do this with the function [`select()`](https://dplyr.tidyverse.org/reference/select.html). You can pick columns by:
+
+* their names
+* their position (i.e., index)
+* characteristics of that column 
+
+Let's select first by name.
+```{r select by name}
+diamonds |> 
+  select(carat, cut, price)
+```
+
+Note that when you use the pipe, the potential column names will autofill for you after you type 3 letters. You can also hit `tab` to scroll through all the potential objects to select.
+
+We can also select by index. In general I would recommend against this because its really hard to remember which column indices are which variables today, nevermind returning back to old code 1 year from now.
+```{r select by index}
+diamonds |> 
+  select(c(1, 2, 7)) # you could also use the colon syntax if your columns are sequential
+```
+
+You can also select using selection helpers like:
+
+* [`everything()`](https://tidyselect.r-lib.org/reference/everything.html): picks all variables
+*  [`starts_with()`](https://tidyselect.r-lib.org/reference/starts_with.html): starts with some prefix
+* [`contains()`](https://tidyselect.r-lib.org/reference/starts_with.html): contains a specific string
+* [`where()`](https://tidyselect.r-lib.org/reference/where.html): selects columns where the statement given in the argument is TRUE
+
+Here is an example of using `where()` to select only the columns that are numeric.
+```{r select with helpers}
+diamonds |> 
+  select(where(is.numeric))
+```
+
+You can find more helpers [here]().
+
+Using `select()` will also set the order of your columns. More about this later.
 
 ## Choosing observations with `filter()`
 
+```{r filter img, fig.alt = "Cartoon showing three fuzzy monsters either selecting or crossing out rows of a data table. If the type of animal in the table is “otter” and the site is “bay”, a monster is drawing a purple rectangle around the row. If those conditions are not met, another monster is putting a line through the column indicating it will be excluded. Stylized text reads “dplyr::filter() - keep rows that satisfy your conditions.” Learn more about dplyr::filter.", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/filter.png")
+```
+
+
+
+Sometimes you want to select observations (rows) based on values. To do this you use [`filter()`](https://dplyr.tidyverse.org/reference/filter.html). Try not to confuse this with `select()`.
+
+> `select()` picks columns, while `filter()` picks rows.
+
+The function `filter()` will keep only observations that meet your filtering criteria.
+
+Let's say we want to only keep the diamonds that are bigger than 3 carats.
+```{r filter by numeric value}
+diamonds |> 
+  filter(carat > 3)
+```
+
+Here I made use of the greater than `>` sign, and there are other operators you could also use to help you filter.
+
+* `==`: equal to (I usually read this as exactly equal to, and is different than using an equal sign in an equation)
+* `<`, `>`: less than or greater than
+* `<=`, `>=`: less than or equal to, great than or equal to
+* `&`: and
+* `|`: or
+* `!`: not equal
+* `is.na`: is NA
+
+You can also layer your filtering.
+```{r filter twice &}
+diamonds |> 
+  filter(carat > 3 & cut == "Premium")
+```
+
+
 ## Make new columns with `mutate()`
 
-## Doing things group-wise
+```{r mutate img, fig.alt = "Cartoon of cute fuzzy monsters dressed up as different X-men characters, working together to add a new column to an existing data frame. Stylized title text reads “dplyr::mutate - add columns, keep existing.” Learn more about dplyr::mutate.", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/mutate.png")
+```
 
-### `group_by()`
+Sometimes you want to make new columns based on existing variables and you can do this with [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html).
 
-### `summarize()`
+For example, we might want to create a new column called "price_per_carat" which we calculate by taking price and divide it by carat. Keep in mind this would be an easy way to log transform data.
+
+```{r mutate1}
+diamonds |> 
+  mutate(price_per_carat = price/carat)
+```
+
+Mutated columns are by default put at the end of the dataframe. We can reorder simply using `select()`.
+
+```{r mutate and reorder}
+diamonds |> 
+  mutate(price_per_carat = price/carat) |> 
+  select(price_per_carat, everything()) # put new column first, then everything
+```
+
+You can also make new columns using conditional statements. For example, what if we want to create a new column that tells us if a diamond is more than $1000 called "at_least_1000". We will do this using [`if_else()`])(https://dplyr.tidyverse.org/reference/if_else.html). 
+
+
+```{r mutate with if_else}
+diamonds |> 
+  mutate(at_least_1000 = if_else(condition = price >= 1000,
+                                  true = "$1000 or more",
+                                  false = "less than $1000")) |> 
+  select(at_least_1000, everything()) # move to front so we can see it
+```
+
+If you have more than two conditions, you can use [`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html).
+
+If you use `mutate()` to create a new column that has the same name as an existing column, it will override that current column. 
+
+You can find other `mutate()` helpers [here](https://dplyr.tidyverse.org/reference/mutate.html#useful-mutate-functions).
+
+## Sorting with `arrange()`
+
+Sometimes you just want to see a vector in order. We can do that easily with [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html).
+
+```{r arrange ascending}
+diamonds |> 
+  arrange(price)
+```
+
+By default, `arrange()` sorts from smallest to largest. We can change that if that's what we want.
+
+```{r arrange descending}
+# these are the same
+diamonds |> 
+  arrange(-price)
+
+diamonds |> 
+  arrange(desc(price))
+```
+
+## Computing summaries with `summarize()`
+
+Although [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html) can be used without groups, I've included it here in this section since it is mostly used to calculate summary information group-wise. This function creates a wholly new dataframe, providing one row for each grouping variable. If there is no grouping, the resulting dataframe will have one row.
+
+Let's look at an example. We can use `summarize()`
+
+```{r summarize mean}
+diamonds |> 
+  summarize(mean_price = mean(price))
+```
+
+We can also provide multiple items for summary.
+```{r summarize mean sd count}
+diamonds |> 
+  summarize(mean_price = mean(price),
+            sd_price = sd(price),
+            count = n())
+```
+
+Here are some examples of functions you can use within `summarize()`:
+
+* [`mean()`](https://rdrr.io/r/base/mean.html) and [`median()`](https://rdrr.io/r/stats/median.html): calculate mean and median
+* [`sd()`](https://rdrr.io/r/stats/sd.html) and [`IQR()`](https://rdrr.io/r/stats/IQR.html): calculate standard deviation and interquartile range
+* [`min()`](https://rdrr.io/r/base/Extremes.html) and [`max()`](https://rdrr.io/r/base/Extremes.html): calculate min and max
+* [`n()`](https://dplyr.tidyverse.org/reference/context.html) and [`n_distinct()`](https://dplyr.tidyverse.org/reference/n_distinct.html): calculate how many observations there are, and how many distinct observations there are
+
+You can also use the function [`across()`](https://dplyr.tidyverse.org/reference/across.html) combined with [`where()`](https://tidyselect.r-lib.org/reference/where.html) to calculate summary data "across" different columns. 
+
+```{r across img, fig.alt = "A cute round fuzzy monster with fairy wings and a wand, with a party hat on reading “mean”, bouncing across the top of a data table applying the function to each column. Stylized text reads: “dplyr::across() - use within mutate() or summarize() to apply function(s) to a selection of columns!” An example shows the use within summarize: summarize(across(where(is.numeric), mean)). Learn more about dplyr::across().", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/across.png")
+```
+
+For example, like we see in the illustration above, we might want to calculate the mean "across" all columns "where" if we asked if that column contains numeric data, we would get TRUE. 
+
+```{r summarize across}
+diamonds |> 
+  summarize(across(where(is.numeric), mean))
+```
+
+I hope you can start to see now how combining lots of these different functions together will help you achieve what you want with your coding.
+
+## Operations by group with `group_by()`
+
+Sometimes you might want to group your data together to perform operations group-wise. You can do this with [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html). The way to ungroup is to use [`ungroup()`](https://dplyr.tidyverse.org/reference/group_by.html). 
+
+For example, say we want to calculate the average price of a diamond for each cut type.
+
+```{r group by summarize}
+diamonds |> 
+  group_by(cut) |> 
+  summarize(mean_price = mean(price))
+```
+
+Now instead of getting one row for the mean price, we are getting a mean price for each cut.
+
+Note that when you use `group_by()`, the groupings are now embedded within your data. Let me show you what I mean.
+```{r group by structure}
+diamonds_cut <- diamonds |> 
+  group_by(cut)
+
+glimpse(diamonds)
+glimpse(diamonds_cut)
+```
+
+Again we can combine these different functions together to summarize for the mean value across all columns that are numeric, but this time grouped by cut.
+
+```{r group by summarize across}
+diamonds |> 
+  group_by(cut) |> 
+  summarize(across(where(is.numeric), mean))
+```
+
+We can also use `summarize()` to add how many observations there are for each category.
+
+```{r group by summarize where}
+diamonds |> 
+  group_by(cut) |> 
+  summarize(across(where(is.numeric), mean), n = n())
+```
+
+Here is a helpful blogpost by [Hadley Wickham](https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/) for working across columns.
 
 ## Vectorized functions
 
 ## Pivoting with `pivot_longer()` and `pivot_wider()`
 
+The function [`pivot_longer()`]() will often let you make your data in "tidy" format, and [`pivot_wider()`]() allow you to make it untidy (but often still useful) again. Let me explain more what I mean.
+
+```{r tidy data 1 img, fig.alt = "Stylized text providing an overview of Tidy Data. The top reads “Tidy data is a standard way of mapping the meaning of a dataset to its structure. - Hadley Wickham.” On the left reads “In tidy data: each variable forms a column; each observation forms a row; each cell is a single measurement.” There is an example table on the lower right with columns ‘id’, ‘name’ and ‘color’ with observations for different cats, illustrating tidy data structure.", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/tidy-data.jpeg")
+```
+
+```{r tidy data 2 img, fig.alt = "There are two sets of anthropomorphized data tables. The top group of three tables are all rectangular and smiling, with a shared speech bubble reading “our columns are variables and our rows are observations!”. Text to the left of that group reads “The standard structure of tidy data means that “tidy datasets are all alike…” The lower group of four tables are all different shapes, look ragged and concerned, and have different speech bubbles reading (from left to right) “my column are values and my rows are variables”, “I have variables in columns AND in rows”, “I have multiple variables in a single column”, and “I don’t even KNOW what my deal is.” Next to the frazzled data tables is text “...but every messy dataset is messy in its own way. -Hadley Wickham.”", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/tidy-data2.jpeg")
+```
+
+This is easier to “see” 👀 than to explain. Here is an example of non-tidy data, where there is data embedded in column names, and one variable (the rank of a song) is spread across many columns:
+
+```{r billboard}
+billboard
+```
+
+Here is an example of the same exact data, in a tidy format, where those data that used to be column names, are now values coded for a particular variable.
+
+```{r billboard longer}
+billboard_long <- billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank"
+  )
+
+billboard_long
+```
+
+We can go back from our new longer dataframe with `pivot_wider()`.
+```{r billboard wider}
+billboard_long |> 
+  pivot_wider(names_from = week,
+              values_from = rank)
+```
+
+In recap:
+
+[**`pivot_longer()`**](https://tidyr.tidyverse.org/reference/pivot_longer.html)
+pulls data that is embedded in column names, and reshapes your dataframe such this information is now embedded within the values.
+Or put differently, it collects variables that are spread across multiple columns
+into a single column.
+This makes your dataframes longer, i.e., increases the number of rows.
+_Typically_, we use `pivot_longer()` to make an untidy dataset tidy.
+
+[**`pivot_wider()`**](https://tidyr.tidyverse.org/reference/pivot_wider.html)
+takes data that is embedded in the values of your dataframe,
+and puts this information in variable names.
+Or put differently, it spreads a variable across multiple columns.
+This makes your dataframe "wider", i.e., increases the number of columns.
+_Typically_, `pivot_wider()` will make a dataset untidy.
+This can be useful for certain calculations,
+or if you want to use a for loop to do something iteratively across columns.
+
+
 ## Joining data together
+
+Often you will have two separate dataframes that you want to join together. You can do this in two main ways:
+
+* by matching something between them (i.e., using [`_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html))
+* by smushing them together in their existing order by columns [`bind_cols()`]() or rows
+[`bind_rows()`]().
 
 ### `*_join()`
 
+We can join two dataframes, let's call them x and y, together based on a key that we provide. This is one of the first things I did using R that I felt like wow this is really a lot easier than be doing this manually.
+
+There are four types of joins:
+
+* [`inner_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html): keeps observations in x that are also present in y
+* [`left_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html): keeps observations in x 
+* [`right`_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html): keeps observations in y
+* [`full_join()`](https://dplyr.tidyverse.org/reference/mutate-joins.html): keeps observations in both x and y
+
+We will use the datasets `band_members` and `band_instruments` which are pre-loaded with the tidyverse to show how this works. You can also see these examples on the [mutating joins documentation page](https://dplyr.tidyverse.org/reference/mutate-joins.html#ref-examples).
+
+```{r glimpse band stuff}
+glimpse(band_members)
+glimpse(band_instruments)
+```
+
+R will make its best guess as to what you want to "join" based on, and that works a lot of the time, but I always like to be exclicit and indicate the column key for the join with `by = `.
+
+An inner join: we will only get the observations that are present in both dataframes.
+```{r inner join}
+inner_join(band_members, band_instruments, by = "name")
+```
+
+An left join: we will only get the observations that are present in `band_members`. Note the appearance of NA for Mick.
+```{r left join}
+left_join(band_members, band_instruments, by = "name")
+```
+
+An right join: we will only get the observations that are present in `band_instruments`. Note the appearance of NA for band for Keith (Richards, who is in the Rolling Stones). You could also switch the order of the dataframes in your argument instead of using left vs right.
+```{r right join}
+right_join(band_members, band_instruments, by = "name")
+```
+
+An full join: we get all observations of what is present in `band_members` and `band_instruments`.
+```{r full join}
+full_join(band_members, band_instruments, by = "name")
+```
+
+There is [nuances](https://dplyr.tidyverse.org/reference/mutate-joins.html#many-to-many-relationships) to what happens in different joining situations, so do this cautiously and always check that it went the way you expected it to.
+
 ### `bind_rows()` and `bind_cols()`
 
-## Separating values apart
+Generally it would be preferrable to use a `_join()` over `bind_cols()` or `bind_rows()` since the binding happens in the order that observations appear. This might make your data not meaningful without you knowing.
 
+Let's get to the examples.
+
+```{r bind cols}
+data1 <- tibble(x = 1:5)
+data2 <- tibble(y = 6:10)
+
+bind_cols(data1, data2)
+```
+```{r bind rows}
+bind_rows(data1, data2)
+```
+
+
+## Handling strings
+
+```{r stringr img, fig.alt = "stringr: work more easily with strings. Below, and illustration of a purple fuzzy monster at a desk, in a Shakespeare-style fancy collar and monacle, writing a cat walked across my on a piece of paper with a large feather pen. Next to him are a stack of books titled regex and working with strings. Below the desk are cat prints (from walking through pen ink) and a curled up black cat with one eye open. This is a nod to regex often being described as looking like a cat walked over your keyboard. Learn more about stringr.", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/stringr.png")
+```
+
+Handling strings (i.e., "strings" of characters) could be multiple whole lessons, so my goal is to introduce you here to how to handle them. The tidyverse package to manage strings is called `stringr`. Sometimes you might want to automate extraction of only part of a value present in a column to use, remove some values, or split strings apart. This is valuable especially when the way that data is coded/recorded is different than the way you want it to be when you analyze it. Instead of manually recoding in excel, you can reproducibly and tracibly recode in R. You can read about all the functions within `stringr` [here](https://stringr.tidyverse.org/reference/index.html).
+
+You can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) within `stringr` functions, but I'm not going to explicitly go over that (check out these code clubs ([regex1](https://biodash.github.io/codeclub/17_regex/)), ([regex2]()https://biodash.github.io/codeclub/18_regex2/) if you want to learn more).
+
+I'm going to create some sample data to play with.
+```{r make strings}
+strings <- tibble(
+  sample = c(rep.int("Treatment_Level1", 3), 
+             rep.int("Treatment_Level2", 3),
+             rep.int("Treatment_Level3", 3),
+             rep.int("Control_Level1", 3),
+             rep.int("Control_Level2", 3),
+             rep.int("Control_Level3", 3)))
+```
+
+Let's first ask how many times do we have the string "3" in our dataframe? Note that these functions accept a vector, so you need to provide data in that form. The function [`str_detect()`](https://stringr.tidyverse.org/reference/str_detect.html) gives a logical vector as the output, the same length as the vector provided, and indicates FALSE when the pattern is not met, and TRUE when it is.
+
+```{r str detect}
+str_detect(strings$sample, pattern = "3")
+
+# using sum will count how many times the logical is evaluated to be TRUE
+sum(str_detect(strings$sample, pattern = "3"))
+```
+
+You might want to re-code your data so that Level1 becomes that actual level used. Let's say that Level1 is 100mg, Level2 is 300 mg, and Level3 is 500mg. We can do this with [`str_replace()`](https://stringr.tidyverse.org/reference/str_replace.html) to replace the first match only or [`str_replace_all()`](https://stringr.tidyverse.org/reference/str_replace.html) to replace all matches (which is what we want here).
+
+```{r str replace all}
+(strings$sample <- strings |> 
+  select(sample) |> 
+  pull(sample) |> # make a vector so can pass to next fxn
+  str_replace_all(pattern = "Level1", replacement = "100mg") |> 
+  str_replace_all(pattern = "Level2", replacement = "300mg") |> 
+  str_replace_all(pattern = "Level3", replacement = "500mg"))   
+```
+
+We might not want to have both Treatment/Control and Level nested in the same cell, we can split them apart using [`separate_*()`](https://tidyr.tidyverse.org/reference/index.html#character-vectors) functions. Here we are using [`separate_wider_delim()`]() to seprate the column "sample" into two new columns called "treatment" and "dose.
+
+```{r separate wider delim}
+(strings_separated <- strings |> 
+  separate_wider_delim(cols = sample,
+                       delim = "_", # what is the delimiter
+                       names = c("treatment", "dose")))
+```
+
+The opposite function for `separate_()` is [`unite()`](https://tidyr.tidyverse.org/reference/unite.html).
+
+If we wanted to extract just the number part out of "dose" we could use [`readr::parse_number()`](https://readr.tidyverse.org/reference/parse_number.html) to do that. Note I've embedded `parse_number()` within a `mutate()` function to change the values in the dataset.
+
+```{r parse number}
+strings_separated |> 
+  mutate(dose = parse_number(dose))
+```
+
+
+## Cleaning up column names with `clean_names()` 
+
+```{r clean names img, fig.alt = "Title text: janitor::clean_names(): convert all column names to *_case! Below, a cartoon beaver putting shapes with long, messy column names (pulled from a bin labeled MESS and not so awesome column names) into a contraption that converts them to lower snake case. The output has stylized text reading “Way more deal-withable column names. Learn more about clean_names and other *awesome* data cleaning tools in janitor.", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/clean-names.png")
+```
+
+I really like the package `janitor` which has some nice functions for cleaning up 🧹 "messy" data. I use [`clean_names()`](https://www.rdocumentation.org/packages/janitor/versions/2.2.0/topics/clean_names) a lot which converts untidy column names into only characters (default all in lower case) and connects words or terms with underscores.
+
+I am making up some messy names so you can see how this works.
+
+```{r messy data}
+# make messy data
+messy_data <- tibble(
+  "Sample Name" = 1:5,
+  "THE NEXT VARIABLE" = 6:10,
+  "ThisIsChaos" = 11:15
+)
+
+# print column names
+colnames(messy_data)
+```
+
+```{r clean names}
+# install and load janitor
+# install.packages("janitor)
+library(janitor)
+
+# clean up column names
+clean_names(messy_data)
+```
 
 # In class
 
@@ -92,8 +571,19 @@ In class, we will practice wrangling our data, getting comfortable with rearrang
 
 # Useful resources:
 
+* [R For Data Science, Second Edition](https://r4ds.hadley.nz/)
+* [Data wrangling cheatsheet by Posit](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+* [dplyr documentation page](https://dplyr.tidyverse.org/)
+* [tidyr documentation page](https://tidyr.tidyverse.org/index.html)
 
-- Past wrangling Code Clubs:
+Past wrangling Code Clubs:
 
-  
+* [Pipes by Jelmer Poelstra](https://biodash.github.io/codeclub/s05e01_pipes/)
+* [Pipes, filter, and select by Jess](https://biodash.github.io/codeclub/s02e04_tidyverse-intro-part1/)
+* [Filter by Jelmer Poelstra](https://biodash.github.io/codeclub/s04e09_r4ds-ch5-1/) and [filter by Michael Broe](https://biodash.github.io/codeclub/s04e10-11_r4ds-ch5-4/)
+* [Mutate by Stephen Opiyo](https://biodash.github.io/codeclub/s04e12_r4ds-ch5-5/)
+* [Summarize 1 by Mike Sovic](https://biodash.github.io/codeclub/s04e13/) and [summarize 2 by Jess](https://biodash.github.io/codeclub/s04e14_r4ds-ch5-5-again/)
+* [Core dplyr verbs by Jess](https://biodash.github.io/codeclub/02_dplyr-core-verbs/)
+* [Joining datasets by Mike Sovic](https://biodash.github.io/codeclub/s03_joining-datasets/)
+* [Tidy data by Jess](https://biodash.github.io/codeclub/s05e03/) and [reshaping your data by Mike Sovic](https://biodash.github.io/codeclub/08_pivoting/)
 

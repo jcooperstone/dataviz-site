@@ -1,14 +1,14 @@
 ---
 title: "Understanding Data Distributions"
 author: "Jessica Cooperstone"
-date: "9/27/2022"
+date: "Week 7"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
     code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}

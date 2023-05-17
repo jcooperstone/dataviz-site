@@ -1,13 +1,13 @@
 ---
 title: "R Markdown for reproducible research"
 author: "Jessica Cooperstone"
-date: "9/6/2022"
+date: "Week 3"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}

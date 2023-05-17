@@ -114,7 +114,7 @@ There will be 10 class reflections (you can select which classes you want to ref
 ### Late assignments
 I expect you will turn assignments in on time. Late assignments are not accepted. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for discussion about a possible deadline extension. 
 
-Please refer to Carmen for assignment due dates.
+Please refer to the [Assignments tab](https://datavisualizing.netlify.app/assignments.html) or Carmen for  due dates.
 
 ### Grading scale
 ```{r, echo = FALSE}

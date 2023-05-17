@@ -1,12 +1,14 @@
 ---
 title: "ggplot 101 (and 🍅)"
 author: "Jessica Cooperstone"
+date: "Week 5"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}

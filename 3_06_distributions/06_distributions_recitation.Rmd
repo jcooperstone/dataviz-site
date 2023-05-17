@@ -1,13 +1,14 @@
 ---
 title: "Understanding Data Distributions Recitation"
 author: "You"
-date: "9/27/2022"
-output: 
+date: "Week 7"
+output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
@@ -20,7 +21,7 @@ Today you will be investigating some [data](https://github.com/rfordatascience/t
 More information can be found on the Tidy Tuesday github repo on [coffee ratings](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
 
 ### Read in data
-```{r load data}
+```{r load data, message = FALSE, warning = FALSE}
 tuesdata <- tidytuesdayR::tt_load('2020-07-07')
 coffee_ratings <- tuesdata$coffee_ratings
 ```

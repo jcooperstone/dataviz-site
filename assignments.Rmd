@@ -30,7 +30,9 @@ There will be 10 class reflections (you can select which classes you want to ref
 ### Capstone assignment
 At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why. You will be required to submit a capstone assignment “plan” by the beginning of November.
 
-There will be 1 capstone assignment. It will be due 12/8/2023.
+There will be 1 capstone assignment. 
+
+**Due Date:** The capstone assignment will be due 12/8/2023.
 
 # Late assignments
 I expect you will turn assignments in on time. Late assignments are not accepted. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for discussion about a possible deadline extension. 

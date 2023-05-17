@@ -1,8 +1,13 @@
 ---
 title: "RMarkdown Recitation"
 author: "you!"
-date: "2022-09-02"
-output: html_document
+date: "Week 3"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}

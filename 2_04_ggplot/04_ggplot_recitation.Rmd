@@ -1,13 +1,14 @@
 ---
-title: "ggplot 101 practice"
+title: "ggplot 101 recitation"
 author: "Daniel Quiroz, Jessica Cooperstone"
+date: "Week 5"
 output:
   html_document:
     toc: true
     toc_depth: 4
-    number_sections: true
     toc_float: true
-    theme: flatly
+    code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}

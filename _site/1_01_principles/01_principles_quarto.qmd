@@ -1,19 +1,19 @@
 ---
 title: "Principles of Data Visualization 💻 🧰 📊 🥳"
-subtitle: "Week 1<br>8/23/2022"
+subtitle: "Week 1<br>8/22/2023"
 author: "Jessica Cooperstone, Ph.D."
 format: 
   revealjs:
     incremental: true
     theme: jc_style.scss
-    footer: "[01 Principles](https://datavisualizing.netlify.app/module1.html), © Jessica Cooperstone, 2022"
+    footer: "[01 Principles](https://datavisualizing.netlify.app/module1.html), © Jessica Cooperstone, 2023"
 css: xaringan-themer.css
 ---
 
 ## Introductions 👋 {.center_title}
 
 ::: nonincremental
--   Name and pronouns
+-   Name
 -   Program
 -   Why you decided to take this class
 -   One thing you hope to learn
@@ -52,14 +52,12 @@ If you have found these slides, you've made it to the website! (Good job.)\
 
 ## Attendance {.center_title .smaller}
 
+:::{.incremental}
 -   <p>Class will taught in a hybrid, synchronous manner, meaning I expect you to attend class during class time. This attendance can happen in person, or virtually via [Zoom](https://go.osu.edu/dataviz-zoom) I have found that students who attend in person are more engaged, and tend to master material more quickly. But, it is up to you how you want to attend.</p>
 
-    \
+-   I will record class time for those who want to 1) revisit material or 2) can't attend (this should be uncommon). These recordings are not to replace coming to class.  
 
--   I will record class time for those who want to 1) revisit material or 2) can't attend for some reason. These recordings are not to replace coming to class.\
-    \
-
--   <h4>📌 please engage during class as much as you can</h4>
+:::
 
 ## How class will be?
 
@@ -69,23 +67,21 @@ If you have found these slides, you've made it to the website! (Good job.)\
 
 -   Come with your questions!
 
+-   Engage as much as you can!
+
 ## Previous programming experience
 
 ## Assigments {.center_title .smaller}
 
--   **Module assignments:** After each module, there will be an assignment to provide practice for the techniques learned in class. There will be 4 of these.
+-   **Module assignments:** After each module, there will be an assignment to provide practice for the techniques learned in class. 
 
--   **Class reflections:** After each week, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you'd like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you've found useful, what you've struggled with, and what you'd like to see more of in the future. There will be 10 of these.
+-   **Class reflections:** After 10 of the 15 weeks, you will write a 1 paragraph reflection on the material that was presented in class. This can include your thoughts on how you will use these lessons in your own research and data visualizations, ways in which you have investigated this topic (or expect to) on your own, or what else you'd like to learn in this area. The purpose of this assignment is not to be burdensome, but to keep you engaged in the course material, and providing feedback to me on what parts you've found useful, what you've struggled with, and what you'd like to see more of in the future. 
 
 -   **Capstone assignment:** At the end of the semester, you will complete a capstone assignment where you create a series of visualizations based on your research data, data coming from your lab, or other data that is publicly available. I expect this assignment to be completed in R Markdown, annotated, and knitted into an easy-to-read .html file. I also expect your code to be fully commented such that I can understand what you are doing with each step, and why.
 
 ## Late assignments {.smaller}
 
--   I expect you will turn assignments in on time. However, I am also reasonable want to see you master the material in this class. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for further discussion.
-
--   Unexcused late assignments will be docked 10% of total possible points per day late, including weekends. For example, if as assignment is worth 10 points, and it is turned in 1 day late without prior discussion with the instructor, the maximum score that can be earned with be 9 points.
-
--   📌 please turn assignments in on time
+-   I expect you will turn assignments in on time. Late assignments are not accepted. If there are extenuating circumstances that prevent you from turning in an assignment on time, please connect with me as soon as possible after such a situation arises for discussion about a possible deadline extension.
 
 # Academic integrity 🏫 {.center_title}
 
@@ -107,9 +103,9 @@ schedule <- read_excel("files/schedule_modules.xlsx",
                        sheet = "Schedule_date")
 
 schedule_1 <- schedule[1:2,]
-schedule_2 <- schedule[3:5,]
-schedule_3 <- schedule[6:8,]
-schedule_4 <- schedule[9:nrow(schedule),]
+schedule_2 <- schedule[3:6,]
+schedule_3 <- schedule[7:10,]
+schedule_4 <- schedule[11:nrow(schedule),]
 ```
 
 ```{r}
@@ -150,7 +146,7 @@ Anscombe's quartet 🎻
 ```{r echo = FALSE}
 #| column: page
 #| layout-nrow: 2
-#| fig-height: 3
+#| fig-height: 2.5
 #| fig-width: 4
 
 anscombe %>%
@@ -368,7 +364,7 @@ gapminder %>%
 #| column: page
 #| layout-ncol: 3
 #| fig-height: 4
-#| fig-width: 3.5
+#| fig-width: 3
 
 gapminder %>%
   filter(year == 2007) %>%

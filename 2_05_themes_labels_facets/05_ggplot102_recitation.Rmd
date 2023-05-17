@@ -1,13 +1,14 @@
 ---
 title: "ggplot 102: Facets, Scales, Labels, and Themes (but now 🐶) recitation"
 author: "Jessica Cooperstone and you"
-date: "9/20/2022"
+date: "Week 6"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
