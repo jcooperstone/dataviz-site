@@ -318,9 +318,7 @@ Themes will control all the non-data parts of your plot. There are some pre-set 
 
 # In class
 
-In class, we will practice using ggplot, especially playing around with writing syntax and invesetigating different geoms.
-
-You can find the in class content [here](04_ggplot_recitation.html).
+In class, we will practice using ggplot, especially playing around with writing syntax and invesetigating different geoms. Click [here](04_ggplot_recitation.html) for the recitation materials.
 
 # Useful resources:
 

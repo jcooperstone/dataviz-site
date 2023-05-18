@@ -1,13 +1,14 @@
 ---
 title: "ggplot 102: Facets, Scales, Labels, and Themes (and still 🍅)"
 author: "Jessica Cooperstone"
-date: "9/20/2022"
+date: "Week 6"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
@@ -374,11 +375,9 @@ I like to set the code chunk options for my chunks where I am saving plots to `e
 
 ## In class
 
-In class, we will practice using ggplot and adjusting facets, scales, labels, and themes.
+In class, we will practice using ggplot and adjusting facets, scales, labels, and themes. Click [here](05_ggplot102_recitation.html) for the recitation materials.
 
-You can find the in class content [here](2_05_themes_labels_facets/05_ggplot_recitation.html).
-
-### Useful resources:
+## Useful resources
 
 -   [`ggplot2` cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
 -   [`ggplot2` documentation](https://ggplot2.tidyverse.org/)

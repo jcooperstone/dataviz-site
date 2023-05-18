@@ -452,9 +452,9 @@ Voila.
 
 ## In class
 
-In class, we will practice adding running PCA and making scree, scores, and loadings plots. 
+In class, we will practice adding running PCA and making scree, scores, and loadings plots. Click [here](09_pca_recitation.html) for the recitation materials.
 
-### Useful resources
+## Useful resources
 
 - [Code club about PCA by Jelmer Poelstra](https://biodash.github.io/codeclub/s03e03_pca/)
 - [factoextra](https://www.rdocumentation.org/packages/factoextra/versions/1.0.7)

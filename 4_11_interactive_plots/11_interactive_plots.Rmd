@@ -267,7 +267,7 @@ saveWidget(widget = ggplotly_to_save,
 ## In class
 
 In class, we will practice using `ggplotly()` and other extensions to visualize
-microbiome data.
+microbiome data. Click [here](11_interactive_plots_recitation.html) for the recitation materials.
 
 ## Helpful resources
 

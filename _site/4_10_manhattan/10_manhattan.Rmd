@@ -1,13 +1,13 @@
 ---
 title: "Manhattan Plots"
 author: "Jessica Cooperstone"
-date: "11/01/2022"
+date: "Week 11"
 output:
   html_document:
     toc: true
     toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 
@@ -390,7 +390,7 @@ We will make a new df that includes only the 50 features with the most makers as
 top50 <- gwas_tidy_bonferroni %>%
   count(Feature) %>%
   arrange(desc(n)) %>%
-  slice(n=1:50)
+  slice_head(n = 50)
 
 # filter the whole dataset to include only these features
 gwas_top50 <- gwas_tidy %>%
@@ -459,8 +459,8 @@ dev.off() # closes the plot above
 
 ## In class
 
-In class, we will practice making Manhattan plots.
+In class, we will practice making Manhattan plots. Click [here](10_manhattan_recitation.html) for the recitation materials.
 
-### Useful resources
+## Useful resources
 
 -   [the `apply()` family of functions](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/lapply)

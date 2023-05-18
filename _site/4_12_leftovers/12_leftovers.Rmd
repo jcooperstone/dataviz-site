@@ -1,13 +1,13 @@
 ---
 title: "Leftover tidbits"
 author: "Jessica Cooperstone"
-date: "11/15/2022"
+date: "Week 13"
 output:
   html_document:
     toc: true
     toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 
@@ -309,9 +309,9 @@ The package [`ComplexHeatmap`](https://jokergoo.github.io/ComplexHeatmap-referen
 
 ## In class
 
-In class, we will practice making use of these leftovers.
+In class, we will practice making use of these leftovers. Click [here](12_leftovers_recitation.html) for the recitation materials.
 
-### Useful resources
+## Useful resources
 
 - [`gghighlight`](https://yutannihilation.github.io/gghighlight/)
 - [`patchwork`](https://patchwork.data-imaginist.com/)

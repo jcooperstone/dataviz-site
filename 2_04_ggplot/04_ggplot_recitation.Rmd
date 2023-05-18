@@ -1,5 +1,5 @@
 ---
-title: "ggplot 101 recitation"
+title: "ggplot 101 recitation 🎃"
 author: "Daniel Quiroz, Jessica Cooperstone"
 date: "Week 5"
 output:

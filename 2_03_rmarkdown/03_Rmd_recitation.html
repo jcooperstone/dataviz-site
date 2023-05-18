@@ -1294,6 +1294,96 @@ window.buildTabsets = function(tocID) {
 };
 
 </script>
+<script>
+window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $("#rmd-show-all-code").click(function() {
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('show');
+    });
+  });
+  $("#rmd-hide-all-code").click(function() {
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('hide');
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia, pre.foldable');
+  rCodeBlocks.each(function() {
+    // skip if the block has fold-none class
+    if ($(this).hasClass('fold-none')) return;
+
+    // create a collapsable div to wrap the code in
+    var div = $('<div class="collapse r-code-collapse"></div>');
+    var showThis = (show || $(this).hasClass('fold-show')) && !$(this).hasClass('fold-hide');
+    var id = 'rcode-643E0F36' + currentIndex++;
+    div.attr('id', id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
+    var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr('data-toggle', 'collapse')
+        .attr('data-bs-toggle', 'collapse') // BS5
+        .attr('data-target', '#' + id)
+        .attr('data-bs-target', '#' + id)   // BS5
+        .attr('aria-expanded', showThis)
+        .attr('aria-controls', id);
+
+    var buttonRow = $('<div class="row"></div>');
+    var buttonCol = $('<div class="col-md-12"></div>');
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // show the div if necessary
+    if (showThis) div.collapse('show');
+
+    // update state of button on show/hide
+    //   * Change text
+    //   * add a class for intermediate states styling
+    div.on('hide.bs.collapse', function () {
+      showCodeText.text('Code');
+      showCodeButton.addClass('btn-collapsing');
+    });
+    div.on('hidden.bs.collapse', function () {
+      showCodeButton.removeClass('btn-collapsing');
+    });
+    div.on('show.bs.collapse', function () {
+      showCodeText.text('Hide');
+      showCodeButton.addClass('btn-expanding');
+    });
+    div.on('shown.bs.collapse', function () {
+      showCodeButton.removeClass('btn-expanding');
+    });
+
+  });
+
+}
+</script>
+<script>
+window.initializeSourceEmbed = function(filename) {
+  $("#rmd-download-source").click(function() {
+    var src = $("#rmd-source-code").html();
+    var a = document.createElement('a');
+    a.href = "data:text/x-r-markdown;base64," + src;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+};
+</script>
 <style type="text/css">.hljs-literal {
 color: #990073;
 }
@@ -1337,6 +1427,11 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+#rmd-source-code {
+display: none;
+}
+</style>
 
 
 
@@ -1417,6 +1512,9 @@ display: none;
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -1494,6 +1592,13 @@ border-radius: 0px;
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">RMarkdown Recitation</h1>
@@ -1556,6 +1661,7 @@ Code folding</p>
 <p>Make the table of contents viewable in your document</p>
 </div>
 
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUk1hcmtkb3duIFJlY2l0YXRpb24iCmF1dGhvcjogInlvdSEiCmRhdGU6ICJXZWVrIDMiCm91dHB1dDoKICBodG1sX2RvY3VtZW50OgogICAgdG9jOiB0cnVlCiAgICB0b2NfZGVwdGg6IDQKICAgIHRvY19mbG9hdDogdHJ1ZQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQogICAgdGhlbWU6IHJlYWRhYmxlCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKYGBgCgojIyBSIE1hcmtkb3duIFJlY2l0YXRpb24KClRoaXMgd2lsbCBiZSB5b3VyIHRlbXBsYXRlIFJNYXJrZG93biBkb2N1bWVudCBmb3IgcGxheWluZyBhcm91bmQgd2l0aCBSTWFya2Rvd24uIFRoaXMgd2FzIG9wZW5lZCB1c2luZyB0aGUgZGVmYXVsdCBSbWQgc2V0dGluZ3MuIFlvdSBhcmUgZ29pbmcgdG8gYmUgcGxheWluZyBhcm91bmQgd2l0aCB0aGUgMyBjb21wb25lbnRzIG9mIGFuIFJtZDoKCjEuIHRleHQKMi4gY29kZQozLiB0aGUgWUFNTCAoYWthIHRoZSBoZWFkZXIpCgpUbyBzZWUgaWYgZWFjaCBvZiB5b3VyIGNoYW5nZXMgaGFzIHdvcmtlZCwgeW91IHdpbGwgbmVlZCB0byBrbml0LgoKIyBUZXh0CgpXcml0ZSB0ZXh0IHRoYXQgZ2VuZXJhdGVzIGluIGl0YWxpY3MuCgpXcml0ZSB0ZXh0IHRoYXQgZ2VuZXJhdGVzIGluIGJvbGQKClRyeSBwbGF5aW5nIGFyb3VuZCB3aXRoIGhlYWRlciBsZXZlbHMKCkFkZCBhIGh5cGVybGluawoKQWRkIGFuIGltYWdlLiBOb3RlIHlvdSB3aWxsIGRvIHRoaXMgZGlmZmVyZW50bHkgaWYgeW91IGFyZSBhZGRpbmcgYW4gaW1hZ2UgZnJvbSBpbnRlcm5ldCB2cyBvbmUgeW91IGhhdmUgb24geW91ciBsb2NhbCBtYWNoaW5lLiBBbHNvIHJlbWVtYmVyIHlvdXIgd29ya2luZyBkaXJlY3RvcnkgaXMgdGhlIGxvY2F0aW9uIG9mIHlvdXIgUm1kIGFuZCB5b3UgbWF5IHdhbnQgdG8gaGF2ZSBhIGRpcmVjdG9yeSBjYWxsZWQgYGltZ2Agd2hlcmUgaW1hZ2VzIGFyZSBzdG9yZWQuIAoKQWRkIGEgYmxvY2sgcXVvdGUKCk1ha2UgYSBidWxsZXRlZCBsaXN0CgojIENvZGUKCkNyZWF0ZSBhIGNvZGUgY2h1bmsgYnkgdHlwaW5nCgpDcmVhdGUgYSBjb2RlIGNodW5rIHVzaW5nIHRoZSB0b29sYmFyCgpDcmVhdGUgYSBjb2RlIGNodW5rIHVzaW5nIHRoZSBrZXlib2FyZCBzaG9ydGN1dAoKV3JpdGUgc29tZSBjb2RlIHdpdGhpbiBhIGNodW5rIGFuZCBleGVjdXRlIGl0CgpXcml0ZSBzb21lIGNvZGUgaW4gbGluZSAod2l0aGluIHlvdXIgdGV4dCkgYW5kIGtuaXQKClRyeSB1c2luZyB0aGUgZGlmZmVyZW50IG9wdGlvbnMgZm9yIHlvdXIgY29kZSBjaHVua3MuIFJlbWVtYmVyIHlvdSBjYW4gdXNlIG11bHRpcGxlIGF0IG9uY2UuCkdldCBjb2RlIHRvIHJ1biBidXQgbm90IGRpc3BsYXkKR2V0IGNvZGUgdG8gZGlzcGxheSBidXQgbm90IHJ1bgpHZXQgY29kZSB0byBoaWRlIG1lc3NhZ2VzCkFkZCBhIGZpZ3VyZSBjYXB0aW9uCkFkZCBhbHQgdGV4dAoKR2l2ZSB5b3VyIGNodW5rIGEgbmFtZQoKIyBUaGUgWUFNTApFZGl0IHRoZSBkZWZhdWx0IGNvbXBvbmVudHMgb2YgdGhlIFlBTUwgdG8gYmUgcGVyc29uYWxpemVkIHRvIHlvdQoKUGxheSBhcm91bmQgd2l0aCBhZGRpbmcgYToKVGFibGUgb2YgY29udGVudHMKQ29kZSBkb3dubG9hZCBidXR0b24KQ29kZSBmb2xkaW5nCgpQbGF5IGFyb3VuZCB3aXRoIHRoZSBkZWZhdWx0IHRoZW1lcyBodHRwczovL3d3dy5kYXRhZHJlYW1pbmcub3JnL3Bvc3Qvci1tYXJrZG93bi10aGVtZS1nYWxsZXJ5LyAKClBsYXkgYXJvdW5kIHRoZW1lcyBmcm9tIGBwcmV0dHlkb2NgLCBgcm1kZm9ybWF0c2AgYW5kL29yIGB0dWZ0ZWAgCgojIE90aGVyIHN0dWZmClBsYXkgYXJvdW5kIHdpdGggdGhlIHZpc3VhbCBlZGl0b3IKCk1ha2UgdGhlIHRhYmxlIG9mIGNvbnRlbnRzIHZpZXdhYmxlIGluIHlvdXIgZG9jdW1lbnQKCg==</div>
 
 
 </div>
@@ -1591,6 +1697,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("03_Rmd_recitation.Rmd");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

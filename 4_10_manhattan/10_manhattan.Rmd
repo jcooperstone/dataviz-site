@@ -459,8 +459,8 @@ dev.off() # closes the plot above
 
 ## In class
 
-In class, we will practice making Manhattan plots.
+In class, we will practice making Manhattan plots. Click [here](10_manhattan_recitation.html) for the recitation materials.
 
-### Useful resources
+## Useful resources
 
 -   [the `apply()` family of functions](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/lapply)

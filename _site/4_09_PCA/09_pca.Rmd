@@ -1,13 +1,13 @@
 ---
 title: "Principal Components Analysis"
 author: "Jessica Cooperstone"
-date: "10/25/2022"
+date: "Week 10"
 output:
   html_document:
     toc: true
     toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 
@@ -168,7 +168,7 @@ Almost! PC10 is displaying right after PC1 because alphabetically, this is the o
 my_order <- colnames(importance)
 
 # relevel according to my_order
-importance_tidy$PC <- fct_relevel(importance_tidy$PC, levels = my_order)
+importance_tidy$PC <- factor(importance_tidy$PC, levels = my_order)
 
 # check to see if it worked
 levels(importance_tidy$PC)
@@ -452,9 +452,9 @@ Voila.
 
 ## In class
 
-In class, we will practice adding running PCA and making scree, scores, and loadings plots. 
+In class, we will practice adding running PCA and making scree, scores, and loadings plots. Click [here](09_pca_recitation.html) for the recitation materials.
 
-### Useful resources
+## Useful resources
 
 - [Code club about PCA by Jelmer Poelstra](https://biodash.github.io/codeclub/s03e03_pca/)
 - [factoextra](https://www.rdocumentation.org/packages/factoextra/versions/1.0.7)

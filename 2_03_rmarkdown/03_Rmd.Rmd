@@ -265,9 +265,9 @@ When you're first getting started, this is a useful resource to see how your R M
 
 # In class
 
-In class, we will practice using R Markdown.
+In class, we will practice using R Markdown. Click [here](03_Rmd_recitation.html) for the recitation materials.
 
-# Useful resources:
+# Useful resources
 
 -   [R Markdown cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf)
 -   [R Markdown: The Definitive Guide by Yihui Xie, J.J. Allaire, and Garrett Grolemund](https://bookdown.org/yihui/rmarkdown/)

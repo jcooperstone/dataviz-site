@@ -1,5 +1,5 @@
 ---
-title: "Wrangling your data, the basics 🤠"
+title: "Wrangling your data 🤠, the basics"
 author: "Jessica Cooperstone"
 date: "Week 4"
 output:
@@ -567,9 +567,9 @@ clean_names(messy_data)
 
 # In class
 
-In class, we will practice wrangling our data, getting comfortable with rearranging it such that we can do this later before plotting.
+In class, we will practice wrangling our data, getting comfortable with rearranging it such that we can do this later before plotting. Click [here]() for the recitation materials.
 
-# Useful resources:
+# Useful resources
 
 * [R For Data Science, Second Edition](https://r4ds.hadley.nz/)
 * [Data wrangling cheatsheet by Posit](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)

@@ -1,13 +1,13 @@
 ---
 title: "Visualizing Correlations Recitation Solutions"
 author: "You"
-date: "10/4/2022"
+date: "Week 8"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 

@@ -1,13 +1,13 @@
 ---
 title: "Manhattan Plots Recitation"
 author: "You"
-date: "11/01/2022"
+date: "Week 11"
 output:
   html_document:
     toc: true
     toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 

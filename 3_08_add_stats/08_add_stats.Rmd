@@ -386,10 +386,10 @@ penguins_f_massbyspecies +
 
 ## In class
 
-In class, we will practice adding statistical analysis to our plots. 
+In class, we will practice adding statistical analysis to our plots. Click [here](08_add_stats_recitation.html) for the recitation materials.
 
 
-### Useful resources:
+## Useful resources
 
 There have been previous [Code Club](https://biodash.github.io/codeclub/) sessions about adding statistics to plots:
 

@@ -1,14 +1,14 @@
 ---
 title: "Understanding Data Distributions"
 author: "Jessica Cooperstone"
-date: "9/27/2022"
+date: "Week 7"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
     code_download: true
+    theme: readable
 ---
 
 ```{r setup, include=FALSE}
@@ -338,11 +338,9 @@ alkaloids %>%
 
 ## In class
 
-In class, we will practice using ggplot and investigating data distributions.
+In class, we will practice using ggplot and investigating data distributions. Click [here](06_distributions_recitation.html) for the recitation materials.
 
-You can find the in class content [here](3_06_distributions/06_distributions_recitation.html).
-
-### Useful resources:
+## Useful resources
 
 -   [`ggplot2` cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
 -   [`ggplot2` documentation](https://ggplot2.tidyverse.org/)
@@ -350,7 +348,7 @@ You can find the in class content [here](3_06_distributions/06_distributions_rec
 -   [A really compehensive list of resources compiled by Erik Gahner Larsen](https://github.com/erikgahner/awesome-ggplot2)
 -   [`ggridges`](https://wilkelab.org/ggridges/)
 -   [`ggdist`](https://mjskay.github.io/ggdist/index.html)
--   [`ggbeeswarm`]()
+-   [`ggbeeswarm`](https://cran.r-project.org/web/packages/ggbeeswarm/index.html)
 
 
 - Past ggplot Code Clubs:

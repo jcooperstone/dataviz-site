@@ -12,12 +12,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ## R Markdown for reproducible research
 
 * [Course material](2_03_rmarkdown/03_Rmd.html)
-* [Recitation activities](2_03_rmarkdown/03_Rmd_recitation.Rmd)
+* [Recitation activities](2_03_rmarkdown/03_Rmd_recitation.html)
 * Recitation solutions
 
 ## Wrangling, the basics
 
-* Course material
+* [Course material](2_04_wrangling/04_wrangling.html)
 * Recitation activities
 * Recitation solutions
 

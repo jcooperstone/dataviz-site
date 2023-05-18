@@ -1,6 +1,6 @@
 ---
 title: "ggplot 102: Facets, Scales, Labels, and Themes (but now 🐶) recitation"
-author: "Jessica Cooperstone and you"
+author: "You"
 date: "Week 6"
 output:
   html_document:

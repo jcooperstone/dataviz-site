@@ -1,13 +1,13 @@
 ---
 title: "Interactive plots with plotly and ggplotly"
 author: "Daniel Quiroz"
+date: "Week 12"
 output:
   html_document:
     toc: true
-    toc_depth: 4
-    number_sections: true
+    toc_depth: 5
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 
@@ -267,7 +267,7 @@ saveWidget(widget = ggplotly_to_save,
 ## In class
 
 In class, we will practice using `ggplotly()` and other extensions to visualize
-microbiome data.
+microbiome data. Click [here](11_interactive_plots_recitation.html) for the recitation materials.
 
 ## Helpful resources
 

@@ -1,13 +1,13 @@
 ---
 title: "Visualizing Correlations"
 author: "Jessica Cooperstone"
-date: "10/04/2022"
+date: "Week 8"
 output:
   html_document:
     toc: true
     toc_depth: 4
     toc_float: true
-    theme: flatly
+    theme: readable
     code_download: true
 ---
 
@@ -401,11 +401,9 @@ melted_alkaloids_lower %>%
 
 ## In class
 
-In class, we will practice using ggplot and other extension packages to visualize correlations within a dataset.
+In class, we will practice using ggplot and other extension packages to visualize correlations within a dataset. Click [here](07_correlations_recitation.html) for the recitation materials.
 
-You can find the in class content [here](3_07_correlations/07_correlations_recitation.html)
-
-### Useful resources:
+## Useful resources
 
 -   [`cor()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor)
 -   [`Hmisc::rcorr()`](https://www.rdocumentation.org/packages/Hmisc/versions/4.7-1/topics/rcorr)
