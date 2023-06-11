@@ -1,0 +1,66 @@
+---
+title: "Wrangling your data 🤠, recitation"
+author: "You"
+date: "Week 4"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    code_download: true
+    theme: readable
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today you are going to be practicing what you learned in the [wrangling](04_wrangling.html) lesson. The more you practice modifying your data the easier it becomes. Remember, there are many ways to accomplish the same outcome. In the recitation solutions, I will show you a few different ways to answer the prompts and you can see how they differ, and use the ones that resonate with you.
+
+### Load data
+
+To practice, we will be using some data I have extracted from [Gapminder](https://www.gapminder.org/). I am linking to two files that you can download to your computer, and then read them in like we learned in class.
+
+* [Data]() on the happiness index for many countries for many years
+* [Data]() on the life expectancy for many countries for many years
+
+## Explore your data
+Write some code that lets you explore that is in these two datasets.
+
+How many observations there in each dataset? 
+
+What years do the data contain information for?
+
+## Modifying data
+Create a new dataset for life_expectancy that only includes observed data (i.e., remove the projected data after 2022).
+
+## Calculating summaries
+What country has the highest average happiness index in 2022? 
+
+What about overall average highest index?
+
+How many countries had an average life expectancy over 80 years in 2022?
+
+What countries are in the top 10 percentile for happiness? What about the bottom? What about for life expectancy? You can calculate this for the most recent data, for the mean, or really for whatever you want. Remember there are lots of ways to do this.
+
+**Click the button Show on the right if you need a hint**
+```{r hint, class.source = 'fold-hide', eval = FALSE}
+# Hint - try using the functions in the `slice_()` family.
+```
+
+
+Which country has had their happiness index increase the most from 2012 to 2022? Which dropped the most?
+
+
+## Joining data 
+Try joining the happiness and life_expectancy datasets together and use the different `*_join()` functions so you can see how they differ. Check their dimensions and look at them. Think about how you might want to do different joins in different situations.
+
+If you wanted to create a plot that allowed you to see the correlation between happiness score and life expectancy in 2022, which joined dataset would you use and why?
+
+
+
+
+
