@@ -22,10 +22,10 @@ Today you are going to be practicing what you learned in the [wrangling](04_wran
 
 ### Load data
 
-To practice, we will be using some data I have extracted from [Gapminder](https://www.gapminder.org/). I am linking to two files that you can download to your computer, and then read them in like we learned in class.
+To practice, we will be using some data I have extracted from [Gapminder](https://www.gapminder.org/). I am linking to two files that you can download to your computer, and then read them in like we learned in class. When you go to the links below, click on the Download Raw File icon (the down arrow over a turned open bracket) at the top right of the file
 
-* [Data]() on the happiness index for many countries for many years
-* [Data]() on the life expectancy for many countries for many years
+* [Data](https://github.com/jcooperstone/dataviz-site/blob/master/2_04_wrangling/data/hapiscore_whr.csv) on the happiness index for many countries for many years
+* [Data](https://github.com/jcooperstone/dataviz-site/blob/master/2_04_wrangling/data/life_expectancy.csv) on the life expectancy for many countries for many years
 
 ## Explore your data
 Write some code that lets you explore that is in these two datasets.

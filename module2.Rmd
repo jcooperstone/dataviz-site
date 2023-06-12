@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Wrangling, the basics
 
 * [Course material](2_04_wrangling/04_wrangling.html)
-* Recitation activities
+* [Recitation activities](2_04_wrangling/04_wrangling_recitation.html)
 * Recitation solutions
 
 ## ggplot 101

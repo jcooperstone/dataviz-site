@@ -71,6 +71,33 @@ It's a good habit to not ignore warnings/messages that R gives you.
 
 > **tl:dr** `install.packages()` once, `library()` every time.
 
+## Loading data
+
+In class, we will use a combination of data embedded within R (or packages in R), from the internet, or data you import yourself. I am going to quickly go over ways to import common data types.
+
+### `.csv`
+
+Files saved as comma separated values are the most common data type I tend to import. The function [`read_csv()`](https://readr.tidyverse.org/reference/read_delim.html) which is a part of the tidyverse package `readr` allows you to do this easily as it has a special function for this file type, as it is so common.
+
+Make sure that your file is within your working directory (or you have its relative or complete path), and you can install it (and save it) like this:
+
+```{r, eval = FALSE}
+sample_csv_data <- read_csv(file = "my-file-name.csv")
+```
+
+
+### `.xlsx`
+
+The second most common file type I import are those made in Excel. These files can either be converted to a `.csv` and then read in like we just went over, or you can load the package [`readxl`](https://readxl.tidyverse.org/reference/read_excel.html) and read files in directly. If you don't already have `readxl` you can download it using `install.packages()`.
+
+```{r, eval = FALSE}
+library(readxl)
+sample_excel_data <- read_excel(file = "my-file-name.csv",
+                                sheet = "Sheet1")
+```
+
+[Here](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf) you can find the `readr` cheatsheet.
+
 ## The pipe `|>` 
 
 [The pipe](https://r4ds.had.co.nz/pipes.html) `|>` (which used to be written `%>%`, and you will see this widely when googling/troubleshooting and sometimes see me default to this older syntax) is a tool that allows you to take the output of one function, and send it to the next function. 
@@ -229,7 +256,7 @@ diamonds |>
   select(price_per_carat, everything()) # put new column first, then everything
 ```
 
-You can also make new columns using conditional statements. For example, what if we want to create a new column that tells us if a diamond is more than $1000 called "at_least_1000". We will do this using [`if_else()`])(https://dplyr.tidyverse.org/reference/if_else.html). 
+You can also make new columns using conditional statements. For example, what if we want to create a new column that tells us if a diamond is more than $1000 called "at_least_1000". We will do this using [`if_else()`](https://dplyr.tidyverse.org/reference/if_else.html). 
 
 
 ```{r mutate with if_else}
@@ -347,8 +374,6 @@ diamonds |>
 ```
 
 Here is a helpful blogpost by [Hadley Wickham](https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/) for working across columns.
-
-## Vectorized functions
 
 ## Pivoting with `pivot_longer()` and `pivot_wider()`
 
@@ -482,7 +507,7 @@ knitr::include_graphics("img/stringr.png")
 
 Handling strings (i.e., "strings" of characters) could be multiple whole lessons, so my goal is to introduce you here to how to handle them. The tidyverse package to manage strings is called `stringr`. Sometimes you might want to automate extraction of only part of a value present in a column to use, remove some values, or split strings apart. This is valuable especially when the way that data is coded/recorded is different than the way you want it to be when you analyze it. Instead of manually recoding in excel, you can reproducibly and tracibly recode in R. You can read about all the functions within `stringr` [here](https://stringr.tidyverse.org/reference/index.html).
 
-You can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) within `stringr` functions, but I'm not going to explicitly go over that (check out these code clubs ([regex1](https://biodash.github.io/codeclub/17_regex/)), ([regex2]()https://biodash.github.io/codeclub/18_regex2/) if you want to learn more).
+You can use [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) within `stringr` functions, but I'm not going to explicitly go over that (check out these code clubs [regex1](https://biodash.github.io/codeclub/17_regex/), [regex2](https://biodash.github.io/codeclub/18_regex2/) if you want to learn more).
 
 I'm going to create some sample data to play with.
 ```{r make strings}
@@ -567,7 +592,7 @@ clean_names(messy_data)
 
 # In class
 
-In class, we will practice wrangling our data, getting comfortable with rearranging it such that we can do this later before plotting. Click [here]() for the recitation materials.
+In class, we will practice wrangling our data, getting comfortable with rearranging it such that we can do this later before plotting. Click [here](04_wrangling_recitation.html) for the recitation materials.
 
 # Useful resources
 
