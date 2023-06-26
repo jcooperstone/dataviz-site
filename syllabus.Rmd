@@ -68,7 +68,7 @@ There are no required textbooks for this course, though you will find many of th
 - Microsoft Office 365: All Ohio State students are now eligible for free Microsoft Office 365. Full instructions for downloading and installation can be found at [go.osu.edu/office365help](www.go.osu.edu/office365help).
 
 ## Prior R experience
-You do not need to be an R expert for this class, but I will assume working-level knowledge of R programming.  If you have no experience with R, but would still like to take this class, you can. I ask then you get yourself up to speed by taking this free online class https://www.edx.org/course/data-science-r-basics (audit only) before the start of the 3rd week of class.  Tips and tricks in R will be scattered throughout the course material.
+You do not need to be an R expert for this class, but I will assume working-level knowledge of R programming.  If you have no experience with R, but would still like to take this class, you can. I ask then you get yourself up to speed by taking this free online class https://www.edx.org/course/data-science-r-basics (audit only) before the start of the 3rd week of class.  The course will take 8-16 hours to complete so please leave yourself enough time to do so before week 3. Tips and tricks in R will be scattered throughout the course material.
 
 ## Grading
 ### How your grade is calculated 
