@@ -1,0 +1,52 @@
+---
+title: "R Pre-Test"
+author: "Jessica Cooperstone"
+date: "Before Week 3"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    code_download: true
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r how much do i know about R, fig.alt = "Illustrated line plot of "How much I think I know about R" on the y-axis, and "Time" on the x-axis. Along the line are emoji-style faces, showing the non-linear progression of R knowledge over time. At first, a nervous face becomes a happy face early on in learning, then a "grimace" face at an intermediate peak before a steep decline (with an exhausted face at the local minimum). Then, a determined face charges back up a hill, reaching another peak with a "mind blown" face and text annotation "join R community on twitter" followed by another decline, but this time the faces look happy even though their "How much I think I know about R" value is declining.", fig.cap= "Figure from [Allison Horst](https://github.com/allisonhorst/stats-illustrations)", out.width = "70%", fig.align = "center", echo = FALSE}
+knitr::include_graphics("img/how-much-i-think-i-know-about-r.png")
+```
+
+# Introduction
+
+I've put together a short pre-test for you to take that covers the type of basic R stuff I would expect you to know coming into this course. If you are unable to complete this test, or really struggle with it, you should take the following free course https://www.edx.org/course/data-science-r-basics (audit only) before the 3rd week of class.
+
+
+## Download R, RStudio, and open them on your computer
+
+Go [here](https://biodash.github.io/codeclub-setup/) to learn how to get R and RStudio installed on your computer if you don't already have them. I will also have an [Ohio Supercomputer Center (OSC)](https://ondemand.osc.edu/pun/sys/dashboard) classroom for this course so you can elect to work there through your web browser. If you want to do this, you have to tell Jess so she can add you to the account.
+
+
+## What are the four quadrants in R Studio?
+What happens in each of the quadrants?
+
+## Install and load the tidyverse
+When do you install a package and when do you load it?
+```{r, eval = FALSE}
+# install, happens only once
+install.packages("tidyverse")
+```
+
+```{r}
+# load package, happens each time you open RStudio
+library(tidyverse)
+```
+
+## 
+```{r}
+storms
+```
+
+
