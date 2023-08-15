@@ -64,7 +64,7 @@ knitr::include_graphics("img/trying_rmarkdown.png")
 
 ### Saving our file
 
-We gave our file a title, but if you look at the top right corner of our new document, you'll see it's called "Untitled1". Let's change the name to something easier for our future selves to recognize.
+We gave our file a title, but if you look at the top left corner of our new document, you'll see it's called "Untitled1". Let's change the name to something easier for our future selves to recognize.
 
 ```{r saving_rmarkdown, fig.alt = "A screenshot of a new, default R Markdown document.", fig.align = "center", echo = FALSE}
 knitr::include_graphics("img/saving_rmarkdown.png")
@@ -145,7 +145,7 @@ output:
 
 Be sure you pay attention to the indents (which are 2 or 4 spaces, and not tabs), as the YAML is picky here. If your indents are not correct, you will get an error when you knit. (Pro tip: you can set in RStudio to insert spaces when you click tab by going to `Preferences` \> `Code` \> Use spaces for tab (and indicate 2).)
 
-These are just some of the options that I like to put in my YAML, but there are tons more. Additional output options that are explained on the second page of the [RStudio R Markdown cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf).
+Above are just some of the options that I like to put in my YAML, but there are tons more. Additional output options that are explained on the second page of the [RStudio R Markdown cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown.pdf).
 
 ## Text
 
@@ -169,7 +169,7 @@ knitr::include_graphics("img/syntax.png")
 
 Note, the headers are useful and will indicate the levels in your table of contents. You want to use them, and make them meaningful for your document.
 
-You can use Markdown to insert tables, images, mathematical formulas, block quotes, and almost anything else you'd like. You can even write your [papers and dissertation](https://bookdown.org/) in R Markdown. This [course website](https://rstudio.github.io/distill/) is made with R Markdown. My [lab website](www.cooperstonelab.com) is made with [R Markdown and the hugo Aperó theme](https://hugo-apero-docs.netlify.app/). Here are some links where you can find lots of other Markdown syntactical information:
+You can use Markdown to insert tables, images, mathematical formulas, block quotes, and almost anything else you'd like. You can even write your [papers and dissertation](https://bookdown.org/) in R Markdown. This [course website](https://datavisualizing.netlify.app/) is made with [distill](https://rstudio.github.io/distill/) and R Markdown. My [lab website](www.cooperstonelab.com) is made with [R Markdown and the hugo Aperó theme](https://hugo-apero-docs.netlify.app/). Here are some links where you can find lots of other Markdown syntactical information:
 
 -   [Markdown Guide](https://www.markdownguide.org/cheat-sheet/)
 -   [R Markdown reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf?_ga=2.18808953.1342527773.1652110638-1577376121.1638478125)
@@ -205,7 +205,7 @@ You can still add comments within a code chunk, but you need to comment them out
 some_function()
 ```
 
-When you knit your R Markdown, this process will run all of the code in your document. This means if you have code that throw errors or don't work, your document **will not knit**.
+When you knit your R Markdown, this process will run all of the code in your document. This means if you have code that throws errors or doesn't work, your document **will not knit**. This is some of why I am asking you to knit for your final assignments - all your code needs to work! 
 
 You can also embed code **inline** (i.e., within your text).
 
@@ -214,7 +214,7 @@ You can also embed code **inline** (i.e., within your text).
    | There are `` `r '\x60r 365*24\x60'` `` hours in a year | There are `r 365*24` hours in a year
    | There are `` `r '\x60r nrow(cars)\x60'` `` observations (i.e. rows) in the cars dataset | There are `r nrow(cars)` observations (i.e. rows) in the cars dataset
    
-Think about how you could use this -- embed information from your data analysis (e.g, p-values) within your narrative text.
+Think about how you could use this -- embed information from your data analysis (e.g, p-values) within your narrative text without having to hard-code/type it in manually.
 
 ### Adding options to your code chunks
 You add options to your code chunks between the `{}`. This gives R additional instructions regarding running your code and compiling your document. Here are some common examples:
@@ -223,6 +223,7 @@ You add options to your code chunks between the `{}`. This gives R additional in
 -   `eval = FALSE` does not run your code, but does display it in your final doc
 -   `include = FALSE` runs your code but does not display the code or its output in your final doc
 -   `message = FALSE` prevents messages from showing up in your final doc
+-   `warning = FALSE` prevents earnings from showing up in your final doc
 -   `fig.height = X` and `fig.width = Y` will allow you to specify the dimensions of your figures (in inches)
 -   `fig.align =` can be set to "left", "right", or "center"
 -   `fig.cap = "Your figure caption"` will allow you to set a figure caption

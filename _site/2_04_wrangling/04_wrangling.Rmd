@@ -25,9 +25,9 @@ knitr::include_graphics("img/go_wrangling.png")
 
 This is a new lecture from the previous delivery of this course. In the last offering, I found that the process of wrangling data was **by far** the thing that people had the most trouble with. In recitations, and for module assignments, I would provide data in a way that would need some adjustment before visualization can be made - and if I'm being honest, I heard a lot of rumblings about this.
 
-Still, I am going to leave in the course activities that request data to the wrangled before visualization. I am doing this because real data is often not structured precisely how it needs to be to make the visualizations you want. I want to provide you all some practice to get comfortable with using your data lassos. This is something you **need** to get comfortable with on your coding journey.
+Still, I am going to leave in the course activities that required data to the wrangled before visualization. I am doing this because real data is mostly not structured precisely how it needs to be to make the visualizations you want. I want to provide you all some practice to get comfortable with using your data lassos. This is something you **need** to get comfortable with on your coding journey.
 
-But, I have added in this extra lecture to explicitly go over what I think are the most useful wrangling functions and tools you can use in R. I hope this introduces you to some of what is possible with R, so it will trigger your memory later when you need to use it.
+But, I have added in this extra lecture to explicitly go over what I think are the most useful wrangling functions and tools you can use in R. I hope this introduces you to some of what is possible with R, so it will trigger your memory later when you need to use it. You can also always come back to this page during the course.
 
 ## What is the tidyverse?
 
@@ -50,7 +50,7 @@ We will be using many of these other packages in this course, but will talk abou
 
 You can find [here](https://tavareshugo.github.io/data_carpentry_extras/base-r_tidyverse_equivalents/base-r_tidyverse_equivalents.html) some examples of comparing tidyverse and base R syntax.
 
-Today we will be mostly talking through [functions that life within the `dplyr` package](https://dplyr.tidyverse.org/reference/index.html).
+Today we will be mostly talking through [functions that live within the `dplyr` package](https://dplyr.tidyverse.org/reference/index.html).
 
 ## Installing ggplot & tidyverse 
 
@@ -484,7 +484,7 @@ There is [nuances](https://dplyr.tidyverse.org/reference/mutate-joins.html#many-
 
 ### `bind_rows()` and `bind_cols()`
 
-Generally it would be preferrable to use a `_join()` over `bind_cols()` or `bind_rows()` since the binding happens in the order that observations appear. This might make your data not meaningful without you knowing.
+Generally it would be preferrable to use a `_join()` over `bind_cols()` or `bind_rows()` since in the latter, the binding happens in the order that observations appear. This might make your data not meaningful without you knowing.
 
 Let's get to the examples.
 
