@@ -1,6 +1,6 @@
 ---
 title: "Good and Bad Visualizations"
-subtitle: "Week 2<br>8/31/2022"
+subtitle: "Week 2<br>8/29/2023"
 author: ""
 format: 
   revealjs:
@@ -13,13 +13,14 @@ css: xaringan-themer.css
 # Housekeeping
 
 - Questions from the previous class?
+- Take edX class if you don't have R experience
 - Start think about identifying a dataset for your capstone assignment
-- Interest on using geographical visualization techniques?
+- Don't forget about your reflections
 
 # Office hours
 
-- Daniel: Mondays from 3-4pm in Howlett 340
-- Jess: Tuesdays from 10-11am in Howlett 348
+- Daniel: Fridays 1-2 pm Howlett 340 (email him if you plan to go) or via Zoom
+- Jess: Tuesday 11:30 am - 12:30 pm in Howlett 348 or via Zoom
 - Those who want to attend office hours virtually, use the same [Zoom link](https://go.osu.edu/dataviz-zoom) for class
 
 
@@ -32,54 +33,72 @@ css: xaringan-themer.css
 
 # Bad visualizations 😡 {.center_title}
 
-## Paintball wall 
+## Microbiome stacked bar plots at it again
 
-Scatter plots usually faces an overlapping challange (too many points
-in the same coordinates)
+![](bad/colet.png){fig-alt="super bad stacked barplot" fig-align="center"}
 
-![](./bad/Paintball.jpg){fig-align="center"}
+Figure source: Niu, B. et al. (2017). Simplified and representative bacterial community of maize roots. PNAS, 114 (12). https://doi.org/10.1073/pnas.1616148114
 
+## Bad COVID is bad
 
-## Principal Component Analysis
+![](bad/ajello.png){fig-alt="bar plot from hell" fig-align="center"}
 
+## #barbarplots
+![](bad/jordan.png){fig-alt="bad bar plot" fig-align="center"}
 
-![](./bad/messy_pca.jpeg){fig-align="center"}
+## ggplot can still be bad
 
-## Replicate of 4th July Firworks 🎆🎇
-
-![](./bad/fireworks.jpg){fig-align="center"}
-
-## Piechart Firework
-
-![](./bad/Def.png){fig-align="center"}
-
+![](bad/singh.png){fig-alt="boxplot with extra legend and weird ordering" fig-align="center"}
 
 ## The winner of bad visualizations 
 
-Lucy Guarnieri 🏆🏅
+🏆🏅 Shiva Jahanbakhshi
 
-![](./bad/Winner.png){fig-align="center"}
+![](bad/winner.jpeg){fig-alt="plot line spaghetti" fig-align="center"}
 
 
 # Good visualizations 👏 {.center_title}
 
+## Cell expression
 
+![](good/batabyal.png){fig-alt="Cxcr4-GFP expression in different cell lines" fig-align="center"}
+Werner, Y., Mass, E., Ashok Kumar, P., Ulas, T., Händler, K., Horne, A., ... & Stumm, R. (2020). Cxcr4 distinguishes HSC-derived monocytes from microglia and reveals monocyte immune responses to experimental stroke. Nature neuroscience, 23(3), 351-362.
 
-## Boxplot alternatives
+## Sports
+![](good/darter.png){fig-alt="how googled MLB and NFL teams are by location in the US" fig-align="center"}
 
-![](./good/boxplot.png){fig-align="center"}
+## Weight loss RCT
 
-- Are the axes comparable?
+![](good/kennedy.png){fig-alt="weight loss on liraglutide" fig-align="center"}
 
+Mok J, Adeleke MO, Brown A, et al. Safety and Efficacy of Liraglutide, 3.0 mg, Once Daily vs Placebo in Patients With Poor Weight Loss Following Metabolic Surgery: The BARI-OPTIMISE Randomized Clinical Trial. JAMA Surg. Published online July 26, 2023. doi:10.1001/jamasurg.2023.2930
 
-## Overlaping points? what is that?
+## World population
 
+![](good/khemsom_kuei.png){fig-alt="8 B people graphic colored by continent and area scaled for population" fig-align="center"}
 
-![](./good/pca.png){fig-align="center"}
+https://www.visualcapitalist.com/visualized-the-worlds-population-at-8-billion/
 
+## Volcano plot
 
-## Plant-based meat substitutes
+![](good/quiles.png){fig-alt="volcano plot of gene expression" fig-align="center"}
 
-![](./good/forecast.JPG){fig-align="center"}
+## Land doesn't vote
 
+![](good/tyagi.png){fig-alt="map of US with bubbles colored whether states voted for biden or trump and scaled to electoral votes" fig-align="center"}
 
+## The winner of good visualizations 
+
+Jeff Eiseman 🏆🏅 
+
+![](good/winner_eiseman.png){fig-alt="summer temps across the US" fig-align="center"}
+
+https://www.nytimes.com/2022/04/28/learning/whats-going-on-in-this-graph-may-4-2022.html
+
+## The winner of good visualizations 
+
+Carl Engstrom 🏆🏅 
+
+![](good/winner_engstrom.png){fig-alt="rainfall in southern Cali during Hurricane Hilary" fig-align="center"}
+
+# Closing thoughts

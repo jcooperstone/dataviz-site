@@ -22,7 +22,7 @@ knitr::include_graphics("https://imgs.xkcd.com/comics/correlation.png")
 
 ## Introduction
 
-We will will building on our lesson on [ggplot101](2_04_ggplot/04_ggplot.html) and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, geoms, facets, scales, labels, and themes. Today we are going to apply what we learned towards trying to better understanding and visualize correlations within our data. To do this we will also use some ggplot extension packages.
+We will will building on our lessons on [ggplot101](2_04_ggplot/04_ggplot.html) and [ggplot102](2_05_themes_labels_facets/05_ggplot102.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, geoms, facets, scales, labels, and themes. Today we are going to apply what we learned towards trying to better understanding and visualize correlations within our data. To do this we will also use some ggplot extension packages.
 
 ### Load libraries and data
 Before we get started, let's load our libraries.
