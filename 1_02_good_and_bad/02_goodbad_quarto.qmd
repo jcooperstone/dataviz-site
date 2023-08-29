@@ -6,7 +6,7 @@ format:
   revealjs:
     incremental: true
     theme: jc_style.scss
-    footer: "[01 Principles](https://datavisualizing.netlify.app/module1.html), © Jessica Cooperstone, 2022"
+    footer: "[01 Principles](https://datavisualizing.netlify.app/module1.html), © Jessica Cooperstone, 2023"
 css: xaringan-themer.css
 ---
 
