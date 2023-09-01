@@ -275,7 +275,7 @@ You can find other `mutate()` helpers [here](https://dplyr.tidyverse.org/referen
 
 ## Sorting with `arrange()`
 
-Sometimes you just want to see a vector in order. We can do that easily with [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html).
+Sometimes you just want to see a dataframe ordered by a particular column. We can do that easily with [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html).
 
 ```{r arrange ascending}
 diamonds |> 
@@ -297,7 +297,7 @@ diamonds |>
 
 Although [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html) can be used without groups, I've included it here in this section since it is mostly used to calculate summary information group-wise. This function creates a wholly new dataframe, providing one row for each grouping variable. If there is no grouping, the resulting dataframe will have one row.
 
-Let's look at an example. We can use `summarize()`
+Let's look at an example. We can use `summarize()` The syntax is `new_column_name = function()`.
 
 ```{r summarize mean}
 diamonds |> 
