@@ -14,7 +14,10 @@ knitr::opts_chunk$set(echo = FALSE)
 **Email address:** cooperstone dot 1 at osu dot edu (preferred contact method)    
 **Phone number:** 614-292-2843 (non-preferred contact method)   
 **TA**: Daniel Quiroz Moreno, quirozmoreno dot 1 at osu dot edu   
-**Office hours:** TBD 
+**Office hours:**
+
+- Daniel: Fridays 1-2 pm Howlett 340 (email him if you plan to go) or via Zoom
+- Jess: Tuesdays 11:30 am - 12:30 pm in Howlett 348 or via Zoom
 
 ## Course description
 This course aims to introduce students to the principles and practice of data visualization. Students will learn fundamental principles of data visualization and create figures that appropriately and ethically represent their data. Data visualizations will be created in the R programming environment, using tools including the grammar of graphics implemented in ggplot2. In the process of creating visualizations, students will also become familiar with data handling and wrangling in R.
