@@ -26,8 +26,8 @@
       "path": "module2.html",
       "title": "Module 2: Coding Fundamentals",
       "author": [],
-      "contents": "\n\nContents\nR Markdown for reproducible research\nWrangling, the basics\nggplot 101\nFacets, scales, labels, and themes (ggplot 102)\nModule 2 Assignment: due 10/3/23\n\nR Markdown for reproducible research\nCourse material\nRecitation activities\nRecitation solutions\nWrangling, the basics\nCourse material\nRecitation activities\nRecitation solutions\nggplot 101\nCourse material\nRecitation activities\nRecitation solutions\nFacets, scales, labels, and themes (ggplot 102)\nCourse material\nRecitation activities\nRecitation solutions\nModule 2 Assignment: due 10/3/23\nModule 2 solutions\n\n\n\n",
-      "last_modified": "2023-09-05T17:27:25-04:00"
+      "contents": "\n\nContents\nR Markdown for reproducible research\nWrangling, the basics\nggplot 101\nFacets, scales, labels, and themes (ggplot 102)\nModule 2 Assignment: due 10/3/23\n\nR Markdown for reproducible research\nCourse material\nRecitation activities\nRecitation solutions (right click and save link as to download)\nWrangling, the basics\nCourse material\nRecitation activities\nRecitation solutions\nggplot 101\nCourse material\nRecitation activities\nRecitation solutions\nFacets, scales, labels, and themes (ggplot 102)\nCourse material\nRecitation activities\nRecitation solutions\nModule 2 Assignment: due 10/3/23\nModule 2 solutions\n\n\n\n",
+      "last_modified": "2023-09-05T18:15:19-04:00"
     },
     {
       "path": "module3.html",
@@ -47,7 +47,7 @@
       "path": "README.html",
       "author": [],
       "contents": "\n\nContents\nHCS 7100 Data Visualization in R\n\nHCS 7100 Data Visualization in R\nThis repo is the course website source code for “HCS 7100 Data Visualization in R” (formerly HCS 7806) at The Ohio State University, taught by Dr. Jessica Cooperstone\nThe course site is www.datavisualizing.netlify.app\n\n\n",
-      "last_modified": "2023-09-05T17:27:29-04:00"
+      "last_modified": "2023-09-05T18:15:20-04:00"
     },
     {
       "path": "syllabus.html",
