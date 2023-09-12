@@ -295,7 +295,7 @@ diamonds |>
 
 ## Computing summaries with `summarize()`
 
-Although [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html) can be used without groups, I've included it here in this section since it is mostly used to calculate summary information group-wise. This function creates a wholly new dataframe, providing one row for each grouping variable. If there is no grouping, the resulting dataframe will have one row.
+The function [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html) calculates summary information based on the functions you provide as arguments. This function creates a wholly new dataframe, providing one row for each grouping variable. If there is no grouping, the resulting dataframe will have one row.
 
 Let's look at an example. We can use `summarize()` The syntax is `new_column_name = function()`.
 
