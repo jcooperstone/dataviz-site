@@ -92,7 +92,7 @@ The second most common file type I import are those made in Excel. These files c
 
 ```{r, eval = FALSE}
 library(readxl)
-sample_excel_data <- read_excel(file = "my-file-name.csv",
+sample_excel_data <- read_excel(file = "my-file-name.xlsx",
                                 sheet = "Sheet1")
 ```
 

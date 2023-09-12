@@ -1,0 +1,318 @@
+---
+title: "Wrangling your data 🤠, recitation"
+author: "You"
+date: "Week 4"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    code_download: true
+    theme: readable
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Today you are going to be practicing what you learned in the [wrangling](04_wrangling.html) lesson. The more you practice modifying your data the easier it becomes. Remember, there are many ways to accomplish the same outcome. In the recitation solutions, I will show you a few different ways to answer the prompts and you can see how they differ, and use the ones that resonate with you.
+
+```{r libraries}
+library(tidyverse)
+```
+
+
+### Load data
+
+To practice, we will be using some data I have extracted from [Gapminder](https://www.gapminder.org/). I am linking to two files that you can download to your computer, and then read them in like we learned in class.
+
+* Data on the happiness index for many countries for many years
+* Data on the life expectancy for many countries for many years
+
+```{r load data}
+# read in happiness data from your computer
+# mine has the path below since i have a subfolder called data where
+# the happiness data is living
+happiness <- read_csv("data/hapiscore_whr.csv")
+
+# read in life expectancy data from your computer
+life_expectancy <- read_csv("data/life_expectancy.csv")
+```
+
+## Explore your data
+Write some code that lets you explore that is in these two datasets.
+
+```{r explore happiness}
+# see data structure with glimpse
+glimpse(happiness)
+
+# look at all columns and first 6 rows with head
+head(happiness)
+
+# this will open the file for you to look through in R
+# View(happiness)
+```
+
+```{r explore life_expectancy}
+# see data structure with glimpse
+glimpse(life_expectancy)
+
+# look at all columns and first 6 rows with head
+head(life_expectancy)
+
+# this will open the file for you to look through in R
+# View(life_expectancy)
+```
+
+How many observations there in each dataset? 
+```{r observations}
+dim(happiness)
+
+dim(life_expectancy)
+```
+
+What years do the data contain information for?
+```{r years happiness}
+happiness_long <- happiness |> 
+  pivot_longer(cols = !country,
+               names_to = "year",
+               values_to = "happy_value")
+
+happiness_long |> 
+  summarize(min_year = min(year),
+            max_year = max(year))
+```
+
+```{r years life_expectancy}
+life_expectancy_long <- life_expectancy |> 
+  pivot_longer(cols = !country,
+               names_to = "year",
+               values_to = "life_exp")
+
+life_expectancy_long |> 
+  summarize(min_year = min(year),
+            max_year = max(year))
+```
+
+## Modifying data
+Create a new dataset for life_expectancy that only includes observed data (i.e., remove the projected data after 2022).
+
+```{r life_expectancy projected removed}
+life_expectancy_actual <- life_expectancy_long |> 
+  filter(year <= 2022)
+
+life_expectancy_actual <- life_expectancy |> 
+  select(country, num_range("", 1800:2022))
+```
+
+## Calculating summaries
+
+What country has the highest average happiness index in 2022? 
+```{r happiest 2022}
+# highest happiness is 2022
+# note you can have columns that use non-standard R naming convention
+# like here where columns are numbers
+# but you need to refer to them surrounded by backticks
+happiness |> 
+  select(country, `2022`) |> 
+  arrange(desc(`2022`))
+
+# or we could use clean_names
+happiness |> 
+  janitor::clean_names() |> 
+  select(country, x2022) |> 
+  arrange(desc(x2022))
+```
+
+What about overall average highest index?
+```{r overall happiest}
+# if you want to calculate and have missing values
+# you need to remove them as the default is to not
+
+# using select in rowMeans
+happiness |> 
+  mutate(mean_happiness = rowMeans(select(happiness, -country),
+                                          na.rm = TRUE)) |> 
+  arrange(desc(mean_happiness))
+
+rowMeans(happiness[,-1], na.rm = TRUE)
+
+# using indexing in rowMeans
+happiness |> 
+  mutate(mean_happiness = rowMeans(happiness[-1], na.rm = TRUE)) |> 
+  arrange(desc(mean_happiness)) |> 
+  select(country, mean_happiness, everything())
+
+# pivoting and then calculating mean after group_by country
+happiness_long |> 
+  group_by(country) |> 
+  summarize(mean_happiness = mean(happy_value, na.rm = TRUE)) |> 
+  arrange(desc(mean_happiness))
+```
+
+
+How many countries had an average life expectancy over 80 years in 2022?
+```{r lives longer than 80 years}
+# with long data
+# to see what the countries are
+life_expectancy_long |> # long data
+  filter(year == 2022) |>  # only 2022
+  filter(life_exp > 80) # filter for over 80 years
+
+# to see how many there are
+life_expectancy_long |> 
+  filter(year == 2022) |> 
+  filter(life_exp > 80) |> 
+  nrow() # counts rows
+
+# with wide data
+# to see what the countries are
+life_expectancy |> 
+  select(country, `2022`) |> # pick the columns country and 2022
+  filter(`2022` > 80) # filter for 2022 > 80
+
+# to see how many there are
+life_expectancy |> 
+  select(country, `2022`) |> 
+  filter(`2022` > 80) |> 
+  nrow() 
+```
+
+What countries are in the top 10 percentile for happiness? What about the bottom? What about for life expectancy? You can calculate this for the most recent data, for the mean, or really for whatever you want. Remember there are lots of ways to do this.
+
+**Click the button below if you need a hint**
+```{r hint, class.source = 'fold-hide', eval = FALSE}
+# Hint - try using the functions in the `slice_()` family.
+```
+
+```{r top and bottom 10th percentile happiness}
+# happiness
+# top 10th percentile
+happiness_long |> 
+  group_by(country) |> 
+  summarize(mean_happiness = mean(happy_value, na.rm = TRUE)) |> 
+  slice_max(order_by = mean_happiness, prop = 0.1)
+
+# how many countries do we have?
+nrow(happiness)
+
+# how many countries are in the each decile?
+nrow(happiness) * 0.1
+
+# we want to pick the top 16 countries
+happiness_long |> 
+  group_by(country) |> 
+  summarize(mean_happiness = mean(happy_value, na.rm = TRUE)) |> 
+  arrange(-mean_happiness) |> 
+  top_n(16)
+```
+
+```{r top 10th percentile life expectancy}
+# life expectancy in 2022
+# top 10th percentile
+life_expectancy_long |> 
+  filter(year == 2022) |> 
+  slice_max(order_by = life_exp, prop = 0.1)
+
+# bottom 10th percentile
+# top 10th percentile
+life_expectancy_long |> 
+  filter(year == 2022) |> 
+  slice_max(order_by = -life_exp, prop = 0.1)
+```
+
+Which country has had their happiness index increase the most from 2012 to 2022? Which dropped the most?
+
+```{r biggest happiness change}
+happiness |> 
+  mutate(change_2022_2012 = `2022` - `2012`) |> 
+  select(country, change_2022_2012) |> 
+  arrange(desc(change_2022_2012))
+
+happiness |> 
+  mutate(change_2022_2012 = `2022` - `2012`) |> 
+  select(country, change_2022_2012) |> 
+  arrange(change_2022_2012)
+```
+
+
+## Joining data 
+
+Try joining the happiness and life_expectancy datasets together and use the different `*_join()` functions so you can see how they differ. Check their dimensions and look at them. Think about how you might want to do different joins in different situations.
+
+```{r all joins}
+left_joined <- 
+  left_join(x = life_expectancy, y = happiness, by = "country") 
+
+right_joined <- 
+  right_join(x = life_expectancy, y = happiness, by = "country")
+
+inner_joined <- 
+  inner_join(x = life_expectancy, y = happiness, by = "country")
+
+full_joined <- 
+  full_join(x = life_expectancy, y = happiness, by = "country")
+```
+
+
+```{r dim joins}
+dim(left_joined)
+
+dim(right_joined)
+
+dim(inner_joined)
+
+dim(full_joined)
+```
+
+If you wanted to create a plot that allowed you to see the correlation between happiness score and life expectancy in 2022, which joined dataset would you use and why?
+
+```{r join for 2022}
+# with wide data
+for_correlation_wide <-
+  inner_join(x = life_expectancy |> select(country, `2022`), 
+             y = happiness |> select(country, `2022`), 
+             by = "country") |> 
+  rename(life_expectancy_2022 = `2022.x`) |> 
+  rename(happy_value_2022 = `2022.y`)
+
+# with long data
+life_expectancy_2005_2022 <- life_expectancy |> 
+  select(country, `2005`:`2022`) |> 
+  pivot_longer(cols = `2005`:`2022`,
+               names_to = "year",
+               values_to = "life_expectancy")
+
+for_correlation_long <- 
+  inner_join(x = life_expectancy_2005_2022, y = happiness_long,
+             by = c("country", "year"))
+```
+
+I am not expecting you to be able to make a plot but I wanted to just give you a sense of the kinds of things you'll be learning in class.
+```{r a plot, message = FALSE, warning = FALSE}
+extremes <- for_correlation_wide |> 
+  filter(life_expectancy_2022 > 85 | happy_value_2022 < 38)
+
+for_correlation_wide |> 
+  ggplot(aes(x = life_expectancy_2022, y = happy_value_2022)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggrepel::geom_label_repel(data = extremes,
+                            aes(x = life_expectancy_2022, y = happy_value_2022, 
+                                label = country),
+                            size = 3) +
+  theme_minimal() +
+  labs(x = "Life expectancy, 2022",
+       y = "Happiness index, 2022",
+       title = "Relationship between life expectancy and happiness index",
+       caption = "Data from Gapminder")
+```
+
+
+
+
+
+
