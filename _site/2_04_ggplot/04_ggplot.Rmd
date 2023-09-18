@@ -294,6 +294,8 @@ Shapes 0-20 accept only a `color` aesthetics. Shapes 21-25 accept both a `color`
 #### `alpha`
 Setting `alpha` allows you to map a variable to the transparency of a part of your plot. So for example, if you had a correlation plot, you could make a strong correlation really dark, while a weak relationship lighter. Alpha can range between 0 and 1, where 0 is totally transparent, and 1 is completely opaque. 
 
+The next sections we will go over in more detail [next week](https://datavisualizing.netlify.app/2_05_themes_labels_facets/05_ggplot102) but I want to introduce the idea of these additional layers very briefly.
+
 ## Scales `scale_`
 Using scales allows you to control how the data are linked to the visual properties of your plot.
 
