@@ -1,6 +1,6 @@
 ---
 title: "Wrangling your data 🤠, recitation"
-author: "You"
+author: "Jessica Cooperstone"
 date: "Week 4"
 output:
   html_document:
@@ -105,7 +105,8 @@ life_expectancy_actual <- life_expectancy_long |>
   filter(year <= 2022)
 
 life_expectancy_actual <- life_expectancy |> 
-  select(country, num_range("", 1800:2022))
+  select(country, num_range(prefix = "", # since there is no prefix here
+                            range = 1800:2022)) 
 ```
 
 ## Calculating summaries

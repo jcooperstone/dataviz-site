@@ -148,9 +148,9 @@ ggplot(data = garden_harvest)
 
 Why do we not see a plot? Well we haven't told R what to plot! We are getting the first "base" layer of the plot.
 
-For those of you who are familiar with the tidyverse pipe `%>%`, you can also pipe the data to the ggplot function. When reading code, you can interpret the pipe as "and then." Here, take the `garden_harvest` data, and then, run `ggplot()`. Writing code in this way is my preference so I tend to code like this.
+You can also pipe `|>` or `%>%`, the data to the ggplot function. When reading code, you can interpret the pipe as "and then." Here, take the `garden_harvest_tomato` data, and then, run `ggplot()`. Writing code in this way is my preference so I tend to code like this. We talked in more detail about the pipe last week, so you can go back [there](https://datavisualizing.netlify.app/2_04_wrangling/04_wrangling#The_pipe_|) and read more if you like.
 ```{r data and pipe}
-garden_harvest %>% 
+garden_harvest_tomato %>% 
   ggplot()
 ```
 
@@ -239,6 +239,13 @@ garden_harvest_tomato %>%
   geom_line(color = "blue")
 ```
 
+Look what happens if we put `color = "blue"` inside the `aes()` statement.
+```{r setting color but wrong}
+garden_harvest_tomato %>%
+  ggplot(aes(x = date, y = weight, color = "blue")) +
+  geom_line()
+```
+
 > **tl:dr** if mapping a variable to an aesthetic, inside `aes()`, if not, then outside.
 
 ### More about aesthetics
@@ -282,7 +289,7 @@ You can also map variables to shape. This could be useful if you want points of 
 knitr::include_graphics("img/shapes.png")
 ```
 
-Shapes 0-20 accept only a `color` aesthetics. Shapes 21-25 accept both a `color` and `fill` aesthetic, where `color` controls the color of the outside of the shape, and `fill` controls the color of the inside of the shape. I basically always use shapes 21-25.
+Shapes 0-20 accept only a `color` aesthetics. Shapes 21-25 accept both a `color` and `fill` aesthetic, where `color` controls the color of the outside of the shape, and `fill` controls the color of the inside of the shape. I basically always use shapes 21-25 (actually I almost always just use 21).
 
 #### `alpha`
 Setting `alpha` allows you to map a variable to the transparency of a part of your plot. So for example, if you had a correlation plot, you could make a strong correlation really dark, while a weak relationship lighter. Alpha can range between 0 and 1, where 0 is totally transparent, and 1 is completely opaque. 
