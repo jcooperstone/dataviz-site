@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
     toc_float: true
-    code_download: true
+    code_download: false
     theme: readable
 ---
 
