@@ -126,6 +126,10 @@ happiness |>
   janitor::clean_names() |> 
   select(country, x2022) |> 
   arrange(desc(x2022))
+
+happiness %>%
+  select(country, `2022`) %>%
+  slice_max(`2022`)
 ```
 
 What about overall average highest index?
