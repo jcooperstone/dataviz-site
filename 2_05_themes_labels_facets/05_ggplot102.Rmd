@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
     toc_float: true
-    code_download: true
+    code_download: false
     theme: readable
 ---
 
@@ -368,6 +368,14 @@ base_plot
 
 ## Saving your plots
 You probably won't want to save all your plots, but you definitely will want to save some of them. The function [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html) makes this each. I like to save images as `.svg` as these are vectorized and have unlimited resolution. You could also adjust the file extension to save it in the format you like.
+
+
+```r , eval = FALSE
+ggsave(plot = base_plot,
+       filename = "img/my_plot.svg",
+       width = 9,
+       height = 6)
+```
 
 ```{r ggsave, eval = FALSE}
 ggsave(plot = base_plot,
