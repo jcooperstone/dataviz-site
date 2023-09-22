@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
     toc_float: true
-    code_download: true
+    code_download: false
     theme: readable
 ---
 
@@ -21,7 +21,7 @@ knitr::include_graphics("img/ggplot2_masterpiece.png")
 
 ## Introduction
 
-We will will build upon our last lesson on [ggplot101](2_04_ggplot/04_ggplot.html) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, and geoms. Today we will focus on some of the other more commonly adjusted layers:
+We will will build upon our last lesson on [ggplot101](https://datavisualizing.netlify.app/2_04_ggplot/04_ggplot) which focused on an overall understanding of the grammar of graphics, basic syntax, adding data, aesthetic mappings, and geoms. Today we will focus on some of the other more commonly adjusted layers:
 
 * [Facets](https://ggplot2.tidyverse.org/reference/index.html#facetting)
 * [Scales](https://ggplot2.tidyverse.org/reference/index.html#scales)
@@ -108,7 +108,7 @@ garden_harvest_tomato %>%
   facet_grid(cols = vars(variety))
 ```
 
-We can make the faceting go by column, but this is also bad.
+We can make the faceting go by column, but this is also looks bad in this case
 
 However, you might be thinking now that if you have two variables, and you want to facet by the combination of them, you could do that with `facet_grid`. Here is an example with the `mpg` dataset from the tidyverse (since there isn't really good data to demonstrate this from `garden_harevst`). 
 
@@ -120,7 +120,12 @@ mpg %>%
              rows = vars(drv)) # type of drive train, 4 wheel, front, rear
 ```
 
-The default in both `facet_wrap` and `facet_grid` are for the x and y-axis to be fixed and constant among all the plots. This is often what you want to take advance of the comparisons between small multiples, but this is something you can change if you want.
+The default in both `facet_wrap` and `facet_grid` are for the x and y-axis to be fixed and constant among all the plots. This is often what you want to take advance of the comparisons between small multiples, but this is something you can change if you want. You can adjust the scales within facets to:
+
+* `scales = "fixed"`: both the x- and y-axes are fixed for all plots to be the same (this is the default)
+* `scales = "free"`: both the x- and y-axes are set per plot
+* `scales = "free_x"`: the x-axis scales are free between plots
+* `scales = "free_y"`: the y-axis scales are free between plots
 
 ```{r facet wrap free} 
 garden_harvest_tomato %>%
@@ -130,7 +135,7 @@ garden_harvest_tomato %>%
   facet_wrap(vars(variety), scales = "free")
 ```
 
-Do note how this affects how easy it is to compare among the facets now.
+Do note how this affects how easy it is to compare among the facets now. Also note that in this case, since we have all the same x-axis labels between the plots, when we set `scales = "free"` it really only changes the y, making it functionally equivalent to `scales = "free_y"`. This will not hold true in other situations.
 
 ## Scales
 Using [scales](https://ggplot2.tidyverse.org/reference/index.html#scales) allows you to control how the data are linked to the visual properties of your plot. Some books will include labels as a part of scales but I'm going to cover them separately.
@@ -363,6 +368,14 @@ base_plot
 
 ## Saving your plots
 You probably won't want to save all your plots, but you definitely will want to save some of them. The function [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html) makes this each. I like to save images as `.svg` as these are vectorized and have unlimited resolution. You could also adjust the file extension to save it in the format you like.
+
+
+```r , eval = FALSE
+ggsave(plot = base_plot,
+       filename = "img/my_plot.svg",
+       width = 9,
+       height = 6)
+```
 
 ```{r ggsave, eval = FALSE}
 ggsave(plot = base_plot,
