@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * [Course material](2_04_ggplot/04_ggplot.html)
 * [Recitation activities](2_04_ggplot/04_ggplot_recitation.html)
-* Recitation solutions
+* [Recitation solutions](2_04_ggplot/04_ggplot_recitation_solutions.html)
 
 ## Facets, scales, labels, and themes (ggplot 102)
 
