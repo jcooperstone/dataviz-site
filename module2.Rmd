@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * [Course material](2_05_themes_labels_facets/05_ggplot102.html)
 * [Recitation activities](2_05_themes_labels_facets/05_ggplot102_recitation.html)
-* Recitation solutions
+* [Recitation solutions](2_05_themes_labels_facets/05_ggplot102_recitation_solutions.html)
 
 ## [Module 2 Assignment](assignments/module_2.html): due 10/3/23
 
