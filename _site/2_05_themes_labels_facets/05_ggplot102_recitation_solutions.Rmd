@@ -210,7 +210,7 @@ breed_rank_tidy %>%
   ggplot(aes(x = year, y = rank, group = breed)) +
     geom_point() +
     geom_line() +
-    facet_wrap(vars(breed)) + 
+    facet_wrap(vars(fct_reorder(breed, rank))) + # orders facets by mean rank so more popular first
     scale_y_reverse(breaks = seq(1, 25, 4)) + # reverse so that lower number rank is at the top and set the labels to start at 1, increment by 4 until 25 since a zero rank doesn't exist
     theme_minimal() + 
     theme(axis.text.x = element_text(angle = 90), # make x-axis labels on 90degree angle
@@ -220,17 +220,18 @@ breed_rank_tidy %>%
          y = "Popularity rank among all AKC dogs",
          title = "Popularity of 12 Most Popular AKC Dog Breeds in 2020 from 2013-2020",
          subtitle = "Labrador retrievers are so popular!")
-  
 ```
 
 What dog has jumped in the rankings most from 2013 to 2020? What has dropped the most?
 ```{r biggest ranking changes}
+# biggest increase in rank
 breed_rank %>%
   mutate(rank_inc = (x2020_rank - x2013_rank)) %>%
   select(breed, rank_inc, everything()) %>%
   slice_min(n = 1, order_by = rank_inc) %>%
   select(breed, rank_inc, x2013_rank, x2020_rank)
 
+# biggest decrease in rank
 breed_rank %>%
   mutate(rank_inc = (x2020_rank - x2013_rank)) %>%
   select(breed, rank_inc, everything()) %>%

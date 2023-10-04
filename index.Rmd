@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-```{r echo = FALSE, fig.alt="A gif of 13 different datasets (include one who's points make the shape of a dinosaur) that all have the same mean and standard deviation, but have very different distributions"}
-knitr::include_graphics("1_01_principles/img/dinosaurus.gif")
-```
-Datasaurus Dozen by [Alberto Cairo](https://www.autodesk.com/research/publications/same-stats-different-graphs)
+# This website has moved! 
+
+You can now find an upgraded version of this course content at [www.rdataviz.com](https://www.rdataviz.com/)
